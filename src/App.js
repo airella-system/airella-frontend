@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
-import MainView from './view/main/MainView.js';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import MainView from './views/main/MainView';
 
 class App extends React.Component {
 

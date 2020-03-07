@@ -1,14 +1,14 @@
 import React from 'react';
 
-class MainView extends React.Component {
+class Menu extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 	}
 
 	render() {
-		return(<div>mleko</div>);
+		return(<div>Menu</div>);
 	}
 }
 
-export default MainView;
+export default Menu;
