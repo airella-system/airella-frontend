@@ -1,6 +1,6 @@
 import React from 'react';
 import TopBar from './components/TopBar';
-import Map from './components/Map';
+import MapComponent from './components/MapComponent';
 import '../../style/style.scss';
 
 class MainView extends React.Component {
@@ -13,7 +13,7 @@ class MainView extends React.Component {
 		return(
 			<div>
 				<TopBar />
-				<Map />
+				<MapComponent />
 			</div>
 		);
 	}
