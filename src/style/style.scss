@@ -1,0 +1,13 @@
+@import './const/var.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Baloo+2:400,600,800&display=swap&subset=latin-ext');
+
+body {
+    background: #333;
+    color: rgb(177, 177, 177);
+    margin: 0 !important;
+    font-family: 'Baloo 2', cursive;
+}
+input {
+    font-family: 'Baloo 2', cursive;
+}

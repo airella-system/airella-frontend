@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setSearch } from '../../../redux/actions';
+import { FaSearch } from "react-icons/fa";
+import '../../../style/main/components/TopBar.scss'
 
 
 class TopBar extends Component {
@@ -21,10 +23,18 @@ class TopBar extends Component {
 		const { text } = this.props;
 
 		return(
-			<div>
-				TopBar - { text } - { this.state.text }
+			<div className="topBar">
+
+				<div className="menu"></div>
+				<div className="inputHolder">
+					<input className="mainSearch" type="text" />
+					<div className="searchBtn"><FaSearch className="btnSearchIcon"/></div>
+				</div>
+				<div className="accountContainer"></div>
+
+				{/* TopBar - { text } - { this.state.text }
 				<input value={this.state.text} onChange={(e) => { this.setState({text: e.target.value}) }}></input>
-				<button onClick={() => {this.props.dispatch(setSearch(this.state.text));}}>ok</button>
+				<button onClick={() => {this.props.dispatch(setSearch(this.state.text));}}>ok</button> */}
 			</div>
 		);
 	}

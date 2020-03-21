@@ -10,7 +10,7 @@ class Map extends Component {
 
 	static propTypes = {
 		text: PropTypes.string
-	  }
+	}
 
 	render() {
 		const { text } = this.props;

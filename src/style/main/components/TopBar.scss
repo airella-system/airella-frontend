@@ -1,0 +1,36 @@
+@import '../../const/var.scss', '../../const/minix.scss';
+
+.topBar{
+    @include flexCenter;
+    padding: 10px 10px;
+    background: $mainColor;
+    .menu{}
+    .inputHolder{
+        @include flexCenter;
+        .mainSearch{
+            border-top-left-radius: 25px;
+            border-bottom-left-radius: 25px;
+            border: none;
+            outline: none;
+            background: $inputStdColor;
+            padding: 10px 5px 10px 20px;
+            font-size: 17px;
+            line-height: 5px !important;
+        }
+        .searchBtn{
+            background: $mainColorBtn;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+            padding: 10px;
+            &:hover{
+                cursor: pointer;
+            }
+            .btnSearchIcon{
+                position: relative;
+                top: 3px;
+                color: $btnIcon;
+            }
+        }
+    }
+    .accountContainer{}
+}

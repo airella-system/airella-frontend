@@ -1,6 +1,7 @@
 import React from 'react';
 import TopBar from './components/TopBar';
 import Map from './components/Map';
+import '../../style/style.scss';
 
 class MainView extends React.Component {
 	constructor(props) {
