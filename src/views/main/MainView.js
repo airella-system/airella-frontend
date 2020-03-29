@@ -1,5 +1,6 @@
 import React from 'react';
 import TopBar from './components/TopBar';
+import SensorDetails from './components/SensorDetails';
 import MapComponent from './components/MapComponent';
 import '../../style/style.scss';
 
@@ -13,7 +14,10 @@ class MainView extends React.Component {
 		return(
 			<div>
 				<TopBar />
-				<MapComponent />
+				<div className="verticalHolder">
+					<SensorDetails />
+					<MapComponent />
+				</div>
 			</div>
 		);
 	}

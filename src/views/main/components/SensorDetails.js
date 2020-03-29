@@ -1,15 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { sensorDetailAction } from '../../../redux/actions';
 
 class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			isOpen: false,
+		};
+	}
+
+	static propTypes = {
+		sensorData: PropTypes.object
 	}
 
 	render() {
-		return(<div>SensorDetails</div>);
+		const { sensorData } = this.props;
+		if(!sensorData) return "";
+
+		return(
+			<div>
+				SensorDetails
+				<div onClick={() => this.props.dispatch(sensorDetailAction(null))}>close</div>
+			</div>
+		);
 	}
 }
 
+function stateToProps(state) {
+  return state.sensorDetail;
+}
 
-export default SensorDetails;
+export default connect(stateToProps)(SensorDetails);
