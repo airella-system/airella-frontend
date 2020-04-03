@@ -15,15 +15,20 @@ L.Icon.Default.mergeOptions({
 });
 
 document.addEventListener('DOMContentLoaded', (event) => {
-	let container = document.querySelectorAll('.leaflet-zoom-animated')[1];
-	let defs = L.SVG.create('defs');
-	container.appendChild(defs);
-	defs.insertAdjacentHTML('beforeend', 
-	'<radialGradient id="gradient1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%"> \
-		<stop style="stop-color:#ff4d4d;stop-opacity:1;" offset="0" /> \
-		<stop style="stop-color:#ff4d4d;stop-opacity:0;" offset="1" /> \
-	</radialGradient>');
-})
+	try{
+		let container = document.querySelectorAll('.leaflet-zoom-animated')[1];
+		let defs = L.SVG.create('defs');
+		container.appendChild(defs);
+		defs.insertAdjacentHTML('beforeend', 
+		'<radialGradient id="gradient1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%"> \
+			<stop style="stop-color:#ff4d4d;stop-opacity:1;" offset="0" /> \
+			<stop style="stop-color:#ff4d4d;stop-opacity:0;" offset="1" /> \
+		</radialGradient>');
+	}
+	catch(e) {
+		console.log(e);
+	}
+});
 
 
 class MapComponent extends Component {

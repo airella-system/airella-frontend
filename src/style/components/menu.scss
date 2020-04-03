@@ -1,0 +1,44 @@
+@import '../const/var.scss', '../const/minix.scss';
+
+.menuContainter{
+  .hamburger{}
+  .menuHolder{
+    width: 300px;
+    height: 100vh;
+    background: #d43c3c;
+    position: absolute;
+    z-index: 9999;
+    left: 0px;
+    top: 0px;
+    .close{
+      padding-bottom: 20px;
+      padding-top: 10px;
+      padding-right: 10px;
+      margin-bottom: 10px;
+      .closeIcon{
+        float: right;
+        clear: both;
+        font-size: 25px;
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
+    .link{
+      padding-top: 15px;
+      padding-bottom: 15px;
+      :hover{
+        background-color: #3f7529;
+      }
+      .holder{
+        display: flex;
+        align-items: center;
+        .menuIcon{}
+        .textAligner{}
+      }
+    }
+  }
+}
+.none{
+  display: none;
+}
