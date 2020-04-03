@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setSearch } from '../../../redux/actions';
 import { FaSearch } from "react-icons/fa";
-import '../../../style/main/components/TopBar.scss'
+import '../../../style/main/components/TopBar.scss';
+import Menu from '../../../components/Menu';
 
 
 class TopBar extends Component {
@@ -17,7 +18,7 @@ class TopBar extends Component {
 
 	static propTypes = {
     text: PropTypes.string
-  }
+	}
 
 	render() {
 		const { text } = this.props;
@@ -25,7 +26,9 @@ class TopBar extends Component {
 		return(
 			<div className="topBar">
 
-				<div className="menu"></div>
+				<div className="menuHolder">
+					<Menu/>
+				</div>
 				<div className="inputHolder">
 					<input className="mainSearch" type="text" />
 					<div className="searchBtn"><FaSearch className="btnSearchIcon"/></div>
