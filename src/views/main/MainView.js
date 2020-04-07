@@ -15,8 +15,8 @@ class MainView extends React.Component {
 			<div>
 				<TopBar />
 				<div className="verticalHolder">
-					<SensorDetails />
 					<MapComponent />
+					<SensorDetails />
 				</div>
 			</div>
 		);
