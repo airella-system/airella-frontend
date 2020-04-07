@@ -1,40 +1,78 @@
 @import '../const/var.scss', '../const/minix.scss';
 
 .menuContainter{
-  .hamburger{}
+  .hamburger{
+    margin-left: 10px;
+    span{
+      display: block;
+      width: 40px;
+      height: 5px;
+      background-color: $iconBase;
+      margin-top: 5px;
+      border-radius: 4px;
+      transition: .2s;
+      &:first-child{
+        margin-top: 0px;
+      }
+    }
+    &:hover{
+      cursor: pointer;
+      span{
+        background-color: $iconBaseHover;
+      }
+    }
+  }
   .menuHolder{
     width: 300px;
     height: 100vh;
-    background: #d43c3c;
+    background: $menuBackground;
+    box-shadow: 0px 0px 8px 0px $shadowColor;
     position: absolute;
     z-index: 9999;
     left: 0px;
     top: 0px;
     .close{
-      padding-bottom: 20px;
+      padding-bottom: 30px;
       padding-top: 10px;
       padding-right: 10px;
       margin-bottom: 10px;
       .closeIcon{
         float: right;
         clear: both;
-        font-size: 25px;
+        font-size: 30px;
+        color: $iconBase;
+        transition: $transitionTime;
         &:hover{
           cursor: pointer;
+          color: $iconBaseHover;
         }
       }
     }
     .link{
-      padding-top: 15px;
-      padding-bottom: 15px;
-      :hover{
-        background-color: #3f7529;
+      color: $menuLinkColor;
+      text-decoration: none;
+      transition: $transitionTime;
+      display: block;
+      &:hover{
+        background-color: $menuLinkBackgroundHover;
+        color: $menuLinkColorHover;
       }
       .holder{
         display: flex;
         align-items: center;
-        .menuIcon{}
-        .textAligner{}
+        padding: 15px 20px;
+        margin-top: 10px;
+        .menuIcon{
+          font-size: 25px;
+          position: relative;
+          top: 3px;
+        }
+        .textAligner{
+          margin-left: 15px;
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 19px;
+        }
       }
     }
   }
