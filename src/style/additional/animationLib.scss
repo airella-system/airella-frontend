@@ -3603,6 +3603,11 @@
   animation-duration: 500ms;
 }
 
+.animated.faster2 {
+  -webkit-animation-duration: 350ms;
+  animation-duration: 350ms;
+}
+
 .animated.slow {
   -webkit-animation-duration: 2s;
   animation-duration: 2s;

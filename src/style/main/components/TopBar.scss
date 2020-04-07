@@ -5,6 +5,7 @@
     justify-content: space-between;
     padding: 10px 10px;
     background: $mainColor;
+    box-shadow: 0px 0px 8px 0px $shadowColor;
     .menu{}
     .inputHolder{
         @include flexCenter;
