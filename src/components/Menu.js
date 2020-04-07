@@ -9,27 +9,21 @@ class Menu extends React.Component {
 		super(props);
 		this.state = {
 			isOpen: false,
-			isLoaded: false,
+			isFirst: true,
 		};
 	}
 
-	componentDidMount() {
-		this.setState({
-			isLoaded: true
-		});
-	}
-
 	render() {
-		if(!this.state.isLoaded) return "";
+		let noneClass = this.state.isFirst ? "none " : "";
 
 		return(
 			<div className="menuContainter">
-				<div className="hamburger" onClick={() => this.setState({ isOpen: true })}>
+				<div className="hamburger" onClick={() => this.setState({ isOpen: true, isFirst: false })}>
 					<span></span>
 					<span></span>
 					<span></span>
 				</div>
-				<div className={`menuHolder faster2 animated ${this.state.isOpen ? "slideInLeft" : "slideOutLeft"}`} >
+				<div className={noneClass + `menuHolder faster2 animated ${this.state.isOpen ? "slideInLeft" : "slideOutLeft"}`} >
 					<div className="close">
 						<FaRegTimesCircle 
 							className="closeIcon" 

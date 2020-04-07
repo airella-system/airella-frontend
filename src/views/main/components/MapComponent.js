@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Map, TileLayer, CircleMarker, Marker, Circle, Tooltip, Popup, Polygon, SVGOverlay } from "react-leaflet";
-import { FaRegSmile } from "react-icons/fa";
+import { Map, TileLayer, CircleMarker, Marker, Circle, Tooltip, Polygon, SVGOverlay } from "react-leaflet";
+import MapPopup from './MapPopup';
 import '../../../style/main/components/MapComponent.scss';
-import { sensorDetailAction } from '../../../redux/actions';
 import 'leaflet/dist/leaflet.css';
+
+import { stationsDataMock } from '../../../mocks/MapStationApiMock';
+
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -13,6 +15,7 @@ L.Icon.Default.mergeOptions({
 	iconUrl: require('leaflet/dist/images/marker-icon.png'),
 	shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
+
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	try{
@@ -38,26 +41,7 @@ class MapComponent extends Component {
 			lat: 50.1261338,
       lng: 19.7922355,
       zoom: 13,
-			station_data: [
-				{
-					name: "Kraków, D17",
-					pm10: 12.5,
-					state: 0,
-					cord: {
-						lat: 50.1261338,
-						lng: 19.7922355,
-					}
-				},
-				{
-					name: "Kraków, Główny",
-					pm10: 14.5,
-					state: 1,
-					cord: {
-						lat: 50.1361338,
-						lng: 19.7822355,
-					}
-				},
-			]
+			station_data: stationsDataMock
 		};
 	}
 
@@ -67,22 +51,13 @@ class MapComponent extends Component {
 
 	renderMarkers() {
 		return this.state.station_data.map((item, index) => {
-			return <CircleMarker key={index} center={item.cord} position={item.cord} fillColor="#ff0000" color="#ff0000" onClick={() => {}}>
-			<Popup>
-				<div className="popUpContent">
-					<div className="verticalHolder">
-						<div className="status"><FaRegSmile /></div>
-						<div className="stationName">{item.name}</div>
-					</div>
-					<div className="verticalHolder">
-						<div className="status"><FaRegSmile /></div>
-						<div className="value">{item.pm10}</div>
-					</div>
-					<div onClick={() => this.props.dispatch(sensorDetailAction(item))}>szczegóły</div>
-				</div>
-			</Popup>
-			<Circle center={item.cord} radius={1000} fillOpacity="1" fillColor="url(#gradient1)" stroke={false}/>
-		</CircleMarker>
+			let position = {lat: item.lat, lng: item.lon};
+			return(
+			<CircleMarker key={index} center={position} fillColor="#ff0000" color="#ff0000" onClick={() => {}}>
+				<MapPopup stationData={item} />
+				<Circle center={position} radius={1000} fillOpacity="1" fillColor="url(#gradient1)" stroke={false}/>
+			</CircleMarker>
+		)
 		});
 	}
 
