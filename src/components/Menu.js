@@ -42,12 +42,12 @@ class Menu extends React.Component {
 							<div className="textAligner">o projekcie</div>
 						</div>
 					</Link>
-					<Link className="link" to="/test">
+					<a className="link" href="//airella.cyfrogen.com/api/docs">
 						<div className="holder">
 							<div><FaRegLifeRing className="menuIcon" /></div>
 							<div className="textAligner">api docs</div>
 						</div>
-					</Link>
+					</a>
 				</div>
 			</div>
 		);
