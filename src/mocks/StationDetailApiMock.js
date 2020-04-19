@@ -13,21 +13,482 @@ export let stationDetailDataMock = {
   sensors: {
     pm1: {
       type: "pm1",
-      value: 10.4,
-      state: 2,
-      timestamp: "2020-04-18T14:35:24.357Z",
+      values: [
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 11.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 9.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 2.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 5.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 7,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 8,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          type: "pm1",
+          value: 15.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 5,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 2,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 5,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+      ]
     },
     pm2_5: {
       type: "pm2_5",
-      value: 5.1,
-      state: 5,
-      timestamp: "2020-04-18T14:35:24.357Z",
+      values: [
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 5,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 6,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 7,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 7,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 8,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 2,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          type: "pm1",
+          value: 15.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 5,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 2,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 2,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 5,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+      ]
     },
     pm10: {
       type: "pm10",
-      value: 21.3,
-      state: 3,
-      timestamp: "2020-04-18T14:35:24.357Z",
+      values: [
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 5,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 22,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 7,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 7,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 8,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 20.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 2,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          type: "pm1",
+          value: 15.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 2,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 5,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 2,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 20,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 10.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 3,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 20.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 12,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 20.4,
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          value: 5,
+          state: 20,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+      ]
+    },
+    airQuality: {
+      type: "airQuality",
+      values: [
+        {
+          state: 2,
+          timestamp: "2020-04-18T14:35:24.357Z",
+        },
+        {
+          state: 2,
+          timestamp: "2020-04-18T13:35:24.357Z",
+        },
+        {
+          state: 5,
+          timestamp: "2020-04-18T12:35:24.357Z",
+        },
+        {
+          state: 2,
+          timestamp: "2020-04-18T11:35:24.357Z",
+        },
+        {
+          state: 5,
+          timestamp: "2020-04-18T10:35:24.357Z",
+        },
+        {
+          state: 30,
+          timestamp: "2020-04-18T09:35:24.357Z",
+        },
+        {
+          state: 16,
+          timestamp: "2020-04-18T08:35:24.357Z",
+        },
+        {
+          state: 14,
+          timestamp: "2020-04-18T07:35:24.357Z",
+        },
+        {
+          state: 15,
+          timestamp: "2020-04-18T06:35:24.357Z",
+        },
+        {
+          state: 21,
+          timestamp: "2020-04-18T05:35:24.357Z",
+        },
+        {
+          state: 2,
+          timestamp: "2020-04-18T04:35:24.357Z",
+        },
+        {
+          state: 21,
+          timestamp: "2020-04-18T03:35:24.357Z",
+        },
+        {
+          state: 22,
+          timestamp: "2020-04-18T02:35:24.357Z",
+        },
+        {
+          state: 23,
+          timestamp: "2020-04-18T01:35:24.357Z",
+        },
+        {
+          state: 15,
+          timestamp: "2020-04-18T00:35:24.357Z",
+        },
+        {
+          state: 16,
+          timestamp: "2020-04-17T23:35:24.357Z",
+        },
+        {
+          state: 17,
+          timestamp: "2020-04-17T22:35:24.357Z",
+        },
+        {
+          state: 2,
+          timestamp: "2020-04-17T21:35:24.357Z",
+        },
+        {
+          state: 25,
+          timestamp: "2020-04-17T20:35:24.357Z",
+        },
+        {
+          state: 2,
+          timestamp: "2020-04-17T19:35:24.357Z",
+        },
+        {
+          state: 23,
+          timestamp: "2020-04-17T18:35:24.357Z",
+        },
+        {
+          state: 23,
+          timestamp: "2020-04-17T17:35:24.357Z",
+        },
+        {
+          state: 2,
+          timestamp: "2020-04-17T16:35:24.357Z",
+        },
+        {
+          state: 14,
+          timestamp: "2020-04-17T15:35:24.357Z",
+        },
+      ]
     },
   },
   airQuality: 2,
