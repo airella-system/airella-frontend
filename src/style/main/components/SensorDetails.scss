@@ -1,7 +1,7 @@
 @import '../../const/var.scss', '../../const/minix.scss';
 
 .stationDetail{
-    max-height: calc(100vh - 67px);
+    max-height: calc(100vh - 77px);
     color: $textColor;
     display: block;
     background-color: $sensorDataBackground;
@@ -11,6 +11,11 @@
         right: 0;
         font-size: 30px;
         margin: 10px 10px 0 0;
+        transition: $transitionTime;
+        &:hover{
+            cursor: pointer;
+            color: $iconBaseHover;
+        }
     }
     .holder{
         display: flex;
@@ -42,6 +47,12 @@
         margin-left: 15px;
         font-size: 20px;
         font-weight: bold;
+        .subInfo{
+            font-size: 13px;
+            font-weight: normal;
+            color: $thinTextColor;
+            display: block;
+        }
     }
     .sensorsInfo{
         margin-left: 15px;
@@ -84,11 +95,11 @@
     }
     .sensorChart{
         .chart{
-            width: 400px;
+            width: 395px !important;
             height: 200px;
         }
         .panel-wrapper{
-            min-height: 320px;
+            min-height: 308px;
             overflow: hidden;
         }
     }

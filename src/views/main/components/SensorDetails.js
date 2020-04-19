@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { sensorDetailAction } from '../../../redux/actions';
 import { FaRegSmile, FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from '../../../mocks/StationDetailApiMock';
-import { chartDataMock } from '../../../mocks/ChartDataApiMock';
 import '../../../style/main/components/SensorDetails.scss';
 import Chart from 'chart.js';
 import Tabs, { Tab } from 'react-awesome-tabs';
@@ -16,7 +15,6 @@ class SensorDetails extends Component {
 		this.state = {
 			isOpen: false,
 			stationDetal: null,
-			chartData: null,
 			activeTab: 0,
 		};
 	}
@@ -32,7 +30,6 @@ class SensorDetails extends Component {
 	loadData() {
 		//TODO: send api request
 		this.state.stationDetal = stationDetailDataMock;
-		this.state.stationDetal = chartDataMock;
 	}
 
 	getQualityColor(airQualityLevel) {
@@ -47,7 +44,7 @@ class SensorDetails extends Component {
 
 	pmToPrecentage(type, value) {
 		//TODO
-		return "40%";
+		return "39%";
 	}
 
 	getLastMeasuremtnTime() {
@@ -68,60 +65,148 @@ class SensorDetails extends Component {
 		});
 
 		return sensorsData.map((item, index) => {
+			let measurement = item.values[0]
 			return <div key={index} className="holder">
 				<div className="verticalItemHolder">
-					<span className={`qualityStatusCircle ${this.getQualityColor(item.state)}`}></span>
+					<span className={`qualityStatusCircle ${this.getQualityColor(measurement.state)}`}></span>
 					<span className="valueName">{typeToName[item.type]}</span>
 				</div>
 				<div className="verticalItemHolder">
-					<div className="valuePrecentage">{this.pmToPrecentage(item.type, item.value)}</div>
-					<div className="value">{item.value} <span>µg/m³</span></div>
+					<div className="valuePrecentage">{this.pmToPrecentage(item.type, measurement.value)}</div>
+					<div className="value">{measurement.value} <span>µg/m³</span></div>
 				</div>
 			</div>
 		});
 	}
 
-	makeChart() {
-		//TODO
+	mapStateToBarColor(state) {
+		let color = '#A5D0A8'
+		if(state > 20) {
+			color = 'rgba(255, 99, 132, 1)';
+		}
+		return color;
+	}
+
+	makeAirQualityChart() {
 		let handler = document.getElementById('airQualityChart');
 		if(!handler) return;
-		var ctx = document.getElementById('airQualityChart').getContext('2d');
-		var myChart = new Chart(ctx, {
+		let airQualityData = this.state.stationDetal.sensors.airQuality.values;
+
+		let labels = airQualityData.map(data => {
+			let timestamp = new Date(data.timestamp);
+			return 'Czas: ' + timestamp.getHours() + ':00';
+		});
+
+		let chartData = airQualityData.map(data => {
+			return data.state;
+		});
+
+		let dataColor = airQualityData.map(data => {
+			return this.mapStateToBarColor(data.state);
+		});
+
+		new Chart(handler.getContext('2d'), {
 				type: 'bar',
 				data: {
-						labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+						labels: labels,
 						datasets: [{
-								label: '# of Votes',
-								data: [12, 19, 3, 5, 2, 3],
-								backgroundColor: [
-										'rgba(255, 99, 132, 0.2)',
-										'rgba(54, 162, 235, 0.2)',
-										'rgba(255, 206, 86, 0.2)',
-										'rgba(75, 192, 192, 0.2)',
-										'rgba(153, 102, 255, 0.2)',
-										'rgba(255, 159, 64, 0.2)'
-								],
-								borderColor: [
-										'rgba(255, 99, 132, 1)',
-										'rgba(54, 162, 235, 1)',
-										'rgba(255, 206, 86, 1)',
-										'rgba(75, 192, 192, 1)',
-										'rgba(153, 102, 255, 1)',
-										'rgba(255, 159, 64, 1)'
-								],
+								label: null,
+								data: chartData,
+								backgroundColor: dataColor,
+								borderColor: 'rgba(255, 255, 255, 0)',
 								borderWidth: 1
 						}]
 				},
 				options: {
 						scales: {
+								xAxes: [{
+									ticks: {
+										display: false,
+									},
+									gridLines: {
+										display: false,
+									},
+									categoryPercentage: 0.9,
+            			barPercentage: 1.0
+								}],
 								yAxes: [{
-										ticks: {
-												beginAtZero: true
-										}
+									ticks: {
+										beginAtZero: true,
+										stepSize: 10,
+										suggestedMax: 40,
+									},  
 								}]
-						}
+						},
+						legend: {
+							display: false
+					},
 				}
 		});
+	}
+
+	makePmChart() {
+		let handler = document.getElementById('pmChart');
+		if(!handler) return;
+		let airQualityData = this.state.stationDetal.sensors.airQuality.values;
+
+		let labels = airQualityData.map(data => {
+			let timestamp = new Date(data.timestamp);
+			return 'Czas: ' + timestamp.getHours() + ':00';
+		});
+
+		let chartData = airQualityData.map(data => {
+			return data.state;
+		});
+
+		let dataColor = airQualityData.map(data => {
+			return this.mapStateToBarColor(data.state);
+		});
+
+		new Chart(handler.getContext('2d'), {
+				type: 'line',
+				data: {
+						labels: labels,
+						datasets: [{
+								label: null,
+								data: chartData,
+								backgroundColor: dataColor,
+								borderColor: 'rgba(255, 255, 255, 0)',
+								borderWidth: 1
+						}]
+				},
+				options: {
+						scales: {
+								xAxes: [{
+									ticks: {
+										display: false,
+									},
+									gridLines: {
+										display: false,
+									},
+									categoryPercentage: 0.9,
+            			barPercentage: 1.0
+								}],
+								yAxes: [{
+									ticks: {
+										beginAtZero: true,
+										stepSize: 10,
+										suggestedMax: 40,
+									},  
+								}]
+						},
+						legend: {
+							display: false
+					},
+				}
+		});
+	}
+
+	makeChart() {
+		switch(this.state.activeTab) {
+			case 0: this.makeAirQualityChart(); break;
+			case 1: this.makePmChart(); break;
+			default: break;
+		}
 	}
 
 	componentDidUpdate() {
@@ -150,7 +235,10 @@ class SensorDetails extends Component {
 					</div>	
 				</div>
 
-				<div className="hd">Stan zanieczyszczeń</div>
+				<div className="hd">
+					Stan zanieczyszczeń
+					<span className="subInfo">Stan zanieczyszczeń powietrza w obecnym momencie</span>
+				</div>
 				<div className="sensorsInfo">
 					{this.makeSensorInfo()}
 				</div>
@@ -158,7 +246,10 @@ class SensorDetails extends Component {
 					<span>Ostatni pomiar: </span>{this.getLastMeasuremtnTime()}
 				</div>
 
-				<div className="hd">Historia pomiarów</div>
+				<div className="hd">
+					Historia pomiarów
+					<span className="subInfo">Pomiary jakości powietrza z ostatnich 24 godzin</span>
+				</div>
 				<div className="sensorChart">
 					<Tabs active={ this.state.activeTab } onTabSwitch={ this.handleTabSwitch.bind(this) }>
 						<Tab title="Air Quality">
@@ -166,9 +257,6 @@ class SensorDetails extends Component {
 						</Tab>
 						<Tab title="PM">
 							<canvas id="pmChart" className="chart"></canvas>
-						</Tab>
-						<Tab title="Temperatura">
-							<canvas id="tempChart" className="chart"></canvas>
 						</Tab>
 					</Tabs>
 				</div>
