@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { sensorDetailAction } from '../../../redux/actions';
 import { FaRegSmile, FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from '../../../mocks/StationDetailApiMock';
-import '../../../style/main/components/SensorDetails.scss';
-import Chart from 'chart.js';
 import Tabs, { Tab } from 'react-awesome-tabs';
+import Chart from 'chart.js';
+import '../../../style/main/components/SensorDetails.scss';
 import 'react-awesome-tabs/src/sass/react-awesome-tabs.scss';
 
 class SensorDetails extends Component {
@@ -87,6 +87,46 @@ class SensorDetails extends Component {
 		return color;
 	}
 
+	barChart(handler, labels, chartData, dataColor) {
+		new Chart(handler.getContext('2d'), {
+			type: 'bar',
+			data: {
+					labels: labels,
+					datasets: [{
+							label: null,
+							data: chartData,
+							backgroundColor: dataColor,
+							borderColor: 'rgba(255, 255, 255, 0)',
+							borderWidth: 1
+					}]
+			},
+			options: {
+					scales: {
+							xAxes: [{
+								ticks: {
+									display: false,
+								},
+								gridLines: {
+									display: false,
+								},
+								categoryPercentage: 0.9,
+								barPercentage: 1.0
+							}],
+							yAxes: [{
+								ticks: {
+									beginAtZero: true,
+									stepSize: 10,
+									suggestedMax: 40,
+								},  
+							}]
+					},
+					legend: {
+						display: false
+				},
+			}
+		});
+	}
+
 	makeAirQualityChart() {
 		let handler = document.getElementById('airQualityChart');
 		if(!handler) return;
@@ -105,100 +145,83 @@ class SensorDetails extends Component {
 			return this.mapStateToBarColor(data.state);
 		});
 
+		this.barChart(handler, labels, chartData, dataColor);
+	}
+
+	lineChart(handler, labels, chartDataSets, dataColorSets) {
 		new Chart(handler.getContext('2d'), {
-				type: 'bar',
-				data: {
-						labels: labels,
-						datasets: [{
-								label: null,
-								data: chartData,
-								backgroundColor: dataColor,
-								borderColor: 'rgba(255, 255, 255, 0)',
-								borderWidth: 1
+			type: 'line',
+			data: {
+					labels: labels,
+					datasets: chartDataSets.map((chartData, index) => {
+						return {
+							label: null,
+							data: chartData,
+							backgroundColor: dataColorSets[index],
+							borderColor: 'rgba(255, 255, 255, 0)',
+							borderWidth: 1
+						}
+					})
+			},
+			options: {
+				scales: {
+						xAxes: [{
+							ticks: {
+								display: false,
+							},
+							gridLines: {
+								display: false,
+							},
+							categoryPercentage: 0.9,
+							barPercentage: 1.0
+						}],
+						yAxes: [{
+							ticks: {
+								beginAtZero: true,
+								stepSize: 10,
+								suggestedMax: 40,
+							},  
 						}]
 				},
-				options: {
-						scales: {
-								xAxes: [{
-									ticks: {
-										display: false,
-									},
-									gridLines: {
-										display: false,
-									},
-									categoryPercentage: 0.9,
-            			barPercentage: 1.0
-								}],
-								yAxes: [{
-									ticks: {
-										beginAtZero: true,
-										stepSize: 10,
-										suggestedMax: 40,
-									},  
-								}]
-						},
-						legend: {
-							display: false
-					},
-				}
+				legend: {
+					display: false
+				},
+				elements: {
+					point:{
+							radius: 0
+					}
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false
+			 	},
+			}
 		});
 	}
 
 	makePmChart() {
 		let handler = document.getElementById('pmChart');
 		if(!handler) return;
-		let airQualityData = this.state.stationDetal.sensors.airQuality.values;
-
-		let labels = airQualityData.map(data => {
+		
+		let labels = this.state.stationDetal.sensors.airQuality.values.map(data => {
 			let timestamp = new Date(data.timestamp);
 			return 'Czas: ' + timestamp.getHours() + ':00';
 		});
 
-		let chartData = airQualityData.map(data => {
-			return data.state;
-		});
+		let colors = ['rgba(1, 99, 132, 1)', 'rgba(255, 1, 132, 1)', 'rgba(255, 99, 1, 1)'];
 
-		let dataColor = airQualityData.map(data => {
-			return this.mapStateToBarColor(data.state);
-		});
+		let chartDataSets = [];
+		for(let index of ['pm10', 'pm2_5', 'pm1']) {
+			let airData = this.state.stationDetal.sensors[index].values;
+	
+			let chartData = airData.map(data => {
+				return data.value;
+			});
 
-		new Chart(handler.getContext('2d'), {
-				type: 'line',
-				data: {
-						labels: labels,
-						datasets: [{
-								label: null,
-								data: chartData,
-								backgroundColor: dataColor,
-								borderColor: 'rgba(255, 255, 255, 0)',
-								borderWidth: 1
-						}]
-				},
-				options: {
-						scales: {
-								xAxes: [{
-									ticks: {
-										display: false,
-									},
-									gridLines: {
-										display: false,
-									},
-									categoryPercentage: 0.9,
-            			barPercentage: 1.0
-								}],
-								yAxes: [{
-									ticks: {
-										beginAtZero: true,
-										stepSize: 10,
-										suggestedMax: 40,
-									},  
-								}]
-						},
-						legend: {
-							display: false
-					},
-				}
-		});
+			chartDataSets.push(chartData);
+		}
+
+		this.lineChart(handler, labels, chartDataSets, colors);
 	}
 
 	makeChart() {
