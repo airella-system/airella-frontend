@@ -1,0 +1,24 @@
+@import '../../const/var.scss', '../../const/minix.scss';
+
+.navBar{
+  // @include flexCenter;
+  display: flex;
+  justify-content: center;
+  padding: 10px 10px;
+  background: $subpagePanelColor;
+  .navBarContents{
+    width: 70vw;
+    .logo{
+      float: left;
+      padding: 10px 10px;
+    }
+    .itemList{
+      float: right;
+      .nav-item{
+        color: $subpagePanelTextColor;
+        display: inline;
+        padding: 10px 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@import '../../const/var.scss', '../../const/minix.scss';
+
+.sideBar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 10px;
+  top: 50vh;
+  bottom: 50vh;
+  background: transparent;
+  .itemList{
+    padding-right: 10px;
+    .nav-item{
+      color: $mainColor;
+    }
+  }
+}
