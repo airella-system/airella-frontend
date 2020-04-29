@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sensorDetailAction } from '../../../redux/actions';
-import { FaRegSmile, FaRegTimesCircle } from "react-icons/fa";
+import { FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from '../../../mocks/StationDetailApiMock';
 import Tabs, { Tab } from 'react-awesome-tabs';
 import Chart from 'chart.js';
 import '../../../style/main/components/SensorDetails.scss';
 import 'react-awesome-tabs/src/sass/react-awesome-tabs.scss';
+import { AirQualityColors, AirQualityIcons } from '../../../config/AirQuality';
 
 class SensorDetails extends Component {
 	constructor(props) {
@@ -32,24 +33,33 @@ class SensorDetails extends Component {
 		this.state.stationDetal = stationDetailDataMock;
 	}
 
-	getQualityColor(airQualityLevel) {
-		//TODO
-		return "quality_" + airQualityLevel;
+	indexToLevel(airQialityIndex) {
+		return Math.min(Math.floor(airQialityIndex / 25), 5);
+	}
+
+	getQualityClassColor(airQialityIndex) {
+		return "quality_" + this.indexToLevel(airQialityIndex);
 	}
 
 	getAirQualityIcon() {
-		//TODO
-		return <FaRegSmile />;
+		return AirQualityIcons[this.indexToLevel(this.state.stationDetal.airQuality)];
 	}
 
 	pmToPrecentage(type, value) {
-		//TODO
-		return "39%";
+		let norm = 1;
+		switch (type) {
+			case "pm2_5": norm = 25; break;
+			case "pm10": norm = 50; break;
+			default: return "";
+		}
+		return Math.round((value / norm) * 100) + "%";
 	}
 
 	getLastMeasuremtnTime() {
-		//TODO
-		return "10:43 12-03-2020";
+		let lastTimestamp = this.state.stationDetal.sensors.airQuality.values[0].timestamp;
+		let dateTime = new Date(lastTimestamp);
+		return dateTime.getHours() + ":" + dateTime.getMinutes() + " "
+			+ dateTime.getDay() + "/" + dateTime.getMonth() + "/" + dateTime.getFullYear();
 	}
 
 	makeSensorInfo() {
@@ -58,17 +68,18 @@ class SensorDetails extends Component {
 			'pm2_5': 'pm 2.5',
 			'pm10': 'pm 10',
 		}
-		let sensorsData = ['pm1', 'pm2_5', 'pm10'].map(sensorType => {
+		let sensorsData = ['pm10', 'pm2_5', 'pm1'].map(sensorType => {
 			if (this.state.stationDetal.sensors[sensorType]) {
 				return this.state.stationDetal.sensors[sensorType];
 			}
+			return null;
 		});
 
 		return sensorsData.map((item, index) => {
 			let measurement = item.values[0]
 			return <div key={index} className="holder">
 				<div className="verticalItemHolder">
-					<span className={`qualityStatusCircle ${this.getQualityColor(measurement.state)}`}></span>
+					<span className={`qualityStatusCircle ${this.getQualityClassColor(measurement.state)}`}></span>
 					<span className="valueName">{typeToName[item.type]}</span>
 				</div>
 				<div className="verticalItemHolder">
@@ -79,12 +90,8 @@ class SensorDetails extends Component {
 		});
 	}
 
-	mapStateToBarColor(state) {
-		let color = '#A5D0A8'
-		if (state > 20) {
-			color = 'rgba(255, 99, 132, 1)';
-		}
-		return color;
+	mapStateToBarColor(airQialityIndex) {
+		return AirQualityColors[this.indexToLevel(airQialityIndex)];
 	}
 
 	barChart(handler, labels, chartData, dataColor) {
@@ -116,7 +123,7 @@ class SensorDetails extends Component {
 						ticks: {
 							beginAtZero: true,
 							stepSize: 10,
-							suggestedMax: 40,
+							suggestedMax: 60,
 						},
 					}]
 				},
@@ -220,7 +227,7 @@ class SensorDetails extends Component {
 			return 'Czas: ' + timestamp.getHours() + ':00';
 		});
 
-		let colors = ['rgba(1, 99, 132, 1)', 'rgba(255, 1, 132, 1)', 'rgba(255, 99, 1, 1)'];
+		let colors = ['#3590f3', '#62bfed', '#8fb8ed'];
 
 		let chartDataSets = [];
 		for (let index of ['pm1', 'pm2_5', 'pm10']) {
@@ -259,13 +266,13 @@ class SensorDetails extends Component {
 			<div className="stationDetail">
 				<FaRegTimesCircle className="close" onClick={() => this.props.dispatch(sensorDetailAction(null))} />
 
-				<div className={`mainInfo ${this.getQualityColor(data.airQuality)}`}>
+				<div className={`mainInfo ${this.getQualityClassColor(data.airQuality)}`}>
 					<div className="holder">
 						<div className="address">{data.address.street} {data.address.number}</div>
 						<div className="temperature">{data.temperature} °C</div>
 					</div>
 					<div className="holder">
-						<div className="airQualityLabel">Air qualiry</div>
+						<div className="airQualityLabel">Air quality</div>
 						<div className="airQualityIcon">{this.getAirQualityIcon()}</div>
 					</div>
 				</div>
