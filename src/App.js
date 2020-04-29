@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import MainView from './views/main/MainView';
+import VersionInfo from './components/VersionInfo';
 
 class App extends React.Component {
 
@@ -13,11 +14,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" render={ (props) => { return <MainView /> } } />
-        </Switch>
-      </BrowserRouter>
+      <div className="mainLayout">
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" render={ (props) => { return <MainView /> } } />
+          </Switch>
+        </BrowserRouter>
+        <VersionInfo/>
+      </div>
     );  
   }        
 }
