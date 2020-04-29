@@ -14,14 +14,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="mainLayout">
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" render={ (props) => { return <MainView /> } } />
-          </Switch>
-        </BrowserRouter>
-        <VersionInfo/>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" render={ (props) => { return <MainView /> } } />
+        </Switch>
+      </BrowserRouter>
     );  
   }        
 }
