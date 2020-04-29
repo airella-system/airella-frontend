@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaMapMarkedAlt, FaCube, FaRegTimesCircle, FaRegLifeRing } from "react-icons/fa";
 import '../style/additional/animationLib.scss';
 import '../style/components/menu.scss';
+import VersionInfo from './VersionInfo';
 
 class Menu extends React.Component {
 	constructor(props) {
@@ -48,6 +49,7 @@ class Menu extends React.Component {
 							<div className="textAligner">api docs</div>
 						</div>
 					</a>
+					<VersionInfo/>
 				</div>
 			</div>
 		);
