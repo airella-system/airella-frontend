@@ -59,7 +59,7 @@ class SensorDetails extends Component {
 			'pm10': 'pm 10',
 		}
 		let sensorsData = ['pm1', 'pm2_5', 'pm10'].map(sensorType => {
-			if(this.state.stationDetal.sensors[sensorType]) {
+			if (this.state.stationDetal.sensors[sensorType]) {
 				return this.state.stationDetal.sensors[sensorType];
 			}
 		});
@@ -81,7 +81,7 @@ class SensorDetails extends Component {
 
 	mapStateToBarColor(state) {
 		let color = '#A5D0A8'
-		if(state > 20) {
+		if (state > 20) {
 			color = 'rgba(255, 99, 132, 1)';
 		}
 		return color;
@@ -91,37 +91,44 @@ class SensorDetails extends Component {
 		new Chart(handler.getContext('2d'), {
 			type: 'bar',
 			data: {
-					labels: labels,
-					datasets: [{
-							label: null,
-							data: chartData,
-							backgroundColor: dataColor,
-							borderColor: 'rgba(255, 255, 255, 0)',
-							borderWidth: 1
-					}]
+				labels: labels,
+				datasets: [{
+					label: null,
+					data: chartData,
+					backgroundColor: dataColor,
+					borderColor: 'rgba(255, 255, 255, 0)',
+					borderWidth: 1
+				}]
 			},
 			options: {
-					scales: {
-							xAxes: [{
-								ticks: {
-									display: false,
-								},
-								gridLines: {
-									display: false,
-								},
-								categoryPercentage: 0.9,
-								barPercentage: 1.0
-							}],
-							yAxes: [{
-								ticks: {
-									beginAtZero: true,
-									stepSize: 10,
-									suggestedMax: 40,
-								},  
-							}]
-					},
-					legend: {
-						display: false
+				scales: {
+					xAxes: [{
+						ticks: {
+							display: false,
+						},
+						gridLines: {
+							display: false,
+						},
+						categoryPercentage: 0.9,
+						barPercentage: 1.0
+					}],
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							stepSize: 10,
+							suggestedMax: 40,
+						},
+					}]
+				},
+				legend: {
+					display: false
+				},
+				tooltips: {
+					callbacks: {
+						label: function (tooltipItem, data) {
+							return "Quality index: " + tooltipItem.yLabel;
+						}
+					}
 				},
 			}
 		});
@@ -129,7 +136,7 @@ class SensorDetails extends Component {
 
 	makeAirQualityChart() {
 		let handler = document.getElementById('airQualityChart');
-		if(!handler) return;
+		if (!handler) return;
 		let airQualityData = this.state.stationDetal.sensors.airQuality.values;
 
 		let labels = airQualityData.map(data => {
@@ -148,61 +155,66 @@ class SensorDetails extends Component {
 		this.barChart(handler, labels, chartData, dataColor);
 	}
 
-	lineChart(handler, labels, chartDataSets, dataColorSets) {
+	lineChart(handler, labels, chartDataSets, dataColorSets, tooltipLabel) {
 		new Chart(handler.getContext('2d'), {
 			type: 'line',
 			data: {
-					labels: labels,
-					datasets: chartDataSets.map((chartData, index) => {
-						return {
-							label: null,
-							data: chartData,
-							backgroundColor: dataColorSets[index],
-							borderColor: 'rgba(255, 255, 255, 0)',
-							borderWidth: 1
-						}
-					})
+				labels: labels,
+				datasets: chartDataSets.map((chartData, index) => {
+					return {
+						label: null,
+						data: chartData,
+						backgroundColor: dataColorSets[index],
+						borderColor: 'rgba(255, 255, 255, 0)',
+						borderWidth: 1
+					}
+				})
 			},
 			options: {
 				scales: {
-						xAxes: [{
-							ticks: {
-								display: false,
-							},
-							gridLines: {
-								display: false,
-							},
-							categoryPercentage: 0.9,
-							barPercentage: 1.0
-						}],
-						yAxes: [{
-							ticks: {
-								beginAtZero: true,
-								stepSize: 10,
-								suggestedMax: 40,
-							},  
-						}]
+					xAxes: [{
+						ticks: {
+							display: false,
+						},
+						gridLines: {
+							display: false,
+						},
+						categoryPercentage: 0.9,
+						barPercentage: 1.0
+					}],
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							stepSize: 10,
+							suggestedMax: 40,
+						},
+					}]
 				},
 				legend: {
 					display: false
 				},
 				elements: {
-					point:{
-							radius: 0
+					point: {
+						radius: 0
 					}
 				},
 				tooltips: {
 					mode: 'index',
-					intersect: false
-			 	},
+					intersect: false,
+					callbacks: {
+						label: function (tooltipItem, data) {
+							return tooltipLabel[tooltipItem.datasetIndex] + " " + tooltipItem.yLabel + 'µg/m³';
+						}
+					}
+				},
 			}
 		});
 	}
 
 	makePmChart() {
 		let handler = document.getElementById('pmChart');
-		if(!handler) return;
-		
+		if (!handler) return;
+
 		let labels = this.state.stationDetal.sensors.airQuality.values.map(data => {
 			let timestamp = new Date(data.timestamp);
 			return 'Czas: ' + timestamp.getHours() + ':00';
@@ -211,9 +223,9 @@ class SensorDetails extends Component {
 		let colors = ['rgba(1, 99, 132, 1)', 'rgba(255, 1, 132, 1)', 'rgba(255, 99, 1, 1)'];
 
 		let chartDataSets = [];
-		for(let index of ['pm10', 'pm2_5', 'pm1']) {
+		for (let index of ['pm1', 'pm2_5', 'pm10']) {
 			let airData = this.state.stationDetal.sensors[index].values;
-	
+
 			let chartData = airData.map(data => {
 				return data.value;
 			});
@@ -221,11 +233,11 @@ class SensorDetails extends Component {
 			chartDataSets.push(chartData);
 		}
 
-		this.lineChart(handler, labels, chartDataSets, colors);
+		this.lineChart(handler, labels, chartDataSets, colors, ['PM 10', 'PM 2.5', 'PM 1']);
 	}
 
 	makeChart() {
-		switch(this.state.activeTab) {
+		switch (this.state.activeTab) {
 			case 0: this.makeAirQualityChart(); break;
 			case 1: this.makePmChart(); break;
 			default: break;
@@ -238,12 +250,12 @@ class SensorDetails extends Component {
 
 	render() {
 		const { sensorData } = this.props;
-		if(!sensorData) return "";
+		if (!sensorData) return "";
 
 		this.loadData();
 		let data = this.state.stationDetal;
 
-		return(
+		return (
 			<div className="stationDetail">
 				<FaRegTimesCircle className="close" onClick={() => this.props.dispatch(sensorDetailAction(null))} />
 
@@ -255,7 +267,7 @@ class SensorDetails extends Component {
 					<div className="holder">
 						<div className="airQualityLabel">Air qualiry</div>
 						<div className="airQualityIcon">{this.getAirQualityIcon()}</div>
-					</div>	
+					</div>
 				</div>
 
 				<div className="hd">
@@ -274,7 +286,7 @@ class SensorDetails extends Component {
 					<span className="subInfo">Pomiary jakości powietrza z ostatnich 24 godzin</span>
 				</div>
 				<div className="sensorChart">
-					<Tabs active={ this.state.activeTab } onTabSwitch={ this.handleTabSwitch.bind(this) }>
+					<Tabs active={this.state.activeTab} onTabSwitch={this.handleTabSwitch.bind(this)}>
 						<Tab title="Air Quality">
 							<canvas id="airQualityChart" className="chart"></canvas>
 						</Tab>
@@ -290,7 +302,7 @@ class SensorDetails extends Component {
 }
 
 function stateToProps(state) {
-  return state.sensorDetail;
+	return state.sensorDetail;
 }
 
 export default connect(stateToProps)(SensorDetails);
