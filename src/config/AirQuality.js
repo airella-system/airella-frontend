@@ -16,3 +16,7 @@ export let AirQualityIcons = {
   3: <FaRegFrownOpen />,
   4: <FaRegTired />,
 }
+
+export let indexToLevel = (airQialityIndex) => {
+  return Math.min(Math.floor(airQialityIndex / 25), 5);
+}
