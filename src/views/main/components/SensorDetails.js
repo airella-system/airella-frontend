@@ -4,11 +4,8 @@ import { connect } from 'react-redux';
 import { sensorDetailAction } from '../../../redux/actions';
 import { FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from '../../../mocks/StationDetailApiMock';
-import Tabs, { Tab } from 'react-awesome-tabs';
-import Chart from 'chart.js';
 import '../../../style/main/components/SensorDetails.scss';
-import 'react-awesome-tabs/src/sass/react-awesome-tabs.scss';
-import { AirQualityColors, AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
+import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
 import ChartTabs from './ChartTabs.js'; 
 
 class SensorDetails extends Component {
