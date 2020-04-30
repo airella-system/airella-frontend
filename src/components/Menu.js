@@ -31,7 +31,7 @@ class Menu extends React.Component {
 							onClick={() => this.setState({ isOpen: false })} 
 						/>
 					</div>
-					<Link className="link" to="/test">
+					<Link className="link" to="/subpage">
 						<div className="holder">
 							<div><FaMapMarkedAlt className="menuIcon" /></div>
 							<div className="textAligner">stona główna</div>

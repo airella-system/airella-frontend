@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import MainView from './views/main/MainView';
-import VersionInfo from './components/VersionInfo';
+import SubpageView from './views/subpage/SubpageView';
 
 class App extends React.Component {
 
@@ -17,6 +17,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" render={ (props) => { return <MainView /> } } />
+          <Route exact path="/subpage" render={ (props) => { return <SubpageView /> } } />
         </Switch>
       </BrowserRouter>
     );  
