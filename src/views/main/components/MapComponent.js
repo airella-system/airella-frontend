@@ -70,7 +70,7 @@ class MapComponent extends Component {
 				
 				<Map center={position} zoom={this.state.zoom} ref={m => { this.leafletMap = m; }} className="map" >
 					<TileLayer
-						attribution=' <a href="//basemaps.cartocdn.com">Basemap</a> | &copy; <a href="//osm.org/copyright">OpenStreetMap</a> contributors'
+						attribution='<a href="//basemaps.cartocdn.com">Basemap</a> | &copy; <a href="//osm.org/copyright">OpenStreetMap</a> contributors'
 						url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
 					/>
 					{this.renderMarkers()}
