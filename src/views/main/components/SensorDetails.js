@@ -12,7 +12,6 @@ class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isOpen: false,
 			stationDetal: null,
 		};
 	}
@@ -65,7 +64,7 @@ class SensorDetails extends Component {
 		});
 
 		return sensorsData.map((item, index) => {
-			let measurement = item.values[0]
+			let measurement = item.values[0];
 			return <div key={index} className="holder">
 				<div className="verticalItemHolder">
 					<span className={`qualityStatusCircle ${this.getQualityClassColor(measurement.state)}`}></span>
@@ -83,6 +82,7 @@ class SensorDetails extends Component {
 		const { sensorData } = this.props;
 		if (!sensorData) return "";
 
+		// only in development mode, it's will be removed, after added communication with api
 		this.loadData();
 		let data = this.state.stationDetal;
 
