@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from "react-scroll"
 import '../../../style/subpage/components/SideBar.scss'
 
 class SideBar extends Component {
-
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,13 +10,7 @@ class SideBar extends Component {
 		};
 	}
 
-	static propTypes = {
-    text: PropTypes.string
-  }
-
 	render() {
-		const { text } = this.props;
-
 		return(
 			<div className="sideBar">
         <ul className="itemList">
@@ -59,8 +50,4 @@ class SideBar extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-  return state.search;
-}
-
-export default connect(mapStateToProps)(SideBar);
+export default SideBar;
