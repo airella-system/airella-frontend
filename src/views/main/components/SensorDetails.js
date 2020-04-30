@@ -2,20 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sensorDetailAction } from '../../../redux/actions';
-import { FaRegSmile, FaRegTimesCircle } from "react-icons/fa";
+import { FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from '../../../mocks/StationDetailApiMock';
 import '../../../style/main/components/SensorDetails.scss';
-import Chart from 'chart.js';
-import Tabs, { Tab } from 'react-awesome-tabs';
-import 'react-awesome-tabs/src/sass/react-awesome-tabs.scss';
+import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
+import ChartTabs from './ChartTabs.js'; 
 
 class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isOpen: false,
 			stationDetal: null,
-			activeTab: 0,
 		};
 	}
 
@@ -23,33 +20,34 @@ class SensorDetails extends Component {
 		sensorData: PropTypes.object
 	}
 
-	handleTabSwitch(active) {
-		this.setState({ activeTab: active });
-	}
-
 	loadData() {
 		//TODO: send api request
 		this.state.stationDetal = stationDetailDataMock;
 	}
 
-	getQualityColor(airQualityLevel) {
-		//TODO
-		return "quality_" + airQualityLevel;
+	getQualityClassColor(airQialityIndex) {
+		return "quality_" + indexToLevel(airQialityIndex);
 	}
 
 	getAirQualityIcon() {
-		//TODO
-		return <FaRegSmile />;
+		return AirQualityIcons[indexToLevel(this.state.stationDetal.airQuality)];
 	}
 
 	pmToPrecentage(type, value) {
-		//TODO
-		return "39%";
+		let norm = 1;
+		switch (type) {
+			case "pm2_5": norm = 25; break;
+			case "pm10": norm = 50; break;
+			default: return "";
+		}
+		return Math.round((value / norm) * 100) + "%";
 	}
 
 	getLastMeasuremtnTime() {
-		//TODO
-		return "10:43 12-03-2020";
+		let lastTimestamp = this.state.stationDetal.sensors.airQuality.values[0].timestamp;
+		let dateTime = new Date(lastTimestamp);
+		return dateTime.getHours() + ":" + dateTime.getMinutes() + " "
+			+ dateTime.getDay() + "/" + dateTime.getMonth() + "/" + dateTime.getFullYear();
 	}
 
 	makeSensorInfo() {
@@ -58,17 +56,18 @@ class SensorDetails extends Component {
 			'pm2_5': 'pm 2.5',
 			'pm10': 'pm 10',
 		}
-		let sensorsData = ['pm1', 'pm2_5', 'pm10'].map(sensorType => {
-			if(this.state.stationDetal.sensors[sensorType]) {
+		let sensorsData = ['pm10', 'pm2_5', 'pm1'].map(sensorType => {
+			if (this.state.stationDetal.sensors[sensorType]) {
 				return this.state.stationDetal.sensors[sensorType];
 			}
+			return null;
 		});
 
 		return sensorsData.map((item, index) => {
-			let measurement = item.values[0]
+			let measurement = item.values[0];
 			return <div key={index} className="holder">
 				<div className="verticalItemHolder">
-					<span className={`qualityStatusCircle ${this.getQualityColor(measurement.state)}`}></span>
+					<span className={`qualityStatusCircle ${this.getQualityClassColor(measurement.state)}`}></span>
 					<span className="valueName">{typeToName[item.type]}</span>
 				</div>
 				<div className="verticalItemHolder">
@@ -79,160 +78,27 @@ class SensorDetails extends Component {
 		});
 	}
 
-	mapStateToBarColor(state) {
-		let color = '#A5D0A8'
-		if(state > 20) {
-			color = 'rgba(255, 99, 132, 1)';
-		}
-		return color;
-	}
-
-	makeAirQualityChart() {
-		let handler = document.getElementById('airQualityChart');
-		if(!handler) return;
-		let airQualityData = this.state.stationDetal.sensors.airQuality.values;
-
-		let labels = airQualityData.map(data => {
-			let timestamp = new Date(data.timestamp);
-			return 'Czas: ' + timestamp.getHours() + ':00';
-		});
-
-		let chartData = airQualityData.map(data => {
-			return data.state;
-		});
-
-		let dataColor = airQualityData.map(data => {
-			return this.mapStateToBarColor(data.state);
-		});
-
-		new Chart(handler.getContext('2d'), {
-				type: 'bar',
-				data: {
-						labels: labels,
-						datasets: [{
-								label: null,
-								data: chartData,
-								backgroundColor: dataColor,
-								borderColor: 'rgba(255, 255, 255, 0)',
-								borderWidth: 1
-						}]
-				},
-				options: {
-						scales: {
-								xAxes: [{
-									ticks: {
-										display: false,
-									},
-									gridLines: {
-										display: false,
-									},
-									categoryPercentage: 0.9,
-            			barPercentage: 1.0
-								}],
-								yAxes: [{
-									ticks: {
-										beginAtZero: true,
-										stepSize: 10,
-										suggestedMax: 40,
-									},  
-								}]
-						},
-						legend: {
-							display: false
-					},
-				}
-		});
-	}
-
-	makePmChart() {
-		let handler = document.getElementById('pmChart');
-		if(!handler) return;
-		let airQualityData = this.state.stationDetal.sensors.airQuality.values;
-
-		let labels = airQualityData.map(data => {
-			let timestamp = new Date(data.timestamp);
-			return 'Czas: ' + timestamp.getHours() + ':00';
-		});
-
-		let chartData = airQualityData.map(data => {
-			return data.state;
-		});
-
-		let dataColor = airQualityData.map(data => {
-			return this.mapStateToBarColor(data.state);
-		});
-
-		new Chart(handler.getContext('2d'), {
-				type: 'line',
-				data: {
-						labels: labels,
-						datasets: [{
-								label: null,
-								data: chartData,
-								backgroundColor: dataColor,
-								borderColor: 'rgba(255, 255, 255, 0)',
-								borderWidth: 1
-						}]
-				},
-				options: {
-						scales: {
-								xAxes: [{
-									ticks: {
-										display: false,
-									},
-									gridLines: {
-										display: false,
-									},
-									categoryPercentage: 0.9,
-            			barPercentage: 1.0
-								}],
-								yAxes: [{
-									ticks: {
-										beginAtZero: true,
-										stepSize: 10,
-										suggestedMax: 40,
-									},  
-								}]
-						},
-						legend: {
-							display: false
-					},
-				}
-		});
-	}
-
-	makeChart() {
-		switch(this.state.activeTab) {
-			case 0: this.makeAirQualityChart(); break;
-			case 1: this.makePmChart(); break;
-			default: break;
-		}
-	}
-
-	componentDidUpdate() {
-		this.makeChart();
-	}
-
 	render() {
 		const { sensorData } = this.props;
-		if(!sensorData) return "";
+		if (!sensorData) return "";
 
+		// only in development mode, it's will be removed, after added communication with api
 		this.loadData();
 		let data = this.state.stationDetal;
 
-		return(
+		return (
 			<div className="stationDetail">
 				<FaRegTimesCircle className="close" onClick={() => this.props.dispatch(sensorDetailAction(null))} />
 
-				<div className={`mainInfo ${this.getQualityColor(data.airQuality)}`}>
+				<div className={`mainInfo ${this.getQualityClassColor(data.airQuality)}`}>
 					<div className="holder">
 						<div className="address">{data.address.street} {data.address.number}</div>
 						<div className="temperature">{data.temperature} °C</div>
 					</div>
 					<div className="holder">
-						<div className="airQualityLabel">Air qualiry</div>
+						<div className="airQualityLabel">Air quality</div>
 						<div className="airQualityIcon">{this.getAirQualityIcon()}</div>
-					</div>	
+					</div>
 				</div>
 
 				<div className="hd">
@@ -251,14 +117,7 @@ class SensorDetails extends Component {
 					<span className="subInfo">Pomiary jakości powietrza z ostatnich 24 godzin</span>
 				</div>
 				<div className="sensorChart">
-					<Tabs active={ this.state.activeTab } onTabSwitch={ this.handleTabSwitch.bind(this) }>
-						<Tab title="Air Quality">
-							<canvas id="airQualityChart" className="chart"></canvas>
-						</Tab>
-						<Tab title="PM">
-							<canvas id="pmChart" className="chart"></canvas>
-						</Tab>
-					</Tabs>
+					<ChartTabs stationDetal={this.state.stationDetal} />
 				</div>
 
 			</div>
@@ -267,7 +126,7 @@ class SensorDetails extends Component {
 }
 
 function stateToProps(state) {
-  return state.sensorDetail;
+	return state.sensorDetail;
 }
 
 export default connect(stateToProps)(SensorDetails);
