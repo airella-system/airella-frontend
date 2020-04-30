@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Chart from 'chart.js';
 import Tabs, { Tab } from 'react-awesome-tabs';
 import 'react-awesome-tabs/src/sass/react-awesome-tabs.scss';
-import { AirQualityColors, AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
+import { AirQualityColors, indexToLevel } from '../../../config/AirQuality';
 
 class ChartTabs extends Component {
   constructor(props) {
