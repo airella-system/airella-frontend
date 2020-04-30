@@ -4,19 +4,15 @@ import { connect } from 'react-redux';
 import { sensorDetailAction } from '../../../redux/actions';
 import { FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from '../../../mocks/StationDetailApiMock';
-import Tabs, { Tab } from 'react-awesome-tabs';
-import Chart from 'chart.js';
 import '../../../style/main/components/SensorDetails.scss';
-import 'react-awesome-tabs/src/sass/react-awesome-tabs.scss';
-import { AirQualityColors, AirQualityIcons } from '../../../config/AirQuality';
+import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
+import ChartTabs from './ChartTabs.js'; 
 
 class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isOpen: false,
 			stationDetal: null,
-			activeTab: 0,
 		};
 	}
 
@@ -24,25 +20,17 @@ class SensorDetails extends Component {
 		sensorData: PropTypes.object
 	}
 
-	handleTabSwitch(active) {
-		this.setState({ activeTab: active });
-	}
-
 	loadData() {
 		//TODO: send api request
 		this.state.stationDetal = stationDetailDataMock;
 	}
 
-	indexToLevel(airQialityIndex) {
-		return Math.min(Math.floor(airQialityIndex / 25), 5);
-	}
-
 	getQualityClassColor(airQialityIndex) {
-		return "quality_" + this.indexToLevel(airQialityIndex);
+		return "quality_" + indexToLevel(airQialityIndex);
 	}
 
 	getAirQualityIcon() {
-		return AirQualityIcons[this.indexToLevel(this.state.stationDetal.airQuality)];
+		return AirQualityIcons[indexToLevel(this.state.stationDetal.airQuality)];
 	}
 
 	pmToPrecentage(type, value) {
@@ -76,7 +64,7 @@ class SensorDetails extends Component {
 		});
 
 		return sensorsData.map((item, index) => {
-			let measurement = item.values[0]
+			let measurement = item.values[0];
 			return <div key={index} className="holder">
 				<div className="verticalItemHolder">
 					<span className={`qualityStatusCircle ${this.getQualityClassColor(measurement.state)}`}></span>
@@ -90,175 +78,11 @@ class SensorDetails extends Component {
 		});
 	}
 
-	mapStateToBarColor(airQialityIndex) {
-		return AirQualityColors[this.indexToLevel(airQialityIndex)];
-	}
-
-	barChart(handler, labels, chartData, dataColor) {
-		new Chart(handler.getContext('2d'), {
-			type: 'bar',
-			data: {
-				labels: labels,
-				datasets: [{
-					label: null,
-					data: chartData,
-					backgroundColor: dataColor,
-					borderColor: 'rgba(255, 255, 255, 0)',
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						ticks: {
-							display: false,
-						},
-						gridLines: {
-							display: false,
-						},
-						categoryPercentage: 0.9,
-						barPercentage: 1.0
-					}],
-					yAxes: [{
-						ticks: {
-							beginAtZero: true,
-							stepSize: 10,
-							suggestedMax: 60,
-						},
-					}]
-				},
-				legend: {
-					display: false
-				},
-				tooltips: {
-					callbacks: {
-						label: function (tooltipItem, data) {
-							return "Quality index: " + tooltipItem.yLabel;
-						}
-					}
-				},
-			}
-		});
-	}
-
-	makeAirQualityChart() {
-		let handler = document.getElementById('airQualityChart');
-		if (!handler) return;
-		let airQualityData = this.state.stationDetal.sensors.airQuality.values;
-
-		let labels = airQualityData.map(data => {
-			let timestamp = new Date(data.timestamp);
-			return 'Czas: ' + timestamp.getHours() + ':00';
-		});
-
-		let chartData = airQualityData.map(data => {
-			return data.state;
-		});
-
-		let dataColor = airQualityData.map(data => {
-			return this.mapStateToBarColor(data.state);
-		});
-
-		this.barChart(handler, labels, chartData, dataColor);
-	}
-
-	lineChart(handler, labels, chartDataSets, dataColorSets, tooltipLabel) {
-		new Chart(handler.getContext('2d'), {
-			type: 'line',
-			data: {
-				labels: labels,
-				datasets: chartDataSets.map((chartData, index) => {
-					return {
-						label: null,
-						data: chartData,
-						backgroundColor: dataColorSets[index],
-						borderColor: 'rgba(255, 255, 255, 0)',
-						borderWidth: 1
-					}
-				})
-			},
-			options: {
-				scales: {
-					xAxes: [{
-						ticks: {
-							display: false,
-						},
-						gridLines: {
-							display: false,
-						},
-						categoryPercentage: 0.9,
-						barPercentage: 1.0
-					}],
-					yAxes: [{
-						ticks: {
-							beginAtZero: true,
-							stepSize: 10,
-							suggestedMax: 40,
-						},
-					}]
-				},
-				legend: {
-					display: false
-				},
-				elements: {
-					point: {
-						radius: 0
-					}
-				},
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-					callbacks: {
-						label: function (tooltipItem, data) {
-							return tooltipLabel[tooltipItem.datasetIndex] + " " + tooltipItem.yLabel + 'µg/m³';
-						}
-					}
-				},
-			}
-		});
-	}
-
-	makePmChart() {
-		let handler = document.getElementById('pmChart');
-		if (!handler) return;
-
-		let labels = this.state.stationDetal.sensors.airQuality.values.map(data => {
-			let timestamp = new Date(data.timestamp);
-			return 'Czas: ' + timestamp.getHours() + ':00';
-		});
-
-		let colors = ['#3590f3', '#62bfed', '#8fb8ed'];
-
-		let chartDataSets = [];
-		for (let index of ['pm1', 'pm2_5', 'pm10']) {
-			let airData = this.state.stationDetal.sensors[index].values;
-
-			let chartData = airData.map(data => {
-				return data.value;
-			});
-
-			chartDataSets.push(chartData);
-		}
-
-		this.lineChart(handler, labels, chartDataSets, colors, ['PM 10', 'PM 2.5', 'PM 1']);
-	}
-
-	makeChart() {
-		switch (this.state.activeTab) {
-			case 0: this.makeAirQualityChart(); break;
-			case 1: this.makePmChart(); break;
-			default: break;
-		}
-	}
-
-	componentDidUpdate() {
-		this.makeChart();
-	}
-
 	render() {
 		const { sensorData } = this.props;
 		if (!sensorData) return "";
 
+		// only in development mode, it's will be removed, after added communication with api
 		this.loadData();
 		let data = this.state.stationDetal;
 
@@ -293,14 +117,7 @@ class SensorDetails extends Component {
 					<span className="subInfo">Pomiary jakości powietrza z ostatnich 24 godzin</span>
 				</div>
 				<div className="sensorChart">
-					<Tabs active={this.state.activeTab} onTabSwitch={this.handleTabSwitch.bind(this)}>
-						<Tab title="Air Quality">
-							<canvas id="airQualityChart" className="chart"></canvas>
-						</Tab>
-						<Tab title="PM">
-							<canvas id="pmChart" className="chart"></canvas>
-						</Tab>
-					</Tabs>
+					<ChartTabs stationDetal={this.state.stationDetal} />
 				</div>
 
 			</div>
