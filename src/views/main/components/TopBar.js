@@ -12,39 +12,73 @@ class TopBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			text: "",
+			searchText: "",
+			searchFocus: false
 		};
 	}
 
-	static propTypes = {
-    text: PropTypes.string
+	handleSearchTextChange = (event) => {
+		var text = event.target.value;
+		this.setState({ searchText: text });
+		if (text.length >= 3) {
+			fetch('http://photon.komoot.de/api/?q=' + text)
+				.then(response => response.json())
+				.then(data => this.setState({ searchData: data }));
+		} else {
+			this.setState({ searchData: null });
+		}
+	}
+
+	handleSearchFocusOn = (event) => {
+		this.setState({ searchFocus: true });
+	}
+
+	handleSearchFocusOut = (event) => {
+		this.setState({ searchFocus: false });
+	}
+
+	autoCompleteList = () => {
+		const features = this.state.searchData.features;
+		const newFeaturesSize = Math.min(8, features.length);
+		const limitedFeatures = features.slice(0, newFeaturesSize);
+		const listItems = limitedFeatures.map((feature, index) =>
+			<li key={index}>
+				{feature.properties.name}
+			</li>
+		)
+		return <ol className="autoCompleteBox">
+			{listItems}
+		</ol>
 	}
 
 	render() {
 		const { text } = this.props;
 
-		return(
+		return (
 			<div className="topBar">
 
 				<div className="menuHolder">
-					<Menu/>
+					<Menu />
 				</div>
-				<div className="inputHolder">
-					<input className="mainSearch" type="text" />
-					<div className="searchBtn"><FaSearch className="btnSearchIcon"/></div>
+				<div style={{ position: 'relative', width: '30%' }}>
+					<div className="inputHolder">
+						<input className="mainSearch" type="text"
+							value={this.state.searchText}
+							onChange={this.handleSearchTextChange}
+							onFocus={this.handleSearchFocusOn}
+							onBlur={this.handleSearchFocusOut} />
+						<div className="searchBtn"><FaSearch className="btnSearchIcon" /></div>
+					</div>
+					{this.state.searchFocus && this.state.searchData && this.autoCompleteList()}
 				</div>
 				<div className="accountContainer"></div>
-
-				{/* TopBar - { text } - { this.state.text }
-				<input value={this.state.text} onChange={(e) => { this.setState({text: e.target.value}) }}></input>
-				<button onClick={() => {this.props.dispatch(setSearch(this.state.text));}}>ok</button> */}
 			</div>
 		);
 	}
 }
 
 function mapStateToProps(state) {
-  return state.search;
+	return state.search;
 }
 
 export default connect(mapStateToProps)(TopBar);
