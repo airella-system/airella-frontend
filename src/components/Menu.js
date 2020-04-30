@@ -18,7 +18,7 @@ class Menu extends React.Component {
 		let noneClass = this.state.isFirst ? "none " : "";
 
 		return(
-			<div className="menuContainter">
+			<span className="menuContainter">
 				<div className="hamburger" onClick={() => this.setState({ isOpen: true, isFirst: false })}>
 					<span></span>
 					<span></span>
@@ -51,7 +51,7 @@ class Menu extends React.Component {
 					</a>
 					<VersionInfo/>
 				</div>
-			</div>
+			</span>
 		);
 	}
 }
