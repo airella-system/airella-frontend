@@ -96,9 +96,10 @@ class ChartTabs extends Component {
           return {
             label: null,
             data: chartData,
+            fill: false,
             backgroundColor: dataColorSets[index],
-            borderColor: 'rgba(255, 255, 255, 0)',
-            borderWidth: 1
+            borderColor: dataColorSets[index],
+            borderWidth: 3
           }
         })
       },
