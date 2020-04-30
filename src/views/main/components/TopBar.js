@@ -84,10 +84,10 @@ class TopBar extends Component {
 						<Menu />
 					</div>
 					{/* logo placeholder */}
-					<span style={{ fontSize: "30px", marginLeft: "20px", marginTop: "4px" }}>Airella</span>
+					<span className="logo">Airella</span>
 				</div>
 				<div className="searchArea" ref={this.setSearchAreaRef} >
-					<div className="inputHolder" style={{ display: 'flex', height: '100%' }}>
+					<div className="inputHolder">
 						<input className="mainSearch" type="text"
 							value={this.state.searchText}
 							onChange={this.handleSearchTextChange}

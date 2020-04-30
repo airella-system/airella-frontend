@@ -13,6 +13,11 @@
         align-items: center;
         float: left;
         height: 100%;
+        .logo {
+            font-size: 30px;
+            margin-left: 20px;
+            margin-top: 4px;
+        }
     }
     .autoCompleteBox {
         margin: auto;
