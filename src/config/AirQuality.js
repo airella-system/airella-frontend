@@ -18,5 +18,5 @@ export let AirQualityIcons = {
 }
 
 export let indexToLevel = (airQialityIndex) => {
-  return Math.min(Math.floor(airQialityIndex / 25), 5);
+  return Math.min(Math.floor(airQialityIndex / 25), 4);
 }

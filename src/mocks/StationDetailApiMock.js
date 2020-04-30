@@ -267,17 +267,17 @@ export let stationDetailDataMock = {
       type: "pm10",
       values: [
         {
-          value: 3,
+          value: 30,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 4,
+          value: 25,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 5,
+          value: 15,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
@@ -287,22 +287,22 @@ export let stationDetailDataMock = {
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 7,
+          value: 27,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 7,
+          value: 17,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 8,
+          value: 28,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 3,
+          value: 30,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
@@ -317,7 +317,7 @@ export let stationDetailDataMock = {
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 2,
+          value: 20,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
@@ -333,17 +333,17 @@ export let stationDetailDataMock = {
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 2,
+          value: 20,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 5,
+          value: 25,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 2,
+          value: 22,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
@@ -358,12 +358,12 @@ export let stationDetailDataMock = {
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 3,
+          value: 30,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 3,
+          value: 23,
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
@@ -383,7 +383,7 @@ export let stationDetailDataMock = {
           timestamp: "2020-04-18T14:35:24.357Z",
         },
         {
-          value: 5,
+          value: 25,
           state: 20,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
