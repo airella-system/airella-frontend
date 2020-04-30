@@ -1,64 +1,84 @@
-@import '../../const/var.scss', '../../const/minix.scss';
+@import "../../const/var.scss", "../../const/minix.scss";
 
-.topBar{
-    @include flexCenter;
-    justify-content: space-between;
-    padding: 10px 5px;
+.topBar {
+    height: 50px;
     background: $mainColor;
     box-shadow: 0px 0px 8px 0px $shadowColor;
-    .menu{}
-    .autoCompleteBox{
+    position: relative;
+    z-index: 1050;
+    .menuHolder {
+    }
+    .menuLeftItems {
+        display: flex;
+        align-items: center;
+        float: left;
+        height: 100%;
+    }
+    .autoCompleteBox {
         margin: auto;
         left: 0px;
         right: 0px;
         width: 95%;
         box-sizing: border-box;
         position: absolute;
-        top:35px;
-        z-index: 1000;
-        background-color: #FFF;
+        top: 45px;
+        z-index: 1100;
+        background-color: #fff;
         border-radius: 5px;
-        border: 1px solid #BBB;
+        border: 1px solid #bbb;
         box-shadow: 0 3px 5px #00000033;
         padding: 5px 0px 5px 0px;
         list-style: none;
         li {
+            .suggestionTitle {
+                color: black;
+                margin-right: 10px;
+            }
+            .suggestionSubtitle {
+            }
             padding: 10px 0px 10px 10px;
-            border-bottom: 1px solid #EEE;
+            border-bottom: 1px solid #eee;
             &:hover {
-                background-color: #EEE;
+                background-color: #eee;
             }
         }
-
     }
-    .inputHolder{
-        @include flexCenter;
-        .mainSearch{
+    .searchArea {
+        margin: auto;
+        position: relative;
+        width: 30%;
+        height: 100%;
+        .inputHolder {
+            @include flexCenter;
             width: 100%;
-            border-radius: 25px;
-            border-radius: 25px;
-            border: none;
-            outline: none;
-            background: #FFF;
-            padding: 2px 25px 2px 20px;
-            font-size: 17px;
-            border: 1px solid #BBB;
-            box-shadow: 0 1px 1px #00000022;
-        }
-        .searchBtn{
-            width: 0px;
-            &:hover{
-                cursor: pointer;
+            height: 100%;
+            .mainSearch {
+                width: 100%;
+                border-radius: 25px;
+                border-radius: 25px;
+                border: none;
+                outline: none;
+                background: #efefef;
+                padding: 2px 25px 2px 20px;
+                font-size: 17px;
+                box-shadow: 0 1px 1px #00000022;
             }
-            .btnSearchIcon{
-                position: relative;
-                top: 4px;
-                right: 45px;
-                color: $btnIcon;
-                border-left: 1px solid $thinTextColor;
-                padding: 1px 1px 1px 10px;
+            .searchBtn {
+                width: 0px;
+                &:hover {
+                    cursor: pointer;
+                }
+                .btnSearchIcon {
+                    position: relative;
+                    top: 4px;
+                    right: 45px;
+                    color: $btnIcon;
+                    border-left: 1px solid $thinTextColor;
+                    padding: 1px 1px 1px 10px;
+                }
             }
         }
     }
-    .accountContainer{}
+    .accountContainer {
+    }
 }
