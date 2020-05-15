@@ -13,6 +13,10 @@ class MapPopup extends Component {
 		this.state = {};
 	}
 
+	componentDidMount() {
+		console.log("pies");
+	}
+
 	getAirQualityIcon(data) {
 		return <FaRegSmile />;
 	}
@@ -21,7 +25,7 @@ class MapPopup extends Component {
 		return(
 			<Popup>
 				<div className="popUpContent">
-					<div className="address">{this.props.stationData.city}, {this.props.stationData.address_detail}</div>		
+					<div className="address">{this.props.stationData.adress}</div>		
 					<div className="verticalHolder airQuality">
 						<div className="key">Air quality:</div> 
 						<div className="value">{this.getAirQualityIcon(this.props.stationData)}</div>
