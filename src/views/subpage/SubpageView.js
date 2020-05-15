@@ -14,7 +14,7 @@ class SubpageView extends Component {
 	render() {
 		return(
 			<div>
-        {/* <SideBar /> */}
+        <SideBar />
 				<NavBar />
         <Section1 />
         <Section2 />
