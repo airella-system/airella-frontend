@@ -1,7 +1,7 @@
 @import "../../const/var.scss", "../../const/minix.scss";
 
 .topBar {
-    height: 50px;
+    height: 55px;
     background: $mainColor;
     box-shadow: 0px 0px 8px 0px $shadowColor;
     position: relative;
@@ -64,7 +64,7 @@
                 border: none;
                 outline: none;
                 background: #efefef;
-                padding: 2px 25px 2px 20px;
+                padding: 5px 25px 5px 20px;
                 font-size: 17px;
                 box-shadow: 0 1px 1px #00000022;
             }
