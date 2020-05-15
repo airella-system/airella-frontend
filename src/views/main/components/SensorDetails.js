@@ -7,6 +7,7 @@ import { stationDetailDataMock } from '../../../mocks/StationDetailApiMock';
 import '../../../style/main/components/SensorDetails.scss';
 import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
 import ChartTabs from './ChartTabs.js'; 
+import { getApiUrl } from '../../../config/ApiURL';
 
 class SensorDetails extends Component {
 	constructor(props) {
@@ -20,8 +21,20 @@ class SensorDetails extends Component {
 		sensorData: PropTypes.object
 	}
 
-	loadData() {
-		//TODO: send api request
+	async loadData() {
+		const { sensorData } = this.props;
+		console.log(sensorData);
+
+		fetch(getApiUrl('stationDetails', {}, [sensorData.id]))
+			.then(response => response.json())
+			.then(data => {
+				console.log(data.data);
+				// this.setState({
+				// 	stationData: data.data,
+				// });
+			})
+			.catch(e => console.error(e));
+
 		this.state.stationDetal = stationDetailDataMock;
 	}
 

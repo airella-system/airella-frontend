@@ -14,7 +14,7 @@ class MapPopup extends Component {
 	}
 
 	componentDidMount() {
-		console.log("pies");
+		// console.log("pies");
 	}
 
 	getAirQualityIcon(data) {

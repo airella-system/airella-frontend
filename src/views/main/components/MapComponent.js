@@ -94,7 +94,6 @@ class MapComponent extends Component {
 		}))
 		.then(response => response.json())
 		.then(data => {
-			console.log(data.data);
 			this.setState({
 				stationData: data.data,
 			});
@@ -105,7 +104,7 @@ class MapComponent extends Component {
 	renderMarkers() {
 		if(!this.state.stationData) return;
 		return this.state.stationData.map((item, index) => {
-			console.log(item);
+			// console.log(item);
 			let position = {lat: item.location.latitude, lng: item.location.longitude};
 			return(
 			<CircleMarker key={index} center={position} fillColor="#ff0000" color="#ff0000" onClick={() => {}}>
@@ -124,6 +123,10 @@ class MapComponent extends Component {
 		);
 	}
 
+	renderPopupAtPoint(position) {
+
+	}
+
 	render() {
 		// const { text } = this.props;
 		const position = [this.state.lat, this.state.lng];
@@ -131,7 +134,7 @@ class MapComponent extends Component {
 		return(
 			<div className="mapContainer">
 				
-				<Map center={position} zoom={this.state.zoom} ref={m => { this.leafletMap = m; }} className="map" >
+				<Map center={position} zoom={this.state.zoom} ref={m => { this.leafletMap = m; }} className="map" onClick={console.log}>
 					<TileLayer
 						attribution='<a href="//basemaps.cartocdn.com">Basemap</a> | &copy; <a href="//osm.org/copyright">OpenStreetMap</a> contributors'
 						url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
