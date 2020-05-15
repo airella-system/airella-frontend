@@ -11,8 +11,12 @@
   background: transparent;
   .itemList{
     padding-right: 10px;
+    list-style: none;
     .nav-item{
-      color: $mainColor;
+      color: $subpagePanelColorLight;
+      .active{
+        color: $subpagePanelColor;
+      }
     }
   }
 }
