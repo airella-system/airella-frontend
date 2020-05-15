@@ -5,8 +5,7 @@ import { Map, TileLayer, CircleMarker, Marker, Circle, Tooltip, Polygon, SVGOver
 import MapPopup from './MapPopup';
 import '../../../style/main/components/MapComponent.scss';
 import 'leaflet/dist/leaflet.css';
-
-import { stationsDataMock } from '../../../mocks/MapStationApiMock';
+import { getApiUrl } from '../../../config/ApiURL';
 
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
@@ -38,10 +37,16 @@ class MapComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			lat: 50.1261338,
-      lng: 19.7922355,
+			lat: 50.0454231,
+			lng: 19.4458435,
+			radius: 100000,
       zoom: 13,
-			station_data: stationsDataMock
+			stationData: null,
+			isGeolocalizationEnable: false,
+			userCurrentPosition: {
+				lat: 50.0454231,
+				lng: 19.4458435,
+			}
 		};
 	}
 
@@ -49,9 +54,59 @@ class MapComponent extends Component {
 		text: PropTypes.string
 	}
 
+	componentDidMount() {
+		this.getMarkersWithGeolocalization();
+	}
+
+	getMarkersWithGeolocalization() {
+		if(!("geolocation" in navigator)){
+      return false;
+		}
+		navigator.permissions
+			.query({ name: 'geolocation' })
+			.then(info => {
+				if(info.state == 'granted') {
+					navigator.geolocation
+						.getCurrentPosition(
+							position => {
+								this.setState({
+									lat: position.coords.latitude,
+									lng: position.coords.longitude,
+									isGeolocalizationEnable: true,
+									userCurrentPosition: {
+										lat: position.coords.latitude,
+										lng: position.coords.longitude,
+									},
+								});
+							},
+							error => console.error("Error Code = " + error.code + " - " + error.message)
+						);
+				}
+				this.getMarkers();
+			})
+	}
+
+	getMarkers() {
+		fetch(getApiUrl('getMarkers', {
+			'latitude': this.state.lat,
+			'longitude': this.state.lng,
+			'radius': this.state.radius,
+		}))
+		.then(response => response.json())
+		.then(data => {
+			console.log(data.data);
+			this.setState({
+				stationData: data.data,
+			});
+		})
+		.catch(e => console.error(e));
+	}
+
 	renderMarkers() {
-		return this.state.station_data.map((item, index) => {
-			let position = {lat: item.lat, lng: item.lon};
+		if(!this.state.stationData) return;
+		return this.state.stationData.map((item, index) => {
+			console.log(item);
+			let position = {lat: item.location.latitude, lng: item.location.longitude};
 			return(
 			<CircleMarker key={index} center={position} fillColor="#ff0000" color="#ff0000" onClick={() => {}}>
 				<MapPopup stationData={item} />
@@ -59,6 +114,14 @@ class MapComponent extends Component {
 			</CircleMarker>
 		)
 		});
+	}
+
+	currentPositionMarker() {
+		if(!this.state.isGeolocalizationEnable) return;
+		return(
+			<CircleMarker center={this.state.userCurrentPosition} fillColor="#5078de" color="#5078de" onClick={() => {}}>
+			</CircleMarker>
+		);
 	}
 
 	render() {
@@ -74,6 +137,7 @@ class MapComponent extends Component {
 						url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
 					/>
 					{this.renderMarkers()}
+					{this.currentPositionMarker()}
 				</Map>
 			</div>
 		);
