@@ -37,15 +37,15 @@ class MapComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			lat: 50.0454231,
-			lng: 19.4458435,
+			lat: 50.0622881,
+			lng: 19.9311482,
 			radius: 100000,
       zoom: 13,
 			stationData: null,
 			isGeolocalizationEnable: false,
 			userCurrentPosition: {
-				lat: 50.0454231,
-				lng: 19.4458435,
+				lat: 50.0622881,
+				lng: 19.9311482,
 			}
 		};
 	}
@@ -110,7 +110,7 @@ class MapComponent extends Component {
 			return(
 			<CircleMarker key={index} center={position} fillColor="#ff0000" color="#ff0000" onClick={() => {}}>
 				<MapPopup stationData={item} />
-				<Circle center={position} radius={1000} fillOpacity="1" fillColor="url(#gradient1)" stroke={false}/>
+				{/* <Circle center={position} radius={1000} fillOpacity="1" fillColor="url(#gradient1)" stroke={false}/> */}
 			</CircleMarker>
 		)
 		});
