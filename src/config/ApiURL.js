@@ -1,13 +1,14 @@
 const ApiURL = {
-  'getMarkers': 'search/map',
+  'getMarkers': () => 'search/map',
+  'getPopupData': (endpointParameters) => `stations/${endpointParameters[0]}`
 }
 
 const baseURL = "http://airella.cyfrogen.com/api/"
 
-export let getApiUrl = (endpointName, params) => {
+export let getApiUrl = (endpointName, endpointParameters, params) => {
   var query = Object.keys(params)
     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
     .join('&');
   if(!!query) query = "?" + query;
-  return baseURL + ApiURL[endpointName] + query;
+  return baseURL + ApiURL[endpointName](endpointParameters) + query;
 }

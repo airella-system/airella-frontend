@@ -86,8 +86,23 @@ class MapComponent extends Component {
 			})
 	}
 
+	getStationData(stationId) {
+		let key = `station${stationId}Key`;
+		fetch(getApiUrl('getPopupData', [stationId], {
+			'strategy': 'latest',
+		}))
+		.then(response => response.json())
+		.then(data => {
+			console.log(data.data);
+			this.setState({
+				[key]: data.data,
+			});
+		})
+		.catch(e => console.error(e));
+	}
+
 	getMarkers() {
-		fetch(getApiUrl('getMarkers', {
+		fetch(getApiUrl('getMarkers', null, {
 			'latitude': this.state.lat,
 			'longitude': this.state.lng,
 			'radius': this.state.radius,
@@ -105,11 +120,12 @@ class MapComponent extends Component {
 	renderMarkers() {
 		if(!this.state.stationData) return;
 		return this.state.stationData.map((item, index) => {
-			console.log(item);
 			let position = {lat: item.location.latitude, lng: item.location.longitude};
+			let stationId = item.id;
+			let stationDataKey = `station${stationId}Key`;
 			return(
-			<CircleMarker key={index} center={position} fillColor="#ff0000" color="#ff0000" onClick={() => {}}>
-				<MapPopup stationData={item} />
+			<CircleMarker key={index} center={position} fillColor="#ff0000" color="#ff0000" onClick={() => this.getStationData(stationId)}>
+				<MapPopup stationData={this.state[stationDataKey]}/>
 				{/* <Circle center={position} radius={1000} fillOpacity="1" fillColor="url(#gradient1)" stroke={false}/> */}
 			</CircleMarker>
 		)
