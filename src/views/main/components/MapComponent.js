@@ -55,35 +55,45 @@ class MapComponent extends Component {
 	}
 
 	componentDidMount() {
-		this.getMarkersWithGeolocalization();
+		this.trySetMapPositionWithGeolocation();
 	}
 
-	getMarkersWithGeolocalization() {
+	setMapPositionWithGeolocation() {
+		navigator.geolocation
+			.getCurrentPosition(
+				position => {
+					this.setState({
+						lat: position.coords.latitude,
+						lng: position.coords.longitude,
+						isGeolocalizationEnable: true,
+						userCurrentPosition: {
+							lat: position.coords.latitude,
+							lng: position.coords.longitude,
+						},
+					});
+				},
+				error => console.error("Error Code = " + error.code + " - " + error.message)
+			);
+	}
+
+	trySetMapPositionWithGeolocation() {
 		if(!("geolocation" in navigator)){
       return false;
 		}
-		navigator.permissions
+		if(navigator.permissions) {
+			navigator.permissions
 			.query({ name: 'geolocation' })
 			.then(info => {
 				if(info.state == 'granted') {
-					navigator.geolocation
-						.getCurrentPosition(
-							position => {
-								this.setState({
-									lat: position.coords.latitude,
-									lng: position.coords.longitude,
-									isGeolocalizationEnable: true,
-									userCurrentPosition: {
-										lat: position.coords.latitude,
-										lng: position.coords.longitude,
-									},
-								});
-							},
-							error => console.error("Error Code = " + error.code + " - " + error.message)
-						);
+					this.setMapPositionWithGeolocation();
 				}
 				this.getMarkers();
 			})
+		} else {
+			// Safari doesn't support navigator.permissions
+			this.setMapPositionWithGeolocation();
+		}
+
 	}
 
 	getStationData(stationId) {
