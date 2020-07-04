@@ -84,10 +84,13 @@ class TopBar extends Component {
 					{/* logo placeholder */}
 					<div className="searchArea" ref={this.setSearchAreaRef} >
 					<div className="inputHolder">
-						<input className="mainSearch" type="text"
-							value={this.state.searchText}
-							onChange={this.handleSearchTextChange}
-							onFocus={this.handleSearchFocusOn} />
+						<div className="mainSearch">
+							<input className="mainInput" type="text"
+							placeholder="Search..."
+								value={this.state.searchText}
+								onChange={this.handleSearchTextChange}
+								onFocus={this.handleSearchFocusOn} />
+						</div>
 						<div className="searchBtn"><FaSearch className="btnSearchIcon" /></div>
 					</div>
 

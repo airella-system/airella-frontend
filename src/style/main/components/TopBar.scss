@@ -1,4 +1,4 @@
-@import "../../const/var.scss", "../../const/minix.scss";
+@import "../../const/var.scss", "../../const/minix.scss", '../../additional/neumorphism.scss';
 
 .topBar {
     height: 55px;
@@ -11,6 +11,13 @@
         align-items: center;
         float: left;
         height: 100%;
+
+        background: $mainColor;
+        @extend %over;
+        border-radius: 10px;
+        margin: 10px;
+        padding: 5px 10px 5px 10px;
+  
         .logo {
             font-size: 30px;
             margin-left: 20px;
@@ -65,7 +72,18 @@
                 background: #ECF0F3;
                 padding: 5px 25px 5px 20px;
                 font-size: 17px;
-                box-shadow: inset 5px 5px 5px #D1D9E6, inset -5px -5px 5px #FFFFFF
+                @extend %under;
+                .mainInput {
+                    width: 180px;
+                    font-size: 15px;
+                    border: none;
+                    background: #00000000;
+                    border-bottom:1px solid #AAA;
+                }
+                .mainInput:focus {
+                    outline: none;
+                    border-bottom:1px solid #333;
+                }
             }
             .searchBtn {
                 width: 0px;

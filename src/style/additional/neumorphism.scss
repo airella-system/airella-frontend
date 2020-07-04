@@ -1,0 +1,9 @@
+@import '../const/var.scss', '../const/minix.scss';
+
+%under {
+    box-shadow: inset 5px 5px 5px #c3cbd8, inset -5px -5px 5px #FFFFFF;
+}
+
+%over {
+    box-shadow: 5px 5px 5px #c3cbd8, -5px -5px 5px #FFFFFF;
+}
