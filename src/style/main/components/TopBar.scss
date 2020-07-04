@@ -2,9 +2,7 @@
 
 .topBar {
     height: 55px;
-    background: $mainColor;
-    box-shadow: 0px 0px 8px 0px $shadowColor;
-    position: relative;
+    position: absolute;
     z-index: 1050;
     .menuHolder {
     }
@@ -51,7 +49,8 @@
     .searchArea {
         margin: auto;
         position: relative;
-        width: 30%;
+        margin-left: 20px;
+        width: 250px;
         height: 100%;
         .inputHolder {
             @include flexCenter;
@@ -63,10 +62,10 @@
                 border-radius: 25px;
                 border: none;
                 outline: none;
-                background: #efefef;
+                background: #ECF0F3;
                 padding: 5px 25px 5px 20px;
                 font-size: 17px;
-                box-shadow: 0 1px 1px #00000022;
+                box-shadow: inset 5px 5px 5px #D1D9E6, inset -5px -5px 5px #FFFFFF
             }
             .searchBtn {
                 width: 0px;
@@ -77,8 +76,6 @@
                     position: relative;
                     top: 4px;
                     right: 45px;
-                    color: $btnIcon;
-                    border-left: 1px solid $thinTextColor;
                     padding: 1px 1px 1px 10px;
                 }
             }

@@ -1,0 +1,22 @@
+@import '../const/var.scss', '../const/minix.scss';
+
+.buttonContainer{
+  margin-left: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $mainColor;
+  box-shadow: 5px 5px 5px #D1D9E6, -5px -5px 5px #FFFFFF;
+  border: 2px solid $mainColor;
+  border-radius: 10px;
+  color: #444;
+}
+
+.buttonContainer:hover{
+  color: #888;
+  background-color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+}
+

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { FaMapMarkedAlt, FaCube, FaRegTimesCircle, FaRegLifeRing } from "react-icons/fa";
+import { FaMapMarkedAlt, FaCube, FaRegTimesCircle, FaRegLifeRing, FaDivide, FaBars } from "react-icons/fa";
 import '../style/additional/animationLib.scss';
 import '../style/components/menu.scss';
 import VersionInfo from './VersionInfo';
+import Button from '../components/Button'
 
 class Menu extends React.Component {
 	constructor(props) {
@@ -18,12 +19,10 @@ class Menu extends React.Component {
 		let noneClass = this.state.isFirst ? "none " : "";
 
 		return(
-			<span className="menuContainter">
-				<div className="hamburger" onClick={() => this.setState({ isOpen: true, isFirst: false })}>
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
+			<div className="menuContainter">
+				<Button onClick={() => this.setState({ isOpen: true, isFirst: false })}>
+					<FaBars size={22}></FaBars>
+				</Button>
 				<div className={noneClass + `menuHolder faster2 animated ${this.state.isOpen ? "slideInLeft" : "slideOutLeft"}`} >
 					<div className="close">
 						<FaRegTimesCircle 
@@ -51,7 +50,7 @@ class Menu extends React.Component {
 					</a>
 					<VersionInfo/>
 				</div>
-			</span>
+			</div>
 		);
 	}
 }

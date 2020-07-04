@@ -1,15 +1,13 @@
 @import '../const/var.scss', '../const/minix.scss';
 
 .menuContainter{
-  .hamburger{
-    margin-left: 10px;
     span{
       display: block;
-      width: 30px;
-      height: 4px;
+      width: 20px;
+      height: 3px;
       background-color: $iconBase;
       margin-top: 4px;
-      border-radius: 4px;
+      border-radius: 3px;
       transition: .2s;
       &:first-child{
         margin-top: 0px;
@@ -20,7 +18,7 @@
       span{
         background-color: $iconBaseHover;
       }
-    }
+    
   }
   .menuHolder{
     width: 300px;
