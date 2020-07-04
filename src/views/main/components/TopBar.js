@@ -4,7 +4,6 @@ import { FaSearch, FaHamburger } from "react-icons/fa";
 import '../../../style/main/components/TopBar.scss';
 import Menu from '../../../components/Menu';
 import PropTypes from 'prop-types';
-import Button from '../../../components/Button'
 
 class TopBar extends Component {
 
