@@ -18,37 +18,36 @@ class Menu extends React.Component {
 	render() {
 		let noneClass = this.state.isFirst ? "none " : "";
 
-		return(
+		return (
 			<div className="menuContainter">
 				<Button onClick={() => this.setState({ isOpen: true, isFirst: false })}>
 					<FaBars size={22}></FaBars>
 				</Button>
 				<div className={noneClass + `menuHolder faster2 animated ${this.state.isOpen ? "slideInLeft" : "slideOutLeft"}`} >
 					<div className="close">
-						<FaRegTimesCircle 
-							className="closeIcon" 
-							onClick={() => this.setState({ isOpen: false })} 
-						/>
+						<Button onClick={() => this.setState({ isOpen: false })}>
+							<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
+						</Button>
 					</div>
-					<Link className="link" to="/subpage">
-						<div className="holder">
+					<Link className="link" to="/">
+						<div className="holder holder-active">
 							<div><FaMapMarkedAlt className="menuIcon" /></div>
-							<div className="textAligner">stona główna</div>
+							<div className="textAligner">Map</div>
 						</div>
 					</Link>
 					<Link className="link" to="/test">
-						<div className="holder">
+						<div className="holder holder-nonactive">
 							<div><FaCube className="menuIcon" /></div>
-							<div className="textAligner">o projekcie</div>
+							<div className="textAligner">About project</div>
 						</div>
 					</Link>
 					<a className="link" href="//airella.cyfrogen.com/api/docs">
-						<div className="holder">
+						<div className="holder holder-nonactive">
 							<div><FaRegLifeRing className="menuIcon" /></div>
-							<div className="textAligner">api docs</div>
+							<div className="textAligner">API Docs</div>
 						</div>
 					</a>
-					<VersionInfo/>
+					<VersionInfo />
 				</div>
 			</div>
 		);

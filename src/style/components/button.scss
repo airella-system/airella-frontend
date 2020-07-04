@@ -7,20 +7,16 @@
   align-items: center;
   justify-content: center;
   background: $mainColor;
-  @extend %over;
-  border-radius: 10px;
+  @extend %neu-shadow-over;
+  @extend %neu-rounded;
   color: #444;
 }
 
 .buttonContainer:hover{
-  color: #888;
-  background-color: #FFFFFF;
+  @extend %neu-hover;
 }
 
 .buttonContainer:active {
-  @extend %under;
-  color: #444;
-  border-radius: 10px;
-  background: $mainColor;
+  @extend %neu-active;
 }
 
