@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { sensorDetailAction } from '../../../redux/actions';
 import { FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from '../../../mocks/StationDetailApiMock';
+import Gauge from '../../../components/Gauge'
 import '../../../style/main/components/SensorDetails.scss';
 import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
 import ChartTabs from './ChartTabs.js'; 
@@ -100,6 +101,8 @@ class SensorDetails extends Component {
 						<div className="airQualityIcon">{this.getAirQualityIcon()}</div>
 					</div>
 				</div>
+
+				<Gauge></Gauge>
 
 				<div className="hd">
 					Stan zanieczyszczeń
