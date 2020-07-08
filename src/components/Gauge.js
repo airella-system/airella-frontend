@@ -43,7 +43,7 @@ class Gauge extends React.Component {
 
 Gauge.defaultProps = {
 	width: 200,
-	height: 170,
+	height: 150,
 	percent: 0.5,
 	color: 'rgb(253, 150, 100)',
 }

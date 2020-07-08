@@ -1,104 +1,75 @@
 import React from 'react';
+import '../style/components/gauge-canvas.scss';
 
 class GaugeCanvas extends React.Component {
 	componentDidMount() {
-		var endAngle = (Math.PI * (2 + 1/8) - Math.PI * 7/8) * this.props.percent + Math.PI * 7/8;
+		var dpr = window.devicePixelRatio || 1;
+		function setupCanvas(canvas) {
+			// Get the device pixel ratio, falling back to 1.
+			var dpr = window.devicePixelRatio || 1;
+			// Get the size of the canvas in CSS pixels.
+			var rect = canvas.getBoundingClientRect();
+			// Give the canvas pixel dimensions of their CSS
+			// size * the device pixel ratio.
+			canvas.style.width = canvas.width + 'px';
+			canvas.style.height = canvas.height + 'px';
+			canvas.width = rect.width * dpr;
+			canvas.height = rect.height * dpr;
+			var ctx = canvas.getContext('2d');
+			// Scale all drawing operations by the dpr, so you
+			// don't have to worry about the difference.
+			ctx.scale(dpr, dpr);
+			return ctx;
+		}
 
-		var canvas = this.refs.canvas;
-		var context = canvas.getContext("2d");
-		var x = canvas.width / 2;
-		var y = canvas.height * 3 / 5;
-		var radius = canvas.width / 3;
+		function drawShadow(context, color, x, y, offsetX, offsetY, radius, angleStart, angleEnd) {
+			context.shadowColor = color;
+			context.shadowBlur = 5;
+			context.shadowOffsetX = (1000 + offsetX) * dpr;
+			context.shadowOffsetY = (0 + offsetY) * dpr;
+			context.beginPath();
+			context.arc(x - 1000, y, radius, angleStart, angleEnd, false);
+			context.stroke();
+		}
+
+		let backgroundStartAngle = Math.PI * 7 / 8;
+		let backgroundEndAngle = Math.PI * 2 + (Math.PI - backgroundStartAngle);
+
+		let shadowEndAngle = backgroundStartAngle - Math.PI * 1 / 8;
+		let shadowStartAngle = backgroundStartAngle - Math.PI * 1 / 8;
+
+		let filledEndAngle = (backgroundEndAngle - backgroundStartAngle) * this.props.percent + backgroundStartAngle;
+
+		let canvas = this.refs.canvas;
+		let x = canvas.width / 2;
+		let y = canvas.height * 3 / 5;
+		let radius = canvas.width / 3;
+		let context = setupCanvas(canvas);
 
 		context.strokeStyle = '#ECF0F3';
 		context.lineWidth = 20;
 		context.lineCap = "round";
 		context.beginPath();
-		context.arc(x, y, radius, Math.PI * 7/8, Math.PI*(2 + 1/8), false);
+		context.arc(x, y, radius, backgroundStartAngle, backgroundEndAngle, false);
 		context.stroke();
 
 		context.globalCompositeOperation='source-atop';
 
-		context.shadowColor = '#FFFFFF';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 - 5;
-		context.shadowOffsetY = 0 - 5;
-		context.beginPath();
-		context.arc(x-500, y, radius+context.lineWidth, 0, Math.PI * 2, false);
-		context.stroke();
+		let colorLight = '#FFFFFF';
+		let colorDark = '#c3cbd8';
 
-		context.shadowColor = '#FFFFFF';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 - 5;
-		context.shadowOffsetY = 0 - 5;
-		context.beginPath();
-		context.arc(x-500, y, radius-context.lineWidth, 0, Math.PI*2, false);
-		context.stroke();
+		drawShadow(context, colorLight, x, y, -5, -5, radius + context.lineWidth, 0, Math.PI * 2);
+		drawShadow(context, colorLight, x, y, -5, -5, radius - context.lineWidth, 0, Math.PI * 2);
+		drawShadow(context, colorLight, x, y, -5, -5, radius, shadowStartAngle, shadowEndAngle);
 
-		context.shadowColor = '#FFFFFF';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 - 5;
-		context.shadowOffsetY = 0 - 5;
-		context.beginPath();
-		context.arc(x-500, y, radius, Math.PI*(2/8), Math.PI * 6/8, false);
-		context.stroke();
+		drawShadow(context, colorDark, x, y, +5, +5, radius + context.lineWidth, 0, Math.PI * 2);
+		drawShadow(context, colorDark, x, y, +5, +5, radius - context.lineWidth, 0, Math.PI * 2);
+		drawShadow(context, colorDark, x, y, +5, +5, radius, shadowStartAngle, shadowEndAngle);
 		
-		context.shadowColor = '#c3cbd8';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 + 5;
-		context.shadowOffsetY = 0 + 5;
-		context.beginPath();
-		context.arc(x-500, y, radius+context.lineWidth, 0, Math.PI * 2, false);
-		context.stroke();
-
-		context.shadowColor = '#c3cbd8';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 + 5;
-		context.shadowOffsetY = 0 + 5;
-		context.beginPath();
-		context.arc(x-500, y, radius-context.lineWidth, 0, Math.PI*2, false);
-		context.stroke();
-
-		context.shadowColor = '#c3cbd8';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 + 5;
-		context.shadowOffsetY = 0 + 5;
-		context.beginPath();
-		context.arc(x-500, y, radius, Math.PI*(2/8), Math.PI * 6/8, false);
-		context.stroke();
-
 		context.globalCompositeOperation='source-over';
 
-		// context.shadowColor = '#FFFFFF';
-		// context.shadowBlur = 5;
-		// context.shadowOffsetX = 500 - 5;
-		// context.shadowOffsetY = 0 - 5;
-		// context.beginPath();
-		// context.arc(x-500, y, radius, Math.PI * 7/8, endAngle, false);
-		// context.stroke();
-
-		// context.shadowColor = '#c3cbd8';
-		// context.shadowBlur = 5;
-		// context.shadowOffsetX = 500 + 5;
-		// context.shadowOffsetY = 0 + 5;
-		// context.beginPath();
-		// context.arc(x-500, y, radius, Math.PI * 7/8, endAngle, false);
-		// context.stroke();
-
-		// context.strokeStyle = this.props.color;
-		// context.shadowColor = this.props.color;
-		// context.shadowBlur = 0;
-		// context.shadowOffsetX = 0;
-		// context.shadowOffsetY = 0;
-		// context.beginPath();
-		// context.arc(x, y, radius, Math.PI * 7/8, endAngle, false);
-		// context.stroke();
-
 		canvas = this.refs.canvas2;
-		context = canvas.getContext("2d");
-		 x = canvas.width / 2;
-		 y = canvas.height * 3 / 5;
-		 radius = canvas.width / 3;
+		context = setupCanvas(canvas);
 
 		context.strokeStyle = this.props.color;
 		context.shadowColor = this.props.color;
@@ -108,67 +79,28 @@ class GaugeCanvas extends React.Component {
 		context.shadowOffsetX = 0;
 		context.shadowOffsetY = 0;
 		context.beginPath();
-		context.arc(x, y, radius, Math.PI * 7/8, endAngle, false);
+		context.arc(x, y, radius, backgroundStartAngle, filledEndAngle, false);
 		context.stroke();
 
 		context.globalCompositeOperation='source-atop';
 
-		context.shadowColor = '#FFFFFF22';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 - 5;
-		context.shadowOffsetY = 0 - 5;
-		context.beginPath();
-		context.arc(x-500, y, radius+context.lineWidth, 0, Math.PI * 2, false);
-		context.stroke();
+		colorLight = '#FFFFFF22';
+		colorDark = '#00000022';
 
-		context.shadowColor = '#FFFFFF22';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 - 5;
-		context.shadowOffsetY = 0 - 5;
-		context.beginPath();
-		context.arc(x-500, y, radius-context.lineWidth, 0, Math.PI*2, false);
-		context.stroke();
+		drawShadow(context, colorLight, x, y, -5, -5, radius + context.lineWidth, 0, Math.PI * 2);
+		drawShadow(context, colorLight, x, y, -5, -5, radius - context.lineWidth, 0, Math.PI * 2);
+		drawShadow(context, colorLight, x, y, -5, -5, radius, shadowStartAngle, shadowEndAngle);
 
-		context.shadowColor = '#FFFFFF22';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 - 5;
-		context.shadowOffsetY = 0 - 5;
-		context.beginPath();
-		context.arc(x-500, y, radius, Math.PI*(2/8), Math.PI * 6/8, false);
-		context.stroke();
-		
-		context.shadowColor = '#00000022';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 + 5;
-		context.shadowOffsetY = 0 + 5;
-		context.beginPath();
-		context.arc(x-500, y, radius+context.lineWidth, 0, Math.PI * 2, false);
-		context.stroke();
-
-		context.shadowColor = '#00000022';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 + 5;
-		context.shadowOffsetY = 0 + 5;
-		context.beginPath();
-		context.arc(x-500, y, radius-context.lineWidth, 0, Math.PI*2, false);
-		context.stroke();
-
-		context.shadowColor = '#00000022';
-		context.shadowBlur = 5;
-		context.shadowOffsetX = 500 + 5;
-		context.shadowOffsetY = 0 + 5;
-		context.beginPath();
-		context.arc(x-500, y, radius, Math.PI*(2/8), Math.PI * 6/8, false);
-		context.stroke();
-
-
-
+		drawShadow(context, colorDark, x, y, +5, +5, radius + context.lineWidth, 0, Math.PI * 2);
+		drawShadow(context, colorDark, x, y, +5, +5, radius - context.lineWidth, 0, Math.PI * 2);
+		drawShadow(context, colorDark, x, y, +5, +5, radius, shadowStartAngle, shadowEndAngle);
 	  }
+
 	  render() {
 		return(
-		  <div style={{position: "relative", width: this.props.width, height: this.props.height}}>
-			<canvas style={{position: "absolute", left: "0px", right: "0px"}} ref="canvas" width={this.props.width} height={this.props.height} />
-			<canvas style={{position: "absolute", left: "0px", right: "0px"}} ref="canvas2" width={this.props.width} height={this.props.height} />
+		  <div className="root" style={{width: this.props.width, height: this.props.height}}>
+			<canvas className="canvas" ref="canvas" width={this.props.width} height={this.props.height} />
+			<canvas className="canvas" ref="canvas2" width={this.props.width} height={this.props.height} />
 		  </div>
 		)
 	  }
@@ -176,7 +108,7 @@ class GaugeCanvas extends React.Component {
 
 GaugeCanvas.defaultProps = {
 	width: 200,
-	height: 170,
+	height: 150,
 	percent: 0.5,
 	color: 'rgb(253, 150, 100)',
 }

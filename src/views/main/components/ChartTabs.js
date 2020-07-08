@@ -35,6 +35,8 @@ class ChartTabs extends Component {
         }]
       },
       options: {
+        maintainAspectRatio: false,
+        responsive: true,
         scales: {
           xAxes: [{
             ticks: {
@@ -49,7 +51,7 @@ class ChartTabs extends Component {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              stepSize: 10,
+              stepSize: 20,
               suggestedMax: 60,
             },
           }]
@@ -187,14 +189,7 @@ class ChartTabs extends Component {
 
   render() {
     return (
-      <Tabs active={this.state.activeTab} onTabSwitch={this.handleTabSwitch.bind(this)}>
-        <Tab title="Air Quality">
-          <canvas id="airQualityChart" className="chart"></canvas>
-        </Tab>
-        <Tab title="PM">
-          <canvas id="pmChart" className="chart"></canvas>
-        </Tab>
-      </Tabs>
+      <canvas id="airQualityChart" className="chart" width="100"></canvas>
     );
   }
 }
