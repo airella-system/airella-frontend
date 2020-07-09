@@ -107,7 +107,10 @@ class SensorDetails extends Component {
 						Pollutions:
 					</div>
 
-					<Gauge></Gauge>
+					<div className="gaugesRow">
+						<Gauge></Gauge>
+						<Gauge></Gauge>
+					</div>
 
 					<div className="sensorsInfo">
 						{this.makeSensorInfo()}

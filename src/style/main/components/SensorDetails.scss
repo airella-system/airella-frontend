@@ -19,6 +19,11 @@
         border-top-left-radius: $neu-round-radius;
         border-bottom-left-radius: $neu-round-radius;
         margin-top: -25px;
+        .gaugesRow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     }
 
     .close{

@@ -13,9 +13,9 @@ class Gauge extends React.Component {
 					</GaugeCanvas>
 				</div>
 
-				<div style={{ position: "absolute", top: "38%", left: "25%", width: "50%", height: "35%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+				<div style={{ position: "absolute", top: "35%", left: "25%", width: "50%", height: "35%", display: "flex", alignItems: "center", justifyContent: "center" }}>
 					<div style={{ width: "45%", float: "left", textAlign: "center" }}>
-						<div style={{ color: "#000", fontSize: "18px" }}>
+						<div style={{ color: "#000", fontSize: "19px" }}>
 							320
 						</div>
 						<div style={{ color: "#888", fontSize: "10px" }}>
@@ -25,7 +25,7 @@ class Gauge extends React.Component {
 					<div style={{ width: "10%", height: "100%", float: "left", background: "linear-gradient(#AAA, #AAA) no-repeat center/1px 50%" }}>
 					</div>
 					<div style={{ width: "45%", float: "right", textAlign: "center" }}>
-						<span style={{ color: "#000", fontSize: "18px" }}>
+						<span style={{ color: "#000", fontSize: "19px" }}>
 							120
 						</span>
 						<span style={{ color: "#000", fontSize: "10px" }}>
