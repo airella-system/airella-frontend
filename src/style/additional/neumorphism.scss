@@ -3,11 +3,15 @@
 $neu-round-radius: 15px;
 
 %neu-shadow-under {
-    box-shadow: inset 5px 5px 5px #00225533, inset -5px -5px 5px #FFFFFFFF;
+    box-shadow: inset 5px 5px 5px #00225544, inset -5px -5px 5px #FFFFFFFF;
+}
+
+%neu-shadow-under-subtle {
+    box-shadow: inset 5px 5px 5px #00225544, inset -5px -5px 5px #FFFFFF88;
 }
 
 %neu-shadow-over {
-    box-shadow: 5px 5px 5px #00225533, -5px -5px 5px #FFFFFFFF;
+    box-shadow: 5px 5px 5px #00225544, -5px -5px 5px #FFFFFFFF;
 }
 
 %neu-rounded {

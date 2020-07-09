@@ -5,25 +5,21 @@
     border-bottom-left-radius: $neu-round-radius;
     @extend %neu-shadow-over;
     height: 100vh;
+    overflow-y: scroll; 
     background: $mainColor;
     color: $textColor;
     display: block;
-    min-width: 400px;
+    width: 400px;
     position: absolute;
     z-index: 9999;
     right: 0px;
     top: 0px;
 
-    .card {
-        background: $mainColor;
-        border-top-left-radius: $neu-round-radius;
-        border-bottom-left-radius: $neu-round-radius;
-        margin-top: -25px;
-        .gaugesRow {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .block {
+        // margin: 10px;
+        // padding: 10px;
+        // @extend %neu-rounded;
+        // @extend %neu-shadow-under;
     }
 
     .close{
@@ -40,11 +36,37 @@
     .holder{
         display: flex;
         justify-content: space-between;
+        font-size: 25px;
+        font-weight: 500;
+        color: $textColor;
+        padding-top: 15px;
+        margin-left: 15px;
+        margin-bottom: 15px;
     }
-    .mainInfo{
+    .card{
+        background: $mainColor;
         border-top-left-radius: $neu-round-radius;
         border-bottom-left-radius: $neu-round-radius;
-        padding: 15px 15px 25px 15px;
+
+        .summaryContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .summary {
+                @extend %neu-shadow-under-subtle;
+                border-radius: 50%;
+                background-image: url("https://storage.needpix.com/rsynced_images/character-2927150_1280.png");
+                background-size: cover;
+                width: 150px;
+                height: 150px;
+            }
+        }
+        .gaugesRow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
         .address{
             font-size: 23px;
             font-weight: bold;
@@ -64,11 +86,11 @@
         }
     }
     .hd{
-        padding-top: 15px;
-        margin-bottom: 1px;
+        padding-top: 5px;
         margin-left: 15px;
-        font-size: 20px;
-        font-weight: bold;
+        font-size: 22px;
+        font-weight: 400;
+        color: $textColor;
         .subInfo{
             font-size: 13px;
             font-weight: normal;

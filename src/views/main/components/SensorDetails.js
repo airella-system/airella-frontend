@@ -8,12 +8,14 @@ import Gauge from '../../../components/Gauge'
 import '../../../style/main/components/SensorDetails.scss';
 import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
 import ChartTabs from './ChartTabs.js';
+import Button from '../../../components/Button'
 
 class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			stationDetal: null,
+			isFirst: true,
 		};
 	}
 
@@ -81,28 +83,33 @@ class SensorDetails extends Component {
 
 	render() {
 		const { sensorData } = this.props;
-		if (!sensorData) return "";
+		if (this.state.isFirst && sensorData) {
+			this.setState({ isFirst: false });
+		}
+		let noneClass = this.state.isFirst ? "none " : "";
 
 		// only in development mode, it's will be removed, after added communication with api
 		this.loadData();
 		let data = this.state.stationDetal;
 
 		return (
-			<div className="stationDetail">
-				<FaRegTimesCircle className="close" onClick={() => this.props.dispatch(sensorDetailAction(null))} />
-
-				<div className={`mainInfo ${this.getQualityClassColor(data.airQuality)}`}>
-					<div className="holder">
-						<div className="address">{data.address.street} {data.address.number}</div>
-						<div className="temperature">{data.temperature} °C</div>
-					</div>
-					<div className="holder">
-						<div className="airQualityLabel">Air quality</div>
-						<div className="airQualityIcon">{this.getAirQualityIcon()}</div>
-					</div>
+			<div className={noneClass + `stationDetail animated faster ${sensorData ? "slideInRight" : "slideOutRight"}`}>
+				<div className="close">
+				<Button onClick={() => this.props.dispatch(sensorDetailAction(null))}>
+					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
+				</Button>
 				</div>
-
 				<div className="card">
+					<div className="holder">
+						<div>{data.address.street} {data.address.number}</div>
+					</div>
+
+					<div className="summaryContainer">
+					<div className="summary">
+					</div>
+					</div>
+
+					<div className="block">
 					<div className="hd">
 						Pollutions:
 					</div>
@@ -110,21 +117,22 @@ class SensorDetails extends Component {
 					<div className="gaugesRow">
 						<Gauge></Gauge>
 						<Gauge></Gauge>
+						<Gauge></Gauge>
 					</div>
-
-					<div className="sensorsInfo">
-						{this.makeSensorInfo()}
-					</div>
-					<div className="lastMeasuremtnTime">
-						<span>Ostatni pomiar: </span>{this.getLastMeasuremtnTime()}
-					</div>
-
 					<div className="hd">
-						Historia pomiarów
-					<span className="subInfo">Pomiary jakości powietrza z ostatnich 24 godzin</span>
+						<span className="subInfo">Last measurement: {this.getLastMeasuremtnTime()}</span>
+					</div>
+					</div>
+
+					
+					<div className="block">
+					<div className="hd">
+						History:
+					<span className="subInfo">Measurements from last 24 hours</span>
 					</div>
 					<div className="sensorChart">
 					<ChartTabs stationDetal={this.state.stationDetal} />
+					</div>
 				</div>
 				</div>
 			</div>

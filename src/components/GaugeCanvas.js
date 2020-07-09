@@ -108,7 +108,7 @@ class GaugeCanvas extends React.Component {
 
 GaugeCanvas.defaultProps = {
 	width: 200,
-	height: 150,
+	height: 140,
 	percent: 0.5,
 	color: 'rgb(253, 150, 100)',
 }

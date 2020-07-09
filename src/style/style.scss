@@ -1,6 +1,6 @@
 @import './const/var.scss';
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap&subset=latin-ext');
 
 body {
     background: #333;
@@ -15,7 +15,7 @@ input {
     display: flex;
 }
 .none{
-    display: none;
+    visibility: hidden;
 }
 .quality_0{
     background: $qualityStateColor_1;
