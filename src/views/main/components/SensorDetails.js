@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { sensorDetailAction } from '../../../redux/actions';
 import { FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from '../../../mocks/StationDetailApiMock';
+import Gauge from '../../../components/Gauge'
 import '../../../style/main/components/SensorDetails.scss';
 import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
-import ChartTabs from './ChartTabs.js'; 
+import ChartTabs from './ChartTabs.js';
 
 class SensorDetails extends Component {
 	constructor(props) {
@@ -101,25 +102,28 @@ class SensorDetails extends Component {
 					</div>
 				</div>
 
-				<div className="hd">
-					Stan zanieczyszczeń
-					<span className="subInfo">Stan zanieczyszczeń powietrza w obecnym momencie</span>
-				</div>
-				<div className="sensorsInfo">
-					{this.makeSensorInfo()}
-				</div>
-				<div className="lastMeasuremtnTime">
-					<span>Ostatni pomiar: </span>{this.getLastMeasuremtnTime()}
-				</div>
+				<div className="card">
+					<div className="hd">
+						Pollutions:
+					</div>
 
-				<div className="hd">
-					Historia pomiarów
+					<Gauge></Gauge>
+
+					<div className="sensorsInfo">
+						{this.makeSensorInfo()}
+					</div>
+					<div className="lastMeasuremtnTime">
+						<span>Ostatni pomiar: </span>{this.getLastMeasuremtnTime()}
+					</div>
+
+					<div className="hd">
+						Historia pomiarów
 					<span className="subInfo">Pomiary jakości powietrza z ostatnich 24 godzin</span>
-				</div>
-				<div className="sensorChart">
+					</div>
+					<div className="sensorChart">
 					<ChartTabs stationDetal={this.state.stationDetal} />
 				</div>
-
+				</div>
 			</div>
 		);
 	}

@@ -1,10 +1,8 @@
-@import "../../const/var.scss", "../../const/minix.scss";
+@import "../../const/var.scss", "../../const/minix.scss", '../../additional/neumorphism.scss';
 
 .topBar {
     height: 55px;
-    background: $mainColor;
-    box-shadow: 0px 0px 8px 0px $shadowColor;
-    position: relative;
+    position: absolute;
     z-index: 1050;
     .menuHolder {
     }
@@ -13,6 +11,13 @@
         align-items: center;
         float: left;
         height: 100%;
+
+        background: $mainColor;
+        @extend %neu-shadow-over;
+        @extend %neu-rounded;
+        margin: 10px;
+        padding: 5px 10px 5px 10px;
+  
         .logo {
             font-size: 30px;
             margin-left: 20px;
@@ -51,7 +56,8 @@
     .searchArea {
         margin: auto;
         position: relative;
-        width: 30%;
+        margin-left: 20px;
+        width: 250px;
         height: 100%;
         .inputHolder {
             @include flexCenter;
@@ -63,10 +69,21 @@
                 border-radius: 25px;
                 border: none;
                 outline: none;
-                background: #efefef;
+                background: #ECF0F3;
                 padding: 5px 25px 5px 20px;
                 font-size: 17px;
-                box-shadow: 0 1px 1px #00000022;
+                @extend %neu-shadow-under;
+                .mainInput {
+                    width: 180px;
+                    font-size: 15px;
+                    border: none;
+                    background: #00000000;
+                    border-bottom:1px solid #AAA;
+                }
+                .mainInput:focus {
+                    outline: none;
+                    border-bottom:1px solid #333;
+                }
             }
             .searchBtn {
                 width: 0px;
@@ -77,8 +94,6 @@
                     position: relative;
                     top: 4px;
                     right: 45px;
-                    color: $btnIcon;
-                    border-left: 1px solid $thinTextColor;
                     padding: 1px 1px 1px 10px;
                 }
             }

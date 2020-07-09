@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaHamburger } from "react-icons/fa";
 import '../../../style/main/components/TopBar.scss';
 import Menu from '../../../components/Menu';
 import PropTypes from 'prop-types';
@@ -80,23 +80,24 @@ class TopBar extends Component {
 		return (
 			<div className="topBar">
 				<div className="menuLeftItems">
-					<div style={{ float: 'left' }}>
-						<Menu />
-					</div>
+					<Menu />
 					{/* logo placeholder */}
-					<span className="logo">Airella</span>
-				</div>
-				<div className="searchArea" ref={this.setSearchAreaRef} >
+					<div className="searchArea" ref={this.setSearchAreaRef} >
 					<div className="inputHolder">
-						<input className="mainSearch" type="text"
-							value={this.state.searchText}
-							onChange={this.handleSearchTextChange}
-							onFocus={this.handleSearchFocusOn} />
+						<div className="mainSearch">
+							<input className="mainInput" type="text"
+							placeholder="Search..."
+								value={this.state.searchText}
+								onChange={this.handleSearchTextChange}
+								onFocus={this.handleSearchFocusOn} />
+						</div>
 						<div className="searchBtn"><FaSearch className="btnSearchIcon" /></div>
 					</div>
 
 					{this.state.searchFocus && this.state.searchData && this.getAutoCompleteList()}
 				</div>
+				</div>
+				
 				<div className="accountContainer"></div>
 			</div>
 		);

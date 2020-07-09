@@ -1,0 +1,22 @@
+@import '../const/var.scss', '../const/minix.scss', '../additional/neumorphism.scss';
+
+.buttonContainer{
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $mainColor;
+  @extend %neu-shadow-over;
+  @extend %neu-rounded;
+  color: #444;
+}
+
+.buttonContainer:hover{
+  @extend %neu-hover;
+}
+
+.buttonContainer:active {
+  @extend %neu-active;
+}
+

@@ -1,11 +1,26 @@
-@import '../../const/var.scss', '../../const/minix.scss';
+@import '../../const/var.scss', '../../const/minix.scss', '../../additional/neumorphism.scss';
 
 .stationDetail{
-    max-height: calc(100vh - 55px);
+    border-top-left-radius: $neu-round-radius;
+    border-bottom-left-radius: $neu-round-radius;
+    @extend %neu-shadow-over;
+    height: 100vh;
+    background: $mainColor;
     color: $textColor;
     display: block;
-    background-color: $sensorDataBackground;
     min-width: 400px;
+    position: absolute;
+    z-index: 9999;
+    right: 0px;
+    top: 0px;
+
+    .card {
+        background: $mainColor;
+        border-top-left-radius: $neu-round-radius;
+        border-bottom-left-radius: $neu-round-radius;
+        margin-top: -25px;
+    }
+
     .close{
         position: absolute;
         right: 0;
@@ -22,7 +37,9 @@
         justify-content: space-between;
     }
     .mainInfo{
-        padding: 15px 15px 0 15px;
+        border-top-left-radius: $neu-round-radius;
+        border-bottom-left-radius: $neu-round-radius;
+        padding: 15px 15px 25px 15px;
         .address{
             font-size: 23px;
             font-weight: bold;
@@ -42,8 +59,8 @@
         }
     }
     .hd{
-        margin-bottom: 15px;
-        margin-top: 15px;
+        padding-top: 15px;
+        margin-bottom: 1px;
         margin-left: 15px;
         font-size: 20px;
         font-weight: bold;
@@ -93,10 +110,12 @@
         margin-top: 5px;
         color: $thinTextColor;
     }
-    .sensorChart{
-        .chart{
-            width: 395px !important;
-            height: 200px;
+    .sensorChart {
+        display: flex;
+        justify-content: center;
+        .chart {
+            width: 350px !important;
+            height: 100px !important;
         }
         .panel-wrapper{
             min-height: 308px;
