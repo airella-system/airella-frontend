@@ -46,7 +46,7 @@ class GaugeCanvas extends React.Component {
 		let radius = canvas.width / 3;
 		let context = setupCanvas(canvas);
 
-		context.strokeStyle = '#ECF0F3';
+		context.strokeStyle = 'rgb(231, 239, 248)';
 		context.lineWidth = 20;
 		context.lineCap = "round";
 		context.beginPath();

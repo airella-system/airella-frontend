@@ -3,14 +3,17 @@ import Chart from 'chart.js';
 import Tabs, { Tab } from 'react-awesome-tabs';
 import 'react-awesome-tabs/src/sass/react-awesome-tabs.scss';
 import { AirQualityColors, indexToLevel } from '../../../config/AirQuality';
+import { getApiUrl } from '../../../config/ApiURL';
 
 class ChartTabs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stationDetal: props.stationDetal,
       activeTab: 0,
     };
+    if (this.props.stationId) {
+      this.loadData(this.props.stationId);
+    }
   }
 
   handleTabSwitch(active) {
@@ -19,7 +22,37 @@ class ChartTabs extends Component {
 
   mapStateToBarColor(airQialityIndex) {
 		return AirQualityColors[indexToLevel(airQialityIndex)];
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+		if (prevProps.stationId != this.props.stationId) {
+      this.loadData(this.props.stationId);
+      this.setState({data: null});
+    }
+    if (prevState.data == null && this.state.data != null) {
+      this.makeChart();
+    }
 	}
+  
+  loadData(stationId) {
+		let start = new Date();
+		let end = new Date();
+		start.setDate(start.getDate() - 1);
+
+		fetch(getApiUrl('getPopupData', [stationId], {
+			'timespan': `${start.toISOString()}/${end.toISOString()}`,
+			'interval': 'PT1H',
+			'strategy': 'latest',
+			'sensors': 'pm10,pm2_5,pm1'
+		}))
+		.then(response => response.json())
+		.then(data => {
+			this.setState({
+				data: data["data"],
+			});
+		})
+		.catch(e => console.error(e));
+  }
 
   barChart(handler, labels, chartData, dataColor) {
     new Chart(handler.getContext('2d'), {
@@ -106,6 +139,8 @@ class ChartTabs extends Component {
         })
       },
       options: {
+        maintainAspectRatio: false,
+        responsive: true,
         scales: {
           xAxes: [{
             ticks: {
@@ -147,21 +182,24 @@ class ChartTabs extends Component {
   }
 
   makePmChart() {
+    if (!this.state.data) return;
+
     let handler = document.getElementById('pmChart');
     if (!handler) return;
 
-    let labels = this.state.stationDetal.sensors.airQuality.values.map(data => {
-      let timestamp = new Date(data.timestamp);
-      return 'Czas: ' + timestamp.getHours() + ':00';
+    let labels = this.state.data.sensors[0].values.map(value => {
+      let timestamp = new Date(value.timestamp);
+      return 'Time: ' + timestamp.getHours() + ':00';
     });
 
-    let colors = ['#3590f3', '#62bfed', '#8fb8ed'];
+    let colors = ['#0090f3', '#BBbfFd', '#Ffb8ed'];
 
     let chartDataSets = [];
     for (let index of ['pm1', 'pm2_5', 'pm10']) {
-      let airData = this.state.stationDetal.sensors[index].values;
 
-      let chartData = airData.map(data => {
+      let sensor = this.state.data.sensors.filter(sensor => sensor.type === index)[0];
+
+      let chartData = sensor.values.map(data => {
         return data.value;
       });
 
@@ -173,8 +211,8 @@ class ChartTabs extends Component {
 
   makeChart() {
     switch (this.state.activeTab) {
-      case 0: this.makeAirQualityChart(); break;
-      case 1: this.makePmChart(); break;
+      case 1: this.makeAirQualityChart(); break;
+      case 0: this.makePmChart(); break;
       default: break;
     }
   }
@@ -189,7 +227,7 @@ class ChartTabs extends Component {
 
   render() {
     return (
-      <canvas id="airQualityChart" className="chart" width="100"></canvas>
+      <canvas id="pmChart" className="chart" width="100"></canvas>
     );
   }
 }

@@ -19,12 +19,11 @@ $neu-round-radius: 15px;
 }
 
 %neu-hover {
-    color: #888;
+    color: rgb(80, 200, 240);
     background-color: #FFFFFF;
 }
 
 %neu-active {
     @extend %neu-shadow-under;
-    color: #444;
     background: $mainColor;
 }

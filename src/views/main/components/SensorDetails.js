@@ -9,6 +9,7 @@ import '../../../style/main/components/SensorDetails.scss';
 import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
 import ChartTabs from './ChartTabs.js';
 import Button from '../../../components/Button'
+import { getApiUrl } from '../../../config/ApiURL';
 
 class SensorDetails extends Component {
 	constructor(props) {
@@ -47,45 +48,72 @@ class SensorDetails extends Component {
 	}
 
 	getLastMeasuremtnTime() {
-		let lastTimestamp = this.state.stationDetal.sensors.airQuality.values[0].timestamp;
+		let latestData = this.state.latestData;
+		if (!latestData) {
+			return null;
+		}
+
+		let lastTimestamp = latestData.sensors[0].values[0].timestamp;
 		let dateTime = new Date(lastTimestamp);
-		return dateTime.getHours() + ":" + dateTime.getMinutes() + " "
-			+ dateTime.getDay() + "/" + dateTime.getMonth() + "/" + dateTime.getFullYear();
+		return dateTime.toLocaleString("en-US");
 	}
 
-	makeSensorInfo() {
-		let typeToName = {
-			'pm1': 'pm 1',
-			'pm2_5': 'pm 2.5',
-			'pm10': 'pm 10',
+	getTitle() {
+		let latestData = this.state.latestData;
+		if (!latestData) {
+			return null;
 		}
-		let sensorsData = ['pm10', 'pm2_5', 'pm1'].map(sensorType => {
-			if (this.state.stationDetal.sensors[sensorType]) {
-				return this.state.stationDetal.sensors[sensorType];
+		return this.state.latestData.address.city + ", " + 
+			   this.state.latestData.address.street + " " + 
+			   this.state.latestData.address.number;
+	}
+
+	getGauges() {
+		let latestData = this.state.latestData;
+		if (!latestData) {
+			return null;
+		}
+
+		let typeToGaugeGenerator = {
+			'pm2_5': (sensorData) => <Gauge name="PM2.5" value={sensorData.values[0].value} norm={25} unit="µg/m³"></Gauge>,
+			'pm10': (sensorData) => <Gauge name="PM10" value={sensorData.values[0].value} norm={50} unit="µg/m³"></Gauge>,
+		}
+
+		return latestData["sensors"].map(sensor => {
+			let generator = typeToGaugeGenerator[sensor["type"]];
+			if (generator) {
+				return generator(sensor);
 			}
 			return null;
 		});
-
-		return sensorsData.map((item, index) => {
-			let measurement = item.values[0];
-			return <div key={index} className="holder">
-				<div className="verticalItemHolder">
-					<span className={`qualityStatusCircle ${this.getQualityClassColor(measurement.state)}`}></span>
-					<span className="valueName">{typeToName[item.type]}</span>
-				</div>
-				<div className="verticalItemHolder">
-					<div className="valuePrecentage">{this.pmToPrecentage(item.type, measurement.value)}</div>
-					<div className="value">{measurement.value} <span>µg/m³</span></div>
-				</div>
-			</div>
-		});
 	}
 
-	render() {
+	getStationData(stationId) {
+		let key = `station${stationId}Key`;
+		fetch(getApiUrl('getPopupData', [stationId], {
+			'strategy': 'latest',
+		}))
+		.then(response => response.json())
+		.then(data => {
+			this.setState({
+				latestData: data["data"],
+			});
+		})
+		.catch(e => console.error(e));
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
 		const { sensorData } = this.props;
 		if (this.state.isFirst && sensorData) {
 			this.setState({ isFirst: false });
 		}
+		if (!this.state.latestData && sensorData) {
+			this.getStationData(sensorData["id"]);
+		}
+	}
+
+	render() {
+		const { sensorData } = this.props;
 		let noneClass = this.state.isFirst ? "none " : "";
 
 		// only in development mode, it's will be removed, after added communication with api
@@ -95,13 +123,16 @@ class SensorDetails extends Component {
 		return (
 			<div className={noneClass + `stationDetail animated faster ${sensorData ? "slideInRight" : "slideOutRight"}`}>
 				<div className="close">
-				<Button onClick={() => this.props.dispatch(sensorDetailAction(null))}>
+				<Button onClick={() => {
+					this.props.dispatch(sensorDetailAction(null));
+					this.setState(({latestData: null}));
+				}}>
 					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
 				</Button>
 				</div>
 				<div className="card">
 					<div className="holder">
-						<div>{data.address.street} {data.address.number}</div>
+						<div>{this.getTitle()}</div>
 					</div>
 
 					<div className="summaryContainer">
@@ -115,9 +146,7 @@ class SensorDetails extends Component {
 					</div>
 
 					<div className="gaugesRow">
-						<Gauge></Gauge>
-						<Gauge></Gauge>
-						<Gauge></Gauge>
+						{this.getGauges()}
 					</div>
 					<div className="hd">
 						<span className="subInfo">Last measurement: {this.getLastMeasuremtnTime()}</span>
@@ -131,7 +160,9 @@ class SensorDetails extends Component {
 					<span className="subInfo">Measurements from last 24 hours</span>
 					</div>
 					<div className="sensorChart">
-					<ChartTabs stationDetal={this.state.stationDetal} />
+						{this.props.sensorData != null && 
+							<ChartTabs stationId={this.props.sensorData.id}/>
+						}
 					</div>
 				</div>
 				</div>
