@@ -118,7 +118,10 @@ class SensorDetails extends Component {
 
 		// only in development mode, it's will be removed, after added communication with api
 		this.loadData();
-		let data = this.state.stationDetal;
+
+		if (!this.state.latestData) {
+			return <div></div>
+		}
 
 		return (
 			<div className={noneClass + `stationDetail animated faster ${sensorData ? "slideInRight" : "slideOutRight"}`}>
@@ -136,8 +139,12 @@ class SensorDetails extends Component {
 					</div>
 
 					<div className="summaryContainer">
-					<div className="summary">
+						<div className="summaryImageContainer">
+						<div className="summary">
 					</div>
+						</div>
+				
+					<Gauge name="AQI" value={this.state.latestData.caqi} norm={50}></Gauge>
 					</div>
 
 					<div className="block">

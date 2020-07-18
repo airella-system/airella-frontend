@@ -21,7 +21,7 @@ class GaugeCanvas extends React.Component {
 	}
 	drawShadow(context, color, x, y, offsetX, offsetY, radius, angleStart, angleEnd, dpr) {
 		context.shadowColor = color;
-		context.shadowBlur = 5;
+		context.shadowBlur = 5 * dpr;
 		context.shadowOffsetX = (1000 + offsetX) * dpr;
 		context.shadowOffsetY = (0 + offsetY) * dpr;
 		context.beginPath();
@@ -50,7 +50,7 @@ class GaugeCanvas extends React.Component {
 		let radius = this.canvasWidth / 3;
 		let context = this.refs.canvas.getContext('2d');
 
-		context.strokeStyle = 'rgb(231, 239, 248)';
+		context.strokeStyle = 'rgb(244, 244, 244)';
 		context.lineWidth = 20;
 		context.lineCap = "round";
 		context.beginPath();
@@ -59,8 +59,8 @@ class GaugeCanvas extends React.Component {
 
 		context.globalCompositeOperation='source-atop';
 
-		let colorLight = '#FFFFFF';
-		let colorDark = '#c3cbd8';
+		let colorLight = '#FFFFFF88';
+		let colorDark = '#00225533';
 
 		this.drawShadow(context, colorLight, x, y, -5, -5, radius + context.lineWidth, 0, Math.PI * 2, dpr);
 		this.drawShadow(context, colorLight, x, y, -5, -5, radius - context.lineWidth, 0, Math.PI * 2, dpr);
@@ -86,6 +86,7 @@ class GaugeCanvas extends React.Component {
 		let y = this.canvasHeight * 3 / 5;
 		let radius = this.canvasWidth / 3;
 		let context = this.refs.canvas2.getContext('2d');
+		context.clearRect(0, 0, context.canvas.width, context.canvas.height)
 		context.globalCompositeOperation='source-over';
 
 		let colorLight = '#FFFFFF';

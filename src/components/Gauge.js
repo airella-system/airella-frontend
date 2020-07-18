@@ -26,7 +26,7 @@ class Gauge extends React.Component {
 	render() {
 		let percent = this.props.value / (this.props.norm * 2);
 
-		percent = Math.max(0, percent);
+		percent = Math.max(0.01, percent); // 0.01 so gauge will always be visible
 		percent = Math.min(1, percent);
 
 		const goodColor = this.hexToRgb("#2ecc71");
@@ -52,6 +52,8 @@ class Gauge extends React.Component {
 				</div>
 
 				<div style={{ position: "absolute", top: "35%", left: "25%", width: "50%", height: "35%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+					{this.props.unit &&
+					<>
 					<div style={{ width: "45%", float: "left", textAlign: "center" }}>
 						<div style={{ color: "#000", fontSize: "19px", fontWeight: "400" }}>
 							{Math.round(this.props.value * 10) / 10}
@@ -70,6 +72,15 @@ class Gauge extends React.Component {
 							%
 						</span>
 					</div>
+					</>
+					}
+					{!this.props.unit &&
+						<div style={{ width: "100%", float: "right", textAlign: "center" }}>
+						<span style={{ color: "#000", fontSize: "32px", fontWeight: "300" }}>
+							{this.props.value}
+						</span>
+					</div> 
+					}
 				</div>
 				<div style={{ position: "absolute", width: this.props.width, left: "0px", top: "70%", textAlign: "center", color: "#000", fontSize: "20px", fontWeight: "500" }}>
 					{this.props.name}
