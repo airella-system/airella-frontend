@@ -130,12 +130,18 @@ class SensorDetails extends Component {
 					this.props.dispatch(sensorDetailAction(null));
 					this.setState(({latestData: null}));
 				}}>
+					
 					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
 				</Button>
 				</div>
+				<div className="stationList">
 				<div className="card">
+					<div className="innerCard">
 					<div className="holder">
 						<div>{this.getTitle()}</div>
+					</div>
+					<div className="hd">
+						Air quality:
 					</div>
 
 					<div className="summaryContainer">
@@ -144,9 +150,11 @@ class SensorDetails extends Component {
 					</div>
 						</div>
 				
-					<Gauge name="AQI" value={this.state.latestData.caqi} norm={50}></Gauge>
+					<Gauge name="AQI" value={Math.round(this.state.latestData.caqi)} norm={50} width={200} height={140} lineWidth={20}></Gauge>
+					</div>
 					</div>
 
+					<div className="innerCard">
 					<div className="block">
 					<div className="hd">
 						Pollutions:
@@ -159,8 +167,10 @@ class SensorDetails extends Component {
 						<span className="subInfo">Last measurement: {this.getLastMeasuremtnTime()}</span>
 					</div>
 					</div>
+					</div>
 
 					
+					<div className="innerCard">
 					<div className="block">
 					<div className="hd">
 						History:
@@ -170,6 +180,8 @@ class SensorDetails extends Component {
 						{this.props.sensorData != null && 
 							<ChartTabs stationId={this.props.sensorData.id}/>
 						}
+					</div>
+					</div>
 					</div>
 				</div>
 				</div>

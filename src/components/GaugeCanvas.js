@@ -21,7 +21,7 @@ class GaugeCanvas extends React.Component {
 	}
 	drawShadow(context, color, x, y, offsetX, offsetY, radius, angleStart, angleEnd, dpr) {
 		context.shadowColor = color;
-		context.shadowBlur = 5 * dpr;
+		context.shadowBlur = this.props.shadowRadius * dpr;
 		context.shadowOffsetX = (1000 + offsetX) * dpr;
 		context.shadowOffsetY = (0 + offsetY) * dpr;
 		context.beginPath();
@@ -51,7 +51,7 @@ class GaugeCanvas extends React.Component {
 		let context = this.refs.canvas.getContext('2d');
 
 		context.strokeStyle = 'rgb(244, 244, 244)';
-		context.lineWidth = 20;
+		context.lineWidth = this.props.lineWidth;
 		context.lineCap = "round";
 		context.beginPath();
 		context.arc(x, y, radius, backgroundStartAngle, backgroundEndAngle, false);
@@ -95,7 +95,7 @@ class GaugeCanvas extends React.Component {
 		context.strokeStyle = this.props.color;
 		context.shadowColor = this.props.color;
 		context.lineCap = "round";
-		context.lineWidth = 20;
+		context.lineWidth = this.props.lineWidth;
 		context.shadowBlur = 0;
 		context.shadowOffsetX = 0;
 		context.shadowOffsetY = 0;
@@ -161,6 +161,8 @@ GaugeCanvas.defaultProps = {
 	width: 200,
 	height: 140,
 	percent: 0.5,
+	lineWidth: 20,
+	shadowRadius: 5,
 	color: 'rgb(253, 150, 100)',
 }
 

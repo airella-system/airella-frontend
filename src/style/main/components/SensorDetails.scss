@@ -5,18 +5,33 @@
     border-bottom-left-radius: $neu-round-radius;
     @extend %neu-shadow-over;
     height: 100vh;
-    overflow-y: scroll; 
     background: $mainColor;
     color: $textColor;
     display: block;
-    width: 400px;
+    width: 420px;
     position: absolute;
     z-index: 9999;
     right: 0px;
     top: 0px;
 
-    .block {
+    .stationList {
+        overflow-y: scroll; 
+        height: 100vh;
+    }
+
+    .innerCard {
+        @extend %neu-shadow-over;
+        @extend %neu-rounded;
+        margin-top: 10px;
         margin-bottom: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .block {
+        // margin-bottom: 20px;
         // margin: 10px;
         // padding: 10px;
         // @extend %neu-rounded;
@@ -25,7 +40,7 @@
 
     .close{
         position: absolute;
-        right: 0;
+        left: -50px;
         font-size: 30px;
         margin: 10px 10px 0 0;
         transition: $transitionTime;
@@ -40,9 +55,8 @@
         font-size: 25px;
         font-weight: 500;
         color: $textColor;
-        padding-top: 15px;
         margin-left: 15px;
-        margin-bottom: 15px;
+        margin-bottom: 0px;
     }
     .card{
         background: $mainColor;
@@ -53,10 +67,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             .summaryImageContainer {
                 width: 200px;
-                height: 140px;
+                height: 150px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -97,6 +111,7 @@
     }
     .hd{
         padding-top: 5px;
+        padding-bottom: 5px;
         margin-left: 15px;
         font-size: 22px;
         font-weight: 400;
