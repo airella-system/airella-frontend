@@ -10,13 +10,16 @@ import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
 import ChartTabs from './ChartTabs.js';
 import Button from '../../../components/Button'
 import { getApiUrl } from '../../../config/ApiURL';
-
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import ScrollBar from "react-perfect-scrollbar";
+import "react-perfect-scrollbar/dist/css/styles.css";
 class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			stationDetal: null,
 			isFirst: true,
+			visible: false,
 		};
 	}
 
@@ -73,10 +76,10 @@ class SensorDetails extends Component {
 		if (!latestData) {
 			return null;
 		}
-
+		let id = this.state.latestData["id"];
 		let typeToGaugeGenerator = {
-			'pm2_5': (sensorData) => <Gauge name="PM2.5" value={sensorData.values[0].value} norm={25} unit="µg/m³"></Gauge>,
-			'pm10': (sensorData) => <Gauge name="PM10" value={sensorData.values[0].value} norm={50} unit="µg/m³"></Gauge>,
+			'pm2_5': (sensorData) => <Gauge key={id+"PM2.5"} name="PM2.5" value={sensorData.values[0].value} norm={25} unit="µg/m³"></Gauge>,
+			'pm10': (sensorData) => <Gauge key={id+"PM10"} name="PM10" value={sensorData.values[0].value} norm={50} unit="µg/m³"></Gauge>,
 		}
 
 		return latestData["sensors"].map(sensor => {
@@ -104,11 +107,10 @@ class SensorDetails extends Component {
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		const { sensorData } = this.props;
-		if (this.state.isFirst && sensorData) {
-			this.setState({ isFirst: false });
-		}
-		if (!this.state.latestData && sensorData) {
+		if ((this.props.sensorData && prevProps.sensorData && this.props.sensorData["id"] != prevProps.sensorData["id"])
+			|| (this.props.sensorData && !prevProps.sensorData)) {
 			this.getStationData(sensorData["id"]);
+			this.setState({ visible: true });
 		}
 	}
 
@@ -124,17 +126,17 @@ class SensorDetails extends Component {
 		}
 
 		return (
-			<div className={noneClass + `stationDetail animated faster ${sensorData ? "slideInRight" : "slideOutRight"}`}>
+			<div className={`stationDetail animated faster ${this.state.visible ? "slideInRight" : "slideOutRight"}`}>
 				<div className="close">
 				<Button onClick={() => {
 					this.props.dispatch(sensorDetailAction(null));
-					this.setState(({latestData: null}));
+					this.setState({ visible: false });
 				}}>
 					
 					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
 				</Button>
 				</div>
-				<div className="stationList">
+				<ScrollBar className="stationList" options={{suppressScrollX : true}}>
 				<div className="card">
 					<div className="innerCard">
 					<div className="holder">
@@ -150,7 +152,7 @@ class SensorDetails extends Component {
 					</div>
 						</div>
 				
-					<Gauge name="AQI" value={Math.round(this.state.latestData.caqi)} norm={50} width={200} height={140} lineWidth={20}></Gauge>
+					<Gauge key={this.state.latestData["id"]} name="AQI" value={Math.round(this.state.latestData.caqi)} norm={50} width={200} height={140} lineWidth={20}></Gauge>
 					</div>
 					</div>
 
@@ -162,6 +164,7 @@ class SensorDetails extends Component {
 
 					<div className="gaugesRow">
 						{this.getGauges()}
+
 					</div>
 					<div className="hd">
 						<span className="subInfo">Last measurement: {this.getLastMeasuremtnTime()}</span>
@@ -178,13 +181,13 @@ class SensorDetails extends Component {
 					</div>
 					<div className="sensorChart">
 						{this.props.sensorData != null && 
-							<ChartTabs stationId={this.props.sensorData.id}/>
+							<ChartTabs key={this.props.sensorData.id} stationId={this.props.sensorData.id}/>
 						}
 					</div>
 					</div>
-					</div>
 				</div>
 				</div>
+				</ScrollBar>
 			</div>
 		);
 	}

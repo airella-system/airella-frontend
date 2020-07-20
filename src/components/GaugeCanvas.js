@@ -36,6 +36,12 @@ class GaugeCanvas extends React.Component {
 		this.setupCanvas(this.refs.canvas);
 		this.setupCanvas(this.refs.canvas2);
 	}
+	clearCanvases() {
+		let context = this.refs.canvas.getContext('2d');
+		context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+		context = this.refs.canvas2.getContext('2d');
+		context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+	}
 	drawBackground() {
 		var dpr = window.devicePixelRatio || 1;
 
@@ -49,6 +55,7 @@ class GaugeCanvas extends React.Component {
 		let y = this.canvasHeight * 3 / 5;
 		let radius = this.canvasWidth / 3;
 		let context = this.refs.canvas.getContext('2d');
+		context.globalCompositeOperation='source-over';
 
 		context.strokeStyle = 'rgb(244, 244, 244)';
 		context.lineWidth = this.props.lineWidth;
@@ -117,10 +124,9 @@ class GaugeCanvas extends React.Component {
 		this.drawShadow(context, colorDark, x, y, +5, +5, radius, shadowStartAngle, shadowEndAngle);
 	}
 	componentDidMount() {
-		this.startTime = undefined;
 		this.setupCanvases();
+		this.startTime = undefined;
 		this.drawBackground();
-
 		this.rAF = requestAnimationFrame(this.updateAnimationState);
 	}
 	componentWillUnmount() {
