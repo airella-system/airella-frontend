@@ -55,20 +55,20 @@ class Gauge extends React.Component {
 					{this.props.unit &&
 					<>
 					<div style={{ width: "45%", float: "left", textAlign: "center" }}>
-						<div style={{ color: "#000", fontSize: "18px", fontWeight: "400" }}>
-							{Math.round(this.props.value * 10) / 10}
+						<div style={{fontSize: "24px", fontWeight: "300" }}>
+							{Math.round(this.props.value)}
 						</div>
-						<div style={{ color: "#888", fontSize: "10px", fontWeight: "300"  }}>
+						<div style={{ color: "#777", fontSize: "10px", fontWeight: "400"  }}>
 							{this.props.unit}
 						</div>
 					</div>
 					<div style={{ width: "10%", height: "100%", float: "left", background: "linear-gradient(#AAA, #AAA) no-repeat center/1px 50%" }}>
 					</div>
 					<div style={{ width: "45%", float: "right", textAlign: "center" }}>
-						<span style={{ color: "#000", fontSize: "18px", fontWeight: "400" }}>
+						<span style={{ fontSize: "24px", fontWeight: "300" }}>
 							{Math.round(this.props.value / this.props.norm * 100)}
 						</span>
-						<span style={{ color: "#000", fontSize: "10px", fontWeight: "300" }}>
+						<span style={{ fontSize: "10px", fontWeight: "300" }}>
 							%
 						</span>
 					</div>
@@ -76,13 +76,13 @@ class Gauge extends React.Component {
 					}
 					{!this.props.unit &&
 						<div style={{ width: "100%", float: "right", textAlign: "center" }}>
-						<span style={{ color: "#000", fontSize: "30px", fontWeight: "300" }}>
+						<span style={{ fontSize: "30px", fontWeight: "300" }}>
 							{this.props.value}
 						</span>
 					</div> 
 					}
 				</div>
-				<div style={{ position: "absolute", width: this.props.width, left: "0px", top: "70%", textAlign: "center", color: "#000", fontSize: "20px", fontWeight: "500" }}>
+				<div style={{ position: "absolute", width: this.props.width, left: "0px", top: "75%", textAlign: "center", fontSize: "20px", fontWeight: "500" }}>
 					{this.props.name}
 				</div>
 			</div>

@@ -13,6 +13,7 @@ import { getApiUrl } from '../../../config/ApiURL';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import ScrollBar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import Statistic from "./Statistic";
 class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
@@ -82,12 +83,35 @@ class SensorDetails extends Component {
 			'pm10': (sensorData) => <Gauge key={id+"PM10"} name="PM10" value={sensorData.values[0].value} norm={50} unit="µg/m³"></Gauge>,
 		}
 
-		return latestData["sensors"].map(sensor => {
-			let generator = typeToGaugeGenerator[sensor["type"]];
-			if (generator) {
-				return generator(sensor);
+		let priority = ['pm2_5', 'pm10'];
+
+		return priority.map(sensorType => {
+			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
+			if (sensors.length >= 1) {
+				return typeToGaugeGenerator[sensorType](sensors[0]);
 			}
+		});
+	}
+
+
+	getStatistics() {
+		let latestData = this.state.latestData;
+		if (!latestData) {
 			return null;
+		}
+		let id = this.state.latestData["id"];
+		let typeToGaugeGenerator = {
+			'temperature': (sensorData) => <Statistic key={id+"temperature"} name="Temperature" value={sensorData.values[0].value} unit="℃"></Statistic>,
+			'humidity': (sensorData) => <Statistic key={id+"humidity"} name="Humidity" value={sensorData.values[0].value} unit="%"></Statistic>,
+		}
+
+		let priority = ['temperature', 'humidity'];
+
+		return priority.map(sensorType => {
+			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
+			if (sensors.length >= 1) {
+				return typeToGaugeGenerator[sensorType](sensors[0]);
+			}
 		});
 	}
 
@@ -164,10 +188,22 @@ class SensorDetails extends Component {
 
 					<div className="gaugesRow">
 						{this.getGauges()}
-
 					</div>
+					{/* <div className="horizontalLine"></div>
 					<div className="hd">
 						<span className="subInfo">Last measurement: {this.getLastMeasuremtnTime()}</span>
+					</div> */}
+					</div>
+					</div>
+
+
+					<div className="innerCard">
+					<div className="block">
+					<div className="hd">
+						Other statistics:
+					</div>
+					<div className="gaugesRow">
+					{this.getStatistics()}
 					</div>
 					</div>
 					</div>

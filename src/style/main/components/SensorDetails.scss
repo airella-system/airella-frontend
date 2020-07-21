@@ -91,6 +91,14 @@
             align-items: center;
             flex-wrap: wrap;
         }
+        .horizontalLine {
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+
+            border: 0.5px solid #cfcfcf;
+        }
         .address{
             font-size: 23px;
             font-weight: bold;
