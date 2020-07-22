@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map, TileLayer, CircleMarker, Marker, Circle, Tooltip, Polygon, SVGOverlay } from "react-leaflet";
-import MapPopup from './MapPopup';
 import '../../../style/main/components/MapComponent.scss';
 import 'leaflet/dist/leaflet.css';
 import { getApiUrl } from '../../../config/ApiURL';
+import AnimatedMapPopup from './AnimatedMapPopup'
 
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
@@ -14,7 +14,6 @@ L.Icon.Default.mergeOptions({
 	iconUrl: require('leaflet/dist/images/marker-icon.png'),
 	shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
-
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	try{
@@ -133,11 +132,10 @@ class MapComponent extends Component {
 			let stationId = item.id;
 			let stationDataKey = `station${stationId}Key`;
 			return(
-			<CircleMarker key={index} center={position} fillColor="#ff0000" color="#ff0000" onClick={() => this.getStationData(stationId)}>
-				<MapPopup stationData={this.state[stationDataKey]}/>
-				{/* <Circle center={position} radius={1000} fillOpacity="1" fillColor="url(#gradient1)" stroke={false}/> */}
-			</CircleMarker>
-		)
+				<CircleMarker key={index} center={position} fillColor="#ff0000" color="#ff0000" onClick={() => this.getStationData(stationId)}>
+					<AnimatedMapPopup stationData={this.state[stationDataKey]} />
+				</CircleMarker>
+			)
 		});
 	}
 
