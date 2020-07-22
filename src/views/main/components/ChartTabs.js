@@ -206,7 +206,7 @@ class ChartTabs extends Component {
       chartDataSets.push(chartData);
     }
 
-    this.lineChart(handler, labels, chartDataSets, colors, ['PM10', 'PM2.5', 'PM1']);
+    this.lineChart(handler, labels, chartDataSets, colors, ['PM1', 'PM2.5', 'PM10']);
   }
 
   makeChart() {

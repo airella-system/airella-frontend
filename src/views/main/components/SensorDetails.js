@@ -122,9 +122,10 @@ class SensorDetails extends Component {
 		let typeToGaugeGenerator = {
 			'temperature': (sensorData) => <Statistic key={id+"temperature"} name="Temperature" value={sensorData.values[0].value} unit="℃"></Statistic>,
 			'humidity': (sensorData) => <Statistic key={id+"humidity"} name="Humidity" value={sensorData.values[0].value} unit="%"></Statistic>,
+			'pressure': (sensorData) => <Statistic key={id+"pressure"} name="Pressure" value={sensorData.values[0].value} unit="hPa"></Statistic>,
 		}
 
-		let priority = ['temperature', 'humidity'];
+		let priority = ['temperature', 'humidity', 'pressure'];
 
 		return priority.map(sensorType => {
 			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
