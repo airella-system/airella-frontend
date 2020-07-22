@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/components/gauge-canvas.scss';
+import styles from '../style/components/gauge-canvas.module.scss';
 
 class GaugeCanvas extends React.Component {
 	setupCanvas(canvas) {
@@ -155,9 +155,9 @@ class GaugeCanvas extends React.Component {
 
 	  render() {
 		return(
-		  <div className="root" style={{width: this.props.width, height: this.props.height}}>
-			<canvas className="canvas" ref="canvas" width={this.props.width} height={this.props.height} />
-			<canvas className="canvas" ref="canvas2" width={this.props.width} height={this.props.height} />
+		  <div className={styles.root} style={{width: this.props.width, height: this.props.height}}>
+			<canvas className={styles.canvas} ref="canvas" width={this.props.width} height={this.props.height} />
+			<canvas className={styles.canvas} ref="canvas2" width={this.props.width} height={this.props.height} />
 		  </div>
 		)
 	  }

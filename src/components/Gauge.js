@@ -1,10 +1,12 @@
 import React from 'react';
 import GaugeCanvas from './GaugeCanvas';
+import styles from '../style/components/gauge.module.scss';
 
 class Gauge extends React.Component {
 	componentDidMount() {
 
 	}
+
 	hexToRgb(hex) {
 		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 		return result ? {
@@ -13,9 +15,11 @@ class Gauge extends React.Component {
 		  b: parseInt(result[3], 16)
 		} : null;
 	  }
+
 	interpolate(first, second, percent) {
 		return first + (second - first) * percent;
 	}
+
 	interpolateColor(first, second, percent) {
 		return {
 			r: this.interpolate(first.r, second.r, percent),
@@ -23,12 +27,8 @@ class Gauge extends React.Component {
 			b: this.interpolate(first.b, second.b, percent),
 		}
 	}
-	render() {
-		let percent = this.props.value / (this.props.norm * 2);
 
-		percent = Math.max(0.01, percent); // 0.01 so gauge will always be visible
-		percent = Math.min(1, percent);
-
+	calculateColor(percent) {
 		const goodColor = this.hexToRgb("#2ecc71");
 		const normalColor = this.hexToRgb("#f1c40f");
 		const badColor = this.hexToRgb("#e74c3c");
@@ -37,52 +37,63 @@ class Gauge extends React.Component {
 		if (percent < 0.5) {
 			const colorPercent = percent * 2;
 			color = this.interpolateColor(goodColor, normalColor, colorPercent);
-
 		} else {
 			const colorPercent = (percent - 0.5) * 2;
 			color = this.interpolateColor(normalColor, badColor, colorPercent);
 		}
-		let cssColor = `rgb(${color.r}, ${color.g}, ${color.b})`;
+		return`rgb(${color.r}, ${color.g}, ${color.b})`;
+	}
+
+	render() {
+		let percent = this.props.value / (this.props.norm * 2);
+
+		percent = Math.max(0.01, percent); // 0.01 so gauge will always be visible
+		percent = Math.min(1, percent);
+
+		let cssColor = this.calculateColor(percent);
 
 		return (
-			<div style={{ position: "relative", width: this.props.width, height: this.props.height }}>
-				<div style={{ position: "absolute", left: "0px", top: "0px" }}>
-					<GaugeCanvas percent={percent} color={cssColor} width={this.props.width} height={this.props.height} lineWidth={this.props.lineWidth} shadowRadius={this.props.shadowRadius}>
+			<div className={styles.root} 
+			style={{ position: "relative", width: this.props.width, height: this.props.height }}>
+				<div className={styles.gauge}>
+					<GaugeCanvas percent={percent} color={cssColor} width={this.props.width} 
+						height={this.props.height} lineWidth={this.props.lineWidth}
+						shadowRadius={this.props.shadowRadius}>
 					</GaugeCanvas>
 				</div>
 
-				<div style={{ position: "absolute", top: "35%", left: "25%", width: "50%", height: "35%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+				<div className={styles.insideRoot}>
 					{this.props.unit &&
 					<>
-					<div style={{ width: "45%", float: "left", textAlign: "center" }}>
-						<div style={{fontSize: "24px", fontWeight: "300" }}>
+					<div className={styles.leftValueContainer}>
+						<div className={styles.leftValue}>
 							{Math.round(this.props.value)}
 						</div>
-						<div style={{ color: "#777", fontSize: "10px", fontWeight: "400"  }}>
+						<div className={styles.leftUnit}>
 							{this.props.unit}
 						</div>
 					</div>
-					<div style={{ width: "10%", height: "100%", float: "left", background: "linear-gradient(#AAA, #AAA) no-repeat center/1px 50%" }}>
+					<div className={styles.spaceBetween}>
 					</div>
-					<div style={{ width: "45%", float: "right", textAlign: "center" }}>
-						<span style={{ fontSize: "24px", fontWeight: "300" }}>
+					<div className={styles.rightValueContainer}>
+						<span className={styles.rightValue}>
 							{Math.round(this.props.value / this.props.norm * 100)}
 						</span>
-						<span style={{ fontSize: "10px", fontWeight: "300" }}>
+						<span className={styles.rightUnit}>
 							%
 						</span>
 					</div>
 					</>
 					}
 					{!this.props.unit &&
-						<div style={{ width: "100%", float: "right", textAlign: "center" }}>
-						<span style={{ fontSize: "30px", fontWeight: "300" }}>
+						<div className={styles.centerValueContainer}>
+						<span className={styles.centerValue}>
 							{this.props.value}
 						</span>
 					</div> 
 					}
 				</div>
-				<div style={{ position: "absolute", width: this.props.width, left: "0px", top: "75%", textAlign: "center", fontSize: "20px", fontWeight: "500" }}>
+				<div className={styles.name} style={{width: this.props.width}}>
 					{this.props.name}
 				</div>
 			</div>

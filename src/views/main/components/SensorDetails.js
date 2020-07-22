@@ -13,7 +13,7 @@ import { getApiUrl } from '../../../config/ApiURL';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import ScrollBar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import Statistic from "./Statistic";
+import Statistic from "../../../components/Statistic";
 class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
