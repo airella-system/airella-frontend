@@ -93,6 +93,25 @@ class SensorDetails extends Component {
 		});
 	}
 
+	getPollutionStatistics() {
+		let latestData = this.state.latestData;
+		if (!latestData) {
+			return null;
+		}
+		let id = this.state.latestData["id"];
+		let typeToGaugeGenerator = {
+			'pm1': (sensorData) => <Statistic pollution={true} key={id+"PM1"} name="PM1" value={sensorData.values[0].value} unit="µg/m³"></Statistic>,
+		}
+
+		let priority = ['pm1'];
+
+		return priority.map(sensorType => {
+			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
+			if (sensors.length >= 1) {
+				return typeToGaugeGenerator[sensorType](sensors[0]);
+			}
+		});
+	}
 
 	getStatistics() {
 		let latestData = this.state.latestData;
@@ -176,7 +195,7 @@ class SensorDetails extends Component {
 					</div>
 						</div>
 				
-					<Gauge key={this.state.latestData["id"]} name="AQI" value={Math.round(this.state.latestData.caqi)} norm={50} width={200} height={140} lineWidth={20}></Gauge>
+					<Gauge key={this.state.latestData["id"]} name="AQI" value={Math.round(this.state.latestData.aqi)} norm={50} width={200} height={140} lineWidth={20}></Gauge>
 					</div>
 					</div>
 
@@ -188,6 +207,10 @@ class SensorDetails extends Component {
 
 					<div className="gaugesRow">
 						{this.getGauges()}
+					</div>
+					<div className="horizontalLine"></div>
+					<div className="gaugesRow">
+						{this.getPollutionStatistics()}
 					</div>
 					{/* <div className="horizontalLine"></div>
 					<div className="hd">

@@ -87,7 +87,6 @@
         }
         .gaugesRow {
             display: flex;
-            justify-content: center;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -175,7 +174,7 @@
         justify-content: center;
         .chart {
             width: 350px !important;
-            height: 100px !important;
+            height: 120px !important;
         }
         .panel-wrapper{
             min-height: 308px;

@@ -144,7 +144,7 @@ class ChartTabs extends Component {
         scales: {
           xAxes: [{
             ticks: {
-              display: false,
+              display: true,
             },
             gridLines: {
               display: false,
@@ -189,7 +189,7 @@ class ChartTabs extends Component {
 
     let labels = this.state.data.sensors[0].values.map(value => {
       let timestamp = new Date(value.timestamp);
-      return 'Time: ' + timestamp.getHours() + ':00';
+      return timestamp.getHours() + ':00';
     });
 
     let colors = ['#0090f3', '#BBbfFd', '#Ffb8ed'];
@@ -200,13 +200,13 @@ class ChartTabs extends Component {
       let sensor = this.state.data.sensors.filter(sensor => sensor.type === index)[0];
 
       let chartData = sensor.values.map(data => {
-        return data.value;
+        return Math.round(data.value);
       });
 
       chartDataSets.push(chartData);
     }
 
-    this.lineChart(handler, labels, chartDataSets, colors, ['PM 10', 'PM 2.5', 'PM 1']);
+    this.lineChart(handler, labels, chartDataSets, colors, ['PM10', 'PM2.5', 'PM1']);
   }
 
   makeChart() {
