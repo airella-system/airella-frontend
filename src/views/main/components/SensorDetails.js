@@ -171,6 +171,7 @@ class SensorDetails extends Component {
 
 		return (
 			<div className={`stationDetail animated faster ${this.state.visible ? "slideInRight" : "slideOutRight"}`}>
+				
 				<div className="close">
 				<Button onClick={() => {
 					this.props.dispatch(sensorDetailAction(null));
@@ -180,6 +181,7 @@ class SensorDetails extends Component {
 					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
 				</Button>
 				</div>
+				<div className="stationInside">
 				<ScrollBar className="stationList" options={{suppressScrollX : true}}>
 				<div className="card">
 					<div className="innerCard">
@@ -248,6 +250,7 @@ class SensorDetails extends Component {
 				</div>
 				</div>
 				</ScrollBar>
+				</div>
 			</div>
 		);
 	}
