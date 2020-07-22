@@ -8,7 +8,6 @@
       background-color: $iconBase;
       margin-top: 4px;
       border-radius: 3px;
-      transition: .2s;
       &:first-child{
         margin-top: 0px;
       }
@@ -41,7 +40,6 @@
     .link{
       color: $menuLinkColor;
       text-decoration: none;
-      transition: $transitionTime;
       display: block;
 
       .holder{

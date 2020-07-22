@@ -8,22 +8,38 @@
     background: $mainColor;
     color: $textColor;
     display: block;
-    min-width: 400px;
+    width: 420px;
     position: absolute;
     z-index: 9999;
     right: 0px;
     top: 0px;
 
-    .card {
-        background: $mainColor;
-        border-top-left-radius: $neu-round-radius;
-        border-bottom-left-radius: $neu-round-radius;
-        margin-top: -25px;
+
+    .stationList {
+    }
+
+    .innerCard {
+        @extend %neu-shadow-over;
+        @extend %neu-rounded;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .block {
+        // margin-bottom: 20px;
+        // margin: 10px;
+        // padding: 10px;
+        // @extend %neu-rounded;
+        // @extend %neu-shadow-under;
     }
 
     .close{
         position: absolute;
-        right: 0;
+        left: -50px;
         font-size: 30px;
         margin: 10px 10px 0 0;
         transition: $transitionTime;
@@ -35,11 +51,53 @@
     .holder{
         display: flex;
         justify-content: space-between;
+        font-size: 25px;
+        font-weight: 500;
+        color: $textColor;
+        margin-left: 15px;
+        margin-bottom: 0px;
     }
-    .mainInfo{
+    .card{
+        overflow: hidden;
+        background: $mainColor;
         border-top-left-radius: $neu-round-radius;
         border-bottom-left-radius: $neu-round-radius;
-        padding: 15px 15px 25px 15px;
+
+        .summaryContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            .summaryImageContainer {
+                width: 200px;
+                height: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .summary {
+                    @extend %neu-shadow-under-subtle;
+                    border-radius: 50%;
+                    background-image: url("https://storage.needpix.com/rsynced_images/character-2927150_1280.png");
+                    background-size: cover;
+                    width: 150px;
+                    height: 150px;
+                }
+            }
+
+        }
+        .gaugesRow {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .horizontalLine {
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+
+            border: 0.5px solid #cfcfcf;
+        }
         .address{
             font-size: 23px;
             font-weight: bold;
@@ -59,11 +117,12 @@
         }
     }
     .hd{
-        padding-top: 15px;
-        margin-bottom: 1px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         margin-left: 15px;
-        font-size: 20px;
-        font-weight: bold;
+        font-size: 22px;
+        font-weight: 400;
+        color: $textColor;
         .subInfo{
             font-size: 13px;
             font-weight: normal;
@@ -115,7 +174,7 @@
         justify-content: center;
         .chart {
             width: 350px !important;
-            height: 100px !important;
+            height: 120px !important;
         }
         .panel-wrapper{
             min-height: 308px;

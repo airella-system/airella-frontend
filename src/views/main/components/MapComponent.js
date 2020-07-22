@@ -87,13 +87,12 @@ class MapComponent extends Component {
 				if(info.state == 'granted') {
 					this.setMapPositionWithGeolocation();
 				}
-				this.getMarkers();
 			})
 		} else {
 			// Safari doesn't support navigator.permissions
 			this.setMapPositionWithGeolocation();
 		}
-
+		this.getMarkers();
 	}
 
 	getStationData(stationId) {
@@ -160,7 +159,7 @@ class MapComponent extends Component {
 				<Map zoomControl={false} center={position} zoom={this.state.zoom} ref={m => { this.leafletMap = m; }} className="map" >
 					<TileLayer
 						attribution='<a href="//basemaps.cartocdn.com">Basemap</a> | &copy; <a href="//osm.org/copyright">OpenStreetMap</a> contributors'
-						url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
+						url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
 					/>
 					{this.renderMarkers()}
 					{this.currentPositionMarker()}

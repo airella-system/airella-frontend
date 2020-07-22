@@ -8,12 +8,19 @@ import Gauge from '../../../components/Gauge'
 import '../../../style/main/components/SensorDetails.scss';
 import { AirQualityIcons, indexToLevel } from '../../../config/AirQuality';
 import ChartTabs from './ChartTabs.js';
-
+import Button from '../../../components/Button'
+import { getApiUrl } from '../../../config/ApiURL';
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import ScrollBar from "react-perfect-scrollbar";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import Statistic from "../../../components/Statistic";
 class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			stationDetal: null,
+			isFirst: true,
+			visible: false,
 		};
 	}
 
@@ -45,85 +52,202 @@ class SensorDetails extends Component {
 	}
 
 	getLastMeasuremtnTime() {
-		let lastTimestamp = this.state.stationDetal.sensors.airQuality.values[0].timestamp;
+		let latestData = this.state.latestData;
+		if (!latestData) {
+			return null;
+		}
+
+		let lastTimestamp = latestData.sensors[0].values[0].timestamp;
 		let dateTime = new Date(lastTimestamp);
-		return dateTime.getHours() + ":" + dateTime.getMinutes() + " "
-			+ dateTime.getDay() + "/" + dateTime.getMonth() + "/" + dateTime.getFullYear();
+		return dateTime.toLocaleString("en-US");
 	}
 
-	makeSensorInfo() {
-		let typeToName = {
-			'pm1': 'pm 1',
-			'pm2_5': 'pm 2.5',
-			'pm10': 'pm 10',
-		}
-		let sensorsData = ['pm10', 'pm2_5', 'pm1'].map(sensorType => {
-			if (this.state.stationDetal.sensors[sensorType]) {
-				return this.state.stationDetal.sensors[sensorType];
-			}
+	getTitle() {
+		let latestData = this.state.latestData;
+		if (!latestData) {
 			return null;
-		});
+		}
+		return this.state.latestData.address.city + ", " + 
+			   this.state.latestData.address.street + " " + 
+			   this.state.latestData.address.number;
+	}
 
-		return sensorsData.map((item, index) => {
-			let measurement = item.values[0];
-			return <div key={index} className="holder">
-				<div className="verticalItemHolder">
-					<span className={`qualityStatusCircle ${this.getQualityClassColor(measurement.state)}`}></span>
-					<span className="valueName">{typeToName[item.type]}</span>
-				</div>
-				<div className="verticalItemHolder">
-					<div className="valuePrecentage">{this.pmToPrecentage(item.type, measurement.value)}</div>
-					<div className="value">{measurement.value} <span>µg/m³</span></div>
-				</div>
-			</div>
+	getGauges() {
+		let latestData = this.state.latestData;
+		if (!latestData) {
+			return null;
+		}
+		let id = this.state.latestData["id"];
+		let typeToGaugeGenerator = {
+			'pm2_5': (sensorData) => <Gauge key={id+"PM2.5"} name="PM2.5" value={sensorData.values[0].value} norm={25} unit="µg/m³"></Gauge>,
+			'pm10': (sensorData) => <Gauge key={id+"PM10"} name="PM10" value={sensorData.values[0].value} norm={50} unit="µg/m³"></Gauge>,
+		}
+
+		let priority = ['pm2_5', 'pm10'];
+
+		return priority.map(sensorType => {
+			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
+			if (sensors.length >= 1) {
+				return typeToGaugeGenerator[sensorType](sensors[0]);
+			}
 		});
+	}
+
+	getPollutionStatistics() {
+		let latestData = this.state.latestData;
+		if (!latestData) {
+			return null;
+		}
+		let id = this.state.latestData["id"];
+		let typeToGaugeGenerator = {
+			'pm1': (sensorData) => <Statistic pollution={true} key={id+"PM1"} name="PM1" value={sensorData.values[0].value} unit="µg/m³"></Statistic>,
+		}
+
+		let priority = ['pm1'];
+
+		return priority.map(sensorType => {
+			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
+			if (sensors.length >= 1) {
+				return typeToGaugeGenerator[sensorType](sensors[0]);
+			}
+		});
+	}
+
+	getStatistics() {
+		let latestData = this.state.latestData;
+		if (!latestData) {
+			return null;
+		}
+		let id = this.state.latestData["id"];
+		let typeToGaugeGenerator = {
+			'temperature': (sensorData) => <Statistic key={id+"temperature"} name="Temperature" value={sensorData.values[0].value} unit="℃"></Statistic>,
+			'humidity': (sensorData) => <Statistic key={id+"humidity"} name="Humidity" value={sensorData.values[0].value} unit="%"></Statistic>,
+			'pressure': (sensorData) => <Statistic key={id+"pressure"} name="Pressure" value={sensorData.values[0].value} unit="hPa"></Statistic>,
+		}
+
+		let priority = ['temperature', 'humidity', 'pressure'];
+
+		return priority.map(sensorType => {
+			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
+			if (sensors.length >= 1) {
+				return typeToGaugeGenerator[sensorType](sensors[0]);
+			}
+		});
+	}
+
+	getStationData(stationId) {
+		let key = `station${stationId}Key`;
+		fetch(getApiUrl('getPopupData', [stationId], {
+			'strategy': 'latest',
+		}))
+		.then(response => response.json())
+		.then(data => {
+			this.setState({
+				latestData: data["data"],
+			});
+		})
+		.catch(e => console.error(e));
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		const { sensorData } = this.props;
+		if ((this.props.sensorData && prevProps.sensorData && this.props.sensorData["id"] != prevProps.sensorData["id"])
+			|| (this.props.sensorData && !prevProps.sensorData)) {
+			this.getStationData(sensorData["id"]);
+			this.setState({ visible: true });
+		}
 	}
 
 	render() {
 		const { sensorData } = this.props;
-		if (!sensorData) return "";
+		let noneClass = this.state.isFirst ? "none " : "";
 
 		// only in development mode, it's will be removed, after added communication with api
 		this.loadData();
-		let data = this.state.stationDetal;
+
+		if (!this.state.latestData) {
+			return <div></div>
+		}
 
 		return (
-			<div className="stationDetail">
-				<FaRegTimesCircle className="close" onClick={() => this.props.dispatch(sensorDetailAction(null))} />
-
-				<div className={`mainInfo ${this.getQualityClassColor(data.airQuality)}`}>
-					<div className="holder">
-						<div className="address">{data.address.street} {data.address.number}</div>
-						<div className="temperature">{data.temperature} °C</div>
-					</div>
-					<div className="holder">
-						<div className="airQualityLabel">Air quality</div>
-						<div className="airQualityIcon">{this.getAirQualityIcon()}</div>
-					</div>
+			<div className={`stationDetail animated faster ${this.state.visible ? "slideInRight" : "slideOutRight"}`}>
+				<div className="close">
+				<Button onClick={() => {
+					this.props.dispatch(sensorDetailAction(null));
+					this.setState({ visible: false });
+				}}>
+					
+					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
+				</Button>
 				</div>
-
+				<ScrollBar className="stationList" options={{suppressScrollX : true}}>
 				<div className="card">
+					<div className="innerCard">
+					<div className="holder">
+						<div>{this.getTitle()}</div>
+					</div>
+					<div className="hd">
+						Air quality:
+					</div>
+
+					<div className="summaryContainer">
+						<div className="summaryImageContainer">
+						<div className="summary">
+					</div>
+						</div>
+				
+					<Gauge key={this.state.latestData["id"]} name="AQI" value={Math.round(this.state.latestData.aqi)} norm={50} width={200} height={140} lineWidth={20}></Gauge>
+					</div>
+					</div>
+
+					<div className="innerCard">
+					<div className="block">
 					<div className="hd">
 						Pollutions:
 					</div>
 
-					<Gauge></Gauge>
-
-					<div className="sensorsInfo">
-						{this.makeSensorInfo()}
+					<div className="gaugesRow">
+						{this.getGauges()}
 					</div>
-					<div className="lastMeasuremtnTime">
-						<span>Ostatni pomiar: </span>{this.getLastMeasuremtnTime()}
+					<div className="horizontalLine"></div>
+					<div className="gaugesRow">
+						{this.getPollutionStatistics()}
 					</div>
-
+					{/* <div className="horizontalLine"></div>
 					<div className="hd">
-						Historia pomiarów
-					<span className="subInfo">Pomiary jakości powietrza z ostatnich 24 godzin</span>
+						<span className="subInfo">Last measurement: {this.getLastMeasuremtnTime()}</span>
+					</div> */}
+					</div>
+					</div>
+
+
+					<div className="innerCard">
+					<div className="block">
+					<div className="hd">
+						Other statistics:
+					</div>
+					<div className="gaugesRow">
+					{this.getStatistics()}
+					</div>
+					</div>
+					</div>
+
+					
+					<div className="innerCard">
+					<div className="block">
+					<div className="hd">
+						History:
+					<span className="subInfo">Measurements from last 24 hours</span>
 					</div>
 					<div className="sensorChart">
-					<ChartTabs stationDetal={this.state.stationDetal} />
+						{this.props.sensorData != null && 
+							<ChartTabs key={this.props.sensorData.id} stationId={this.props.sensorData.id}/>
+						}
+					</div>
+					</div>
 				</div>
 				</div>
+				</ScrollBar>
 			</div>
 		);
 	}

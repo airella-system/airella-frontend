@@ -1,0 +1,82 @@
+.root {
+    width: 200px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.root2 {
+    width: 80%;
+    height: 100%;
+}
+
+.leftIconContainer {
+    float: left;
+    width: 35%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.leftIcon {
+    background: #DDDDDD;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.rightContainer {
+    float: left;
+    width: 55%;
+    height: 100%;
+    margin-left: 10%;
+}
+
+.valueContainer {
+    height: 60%;
+    text-align: left;
+}
+
+.valuePollution {
+    font-weight: 300;
+    font-size: 28px;
+    text-align: left;
+}
+
+.unitPollution {
+    font-weight: 300;
+    font-size: 10px;
+    text-align: left;
+    color: #777;
+}
+
+.namePollution {
+    height: 40%;
+    font-weight: 500;
+    font-size: 20px;
+    text-align: left;
+}
+
+.value {
+    font-weight: 300;
+    font-size: 28px;
+    text-align: left;
+}
+
+.unit {
+    font-weight: 300;
+    font-size: 14px;
+    text-align: left;
+    color: #777;
+}
+
+.name {
+    height: 40%;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: left;
+}

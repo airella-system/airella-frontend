@@ -6,6 +6,10 @@ $neu-round-radius: 15px;
     box-shadow: inset 5px 5px 5px #00225533, inset -5px -5px 5px #FFFFFFFF;
 }
 
+%neu-shadow-under-subtle {
+    box-shadow: inset 5px 5px 5px #00225533, inset -5px -5px 5px #FFFFFF88;
+}
+
 %neu-shadow-over {
     box-shadow: 5px 5px 5px #00225533, -5px -5px 5px #FFFFFFFF;
 }
@@ -15,12 +19,11 @@ $neu-round-radius: 15px;
 }
 
 %neu-hover {
-    color: #888;
+    color: rgb(80, 200, 240);
     background-color: #FFFFFF;
 }
 
 %neu-active {
     @extend %neu-shadow-under;
-    color: #444;
     background: $mainColor;
 }

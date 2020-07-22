@@ -1,40 +1,100 @@
 import React from 'react';
 import GaugeCanvas from './GaugeCanvas';
+import styles from '../style/components/gauge.module.scss';
 
 class Gauge extends React.Component {
 	componentDidMount() {
 
 	}
+
+	hexToRgb(hex) {
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		return result ? {
+		  r: parseInt(result[1], 16),
+		  g: parseInt(result[2], 16),
+		  b: parseInt(result[3], 16)
+		} : null;
+	  }
+
+	interpolate(first, second, percent) {
+		return first + (second - first) * percent;
+	}
+
+	interpolateColor(first, second, percent) {
+		return {
+			r: this.interpolate(first.r, second.r, percent),
+			g: this.interpolate(first.g, second.g, percent),
+			b: this.interpolate(first.b, second.b, percent),
+		}
+	}
+
+	calculateColor(percent) {
+		const goodColor = this.hexToRgb("#2ecc71");
+		const normalColor = this.hexToRgb("#f1c40f");
+		const badColor = this.hexToRgb("#e74c3c");
+
+		let color = {};
+		if (percent < 0.5) {
+			const colorPercent = percent * 2;
+			color = this.interpolateColor(goodColor, normalColor, colorPercent);
+		} else {
+			const colorPercent = (percent - 0.5) * 2;
+			color = this.interpolateColor(normalColor, badColor, colorPercent);
+		}
+		return`rgb(${color.r}, ${color.g}, ${color.b})`;
+	}
+
 	render() {
+		let percent = this.props.value / (this.props.norm * 2);
+
+		percent = Math.max(0.01, percent); // 0.01 so gauge will always be visible
+		percent = Math.min(1, percent);
+
+		let cssColor = this.calculateColor(percent);
+
 		return (
-			<div style={{ position: "relative", width: this.props.width, height: this.props.height }}>
-				<div style={{ position: "absolute", left: "0px", top: "0px" }}>
-					<GaugeCanvas>
+			<div className={styles.root} 
+			style={{ position: "relative", width: this.props.width, height: this.props.height }}>
+				<div className={styles.gauge}>
+					<GaugeCanvas percent={percent} color={cssColor} width={this.props.width} 
+						height={this.props.height} lineWidth={this.props.lineWidth}
+						shadowRadius={this.props.shadowRadius}>
 					</GaugeCanvas>
 				</div>
 
-				<div style={{ position: "absolute", top: "38%", left: "25%", width: "50%", height: "35%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-					<div style={{ width: "45%", float: "left", textAlign: "center" }}>
-						<div style={{ color: "#000", fontSize: "18px" }}>
-							320
+				<div className={styles.insideRoot}>
+					{this.props.unit &&
+					<>
+					<div className={styles.leftValueContainer}>
+						<div className={styles.leftValue}>
+							{Math.round(this.props.value)}
 						</div>
-						<div style={{ color: "#888", fontSize: "10px" }}>
-							µg/m³
+						<div className={styles.leftUnit}>
+							{this.props.unit}
 						</div>
 					</div>
-					<div style={{ width: "10%", height: "100%", float: "left", background: "linear-gradient(#AAA, #AAA) no-repeat center/1px 50%" }}>
+					<div className={styles.spaceBetween}>
 					</div>
-					<div style={{ width: "45%", float: "right", textAlign: "center" }}>
-						<span style={{ color: "#000", fontSize: "18px" }}>
-							120
+					<div className={styles.rightValueContainer}>
+						<span className={styles.rightValue}>
+							{Math.round(this.props.value / this.props.norm * 100)}
 						</span>
-						<span style={{ color: "#000", fontSize: "10px" }}>
+						<span className={styles.rightUnit}>
 							%
 						</span>
 					</div>
+					</>
+					}
+					{!this.props.unit &&
+						<div className={styles.centerValueContainer}>
+						<span className={styles.centerValue}>
+							{this.props.value}
+						</span>
+					</div> 
+					}
 				</div>
-				<div style={{ position: "absolute", width: this.props.width, left: "0px", top: "70%", textAlign: "center", color: "#000", fontSize: "22px", fontWeight: "bold" }}>
-					PM10
+				<div className={styles.name} style={{width: this.props.width}}>
+					{this.props.name}
 				</div>
 			</div>
 		)
@@ -42,10 +102,13 @@ class Gauge extends React.Component {
 }
 
 Gauge.defaultProps = {
+	name: "PM10",
 	width: 200,
-	height: 150,
+	height: 140,
 	percent: 0.5,
 	color: 'rgb(253, 150, 100)',
+	lineWidth: 20,
+	shadowRadius: 5
 }
 
 export default Gauge;
