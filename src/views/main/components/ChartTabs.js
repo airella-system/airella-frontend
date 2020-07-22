@@ -188,7 +188,8 @@ class ChartTabs extends Component {
     if (!handler) return;
 
     let labels = this.state.data.sensors[0].values.map(value => {
-      let timestamp = new Date(value.timestamp);
+      console.log(value);
+      let timestamp = new Date(value.timespan.end);
       return timestamp.getHours() + ':00';
     });
 
