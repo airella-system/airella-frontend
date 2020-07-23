@@ -38,8 +38,8 @@ class MapComponent extends Component {
 		this.state = {
 			lat: 50.0622881,
 			lng: 19.9311482,
-			radius: 100000,
-      zoom: 13,
+			radius: 1000000, //1 000 000m = 1 000km
+     		zoom: 13,
 			stationData: null,
 			isGeolocalizationEnable: false,
 			userCurrentPosition: {
@@ -162,6 +162,7 @@ class MapComponent extends Component {
 					{this.renderMarkers()}
 					{this.currentPositionMarker()}
 				</Map>
+				<div className="airellaLogo">Airella</div>
 			</div>
 		);
 	}
