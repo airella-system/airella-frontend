@@ -87,7 +87,7 @@ class SensorDetails extends Component {
 
 		return priority.map(sensorType => {
 			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
-			if (sensors.length >= 1) {
+			if (sensors.length >= 1 && sensors[0].values) {
 				return typeToGaugeGenerator[sensorType](sensors[0]);
 			}
 		});
@@ -107,7 +107,7 @@ class SensorDetails extends Component {
 
 		return priority.map(sensorType => {
 			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
-			if (sensors.length >= 1) {
+			if (sensors.length >= 1 && sensors[0].values) {
 				return typeToGaugeGenerator[sensorType](sensors[0]);
 			}
 		});
@@ -129,7 +129,7 @@ class SensorDetails extends Component {
 
 		return priority.map(sensorType => {
 			let sensors = latestData["sensors"].filter(sensor => sensor["type"] == sensorType);
-			if (sensors.length >= 1) {
+			if (sensors.length >= 1 && sensors[0].values) {
 				return typeToGaugeGenerator[sensorType](sensors[0]);
 			}
 		});
