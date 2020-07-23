@@ -7,6 +7,7 @@ import { IconContext } from "react-icons";
 import { GiWaterDrop } from "react-icons/gi";
 import { IoIosTime, IoMdThermometer } from "react-icons/io";
 import { BsThreeDots } from "react-icons/bs";
+import { getAirQualityLevel } from '../../../components/AirQualityDescriptors'
 
 import '../../../style/main/components/AnimatedMapPopup.scss'
 
@@ -245,28 +246,27 @@ class AnimatedMapPopup extends Component {
   morphEmoji = (emoji) => {
     this.refs.left.style.transform = emoji.topleft.transform
     this.refs.left.style.clipPath = emoji.topleft.polygon
-    this.refs.left.style.background = `#${emoji.color}`
 
     this.refs.right.style.transform = emoji.topright.transform
     this.refs.right.style.clipPath = emoji.topright.polygon
-    this.refs.right.style.background = `#${emoji.color}`
 
     this.refs.bottom.style.transform = emoji.bottom.transform
     this.refs.bottom.style.clipPath = emoji.bottom.polygon
-    this.refs.bottom.style.background = `#${emoji.color}`
   }
   
-  getAqiEmoji = () => {
-    let aqi = this.props.stationData.aqi
-    if (aqi <= 12)
-      return this.emojis.verygood
-    else if (aqi <= 25)
-      return this.emojis.good
-    else if (aqi <= 38)
-      return this.emojis.ok
-    else if (aqi <= 50)
-      return this.emojis.bad
-    return this.emojis.verybad
+  getAqiEmoji = (level) => {
+    switch (level) {
+      case 0: 
+        return this.emojis.verygood
+      case 1:
+        return this.emojis.good
+      case 2:
+        return this.emojis.ok
+      case 3:
+        return this.emojis.bad
+      default:
+        return this.emojis.verybad
+    }
   }
 
   showData = () => {
@@ -275,36 +275,14 @@ class AnimatedMapPopup extends Component {
     } else {
       let loader = this.refs.loader
       loader.addEventListener("animationiteration", () => loader.style.animationPlayState = "paused" )
-      this.morphEmoji(this.getAqiEmoji())
+      let level = getAirQualityLevel(this.props.stationData.aqi)
+      this.morphEmoji(this.getAqiEmoji(level))
       return this.showContent()
     }
   }
 
-  doPopupClosingAnimation = () => {
-    let exitAnimationConstPart = "0.3s ease-out 1 forwards"
-
-    let containers = this.refs.containers.firstChild.children
-    for (let i = 0; i < containers.length; i++) {
-      let style = containers[i].firstChild.style
-      style.visibility = "visible"
-      style.animation = `animated-popup-content-exit ${exitAnimationConstPart}`
-      style.animationDelay = `${i * this.vars.delayUnit}s`
-    }
-
-    let delay = `${this.totalCount() * this.vars.delayUnit}s`
-
-    let loaderStyle = this.refs.loader.style
-    loaderStyle.animation = `animated-popup-loader-exit ${exitAnimationConstPart}`
-    loaderStyle.animationDelay = delay
-
-    let pointStyle = this.refs.point.style
-    pointStyle.animation = `animated-popup-point-exit ${exitAnimationConstPart}`
-    pointStyle.animationDelay = delay
-  }
-
   onPopupClose = () => {
     this.morphEmoji(this.state.defaultEmoji)
-    // this.doPopupClosingAnimation()
   }
 
 	render() {
@@ -313,9 +291,9 @@ class AnimatedMapPopup extends Component {
         <div className="animated-popup-children">
           <div className="animated-popup-point" ref="point">
             <div ref="morphbutton" className="morph-emoji">
-              <div ref="left" style={{clipPath: this.state.defaultEmoji.topleft.polygon, transform: this.state.defaultEmoji.topleft.transform, background: `#${this.state.defaultEmoji.color}`}}></div>
-              <div ref="right" style={{clipPath: this.state.defaultEmoji.topright.polygon, transform: this.state.defaultEmoji.topright.transform, background: `#${this.state.defaultEmoji.color}`}}></div>
-              <div ref="bottom" style={{clipPath: this.state.defaultEmoji.bottom.polygon, transform: this.state.defaultEmoji.bottom.transform, background: `#${this.state.defaultEmoji.color}`}}></div>
+              <div ref="left" style={{clipPath: this.state.defaultEmoji.topleft.polygon, transform: this.state.defaultEmoji.topleft.transform, background: `#${this.props.color}`}}></div>
+              <div ref="right" style={{clipPath: this.state.defaultEmoji.topright.polygon, transform: this.state.defaultEmoji.topright.transform, background: `#${this.props.color}`}}></div>
+              <div ref="bottom" style={{clipPath: this.state.defaultEmoji.bottom.polygon, transform: this.state.defaultEmoji.bottom.transform, background: `#${this.props.color}`}}></div>
             </div>
           </div>
           <div className="animated-popup-loader"><div ref="loader"></div></div>
