@@ -6,7 +6,7 @@ import '../../../style/main/components/MapComponent.scss';
 import 'leaflet/dist/leaflet.css';
 import { getApiUrl } from '../../../config/ApiURL';
 import AnimatedMapPopup from './AnimatedMapPopup'
-import { getAirQualityLevel, getAirQualityColorForLevel } from '../../../components/AirQualityDescriptors'
+import { AirQualityColors, indexToLevel } from '../../../config/AirQuality'
 
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
@@ -132,9 +132,9 @@ class MapComponent extends Component {
 			let position = {lat: item.location.latitude, lng: item.location.longitude};
 			let stationId = item.id;
 			let stationDataKey = `station${stationId}Key`;
-			let color = getAirQualityColorForLevel(getAirQualityLevel(item.aqi))
+			let color = AirQualityColors[indexToLevel(item.aqi)] // getAirQualityColorForLevel(getAirQualityLevel(item.aqi))
 			return(
-				<CircleMarker key={index} center={position} fillColor={"#" + color} color={"#" + color} onClick={() => this.getStationData(stationId)}>
+				<CircleMarker key={index} center={position} fillColor={color} color={color} onClick={() => this.getStationData(stationId)}>
 					<AnimatedMapPopup stationData={this.state[stationDataKey]} color={color} />
 				</CircleMarker>
 			)
