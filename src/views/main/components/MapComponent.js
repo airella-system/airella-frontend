@@ -40,7 +40,8 @@ class MapComponent extends Component {
 			lat: 50.0622881,
 			lng: 19.9311482,
 			radius: 100000,
-      zoom: 13,
+			initialZoom: 13,
+			currentZoom: 13,
 			stationData: null,
 			isGeolocalizationEnable: false,
 			userCurrentPosition: {
@@ -126,15 +127,17 @@ class MapComponent extends Component {
 		.catch(e => console.error(e));
 	}
 
-	renderMarkers() {
+	calculateMarkerSize = (map) => Math.cos(map.leafletElement.getZoom() * Math.PI / 36) * (-29) + 30
+
+	renderMarkers(map) {
 		if(!this.state.stationData) return;
 		return this.state.stationData.map((item, index) => {
 			let position = {lat: item.location.latitude, lng: item.location.longitude};
 			let stationId = item.id;
 			let stationDataKey = `station${stationId}Key`;
-			let color = AirQualityColors[indexToLevel(item.aqi)] // getAirQualityColorForLevel(getAirQualityLevel(item.aqi))
+			let color = AirQualityColors[indexToLevel(item.aqi)]
 			return(
-				<CircleMarker key={index} center={position} fillColor={color} color={color} onClick={() => this.getStationData(stationId)}>
+				<CircleMarker key={index} center={position} fillColor={color} color={color} onClick={() => this.getStationData(stationId)} fillOpacity={0.3} opacity={1} radius={this.calculateMarkerSize(map)}>
 					<AnimatedMapPopup stationData={this.state[stationDataKey]} color={color} />
 				</CircleMarker>
 			)
@@ -150,18 +153,17 @@ class MapComponent extends Component {
 	}
 
 	render() {
-		// const { text } = this.props;
 		const position = [this.state.lat, this.state.lng];
 
 		return(
 			<div className="mapContainer">
-				
-				<Map zoomControl={false} center={position} zoom={this.state.zoom} ref={m => { this.leafletMap = m; }} className="map" >
+				<Map zoomControl={false} center={position} zoom={this.state.initialZoom} ref={m => { this.leafletMap = m; }} 
+					onzoomend={(x) => this.setState({currentZoom: this.leafletMap.leafletElement.getZoom()})} className="map" >
 					<TileLayer
 						attribution='<a href="//basemaps.cartocdn.com">Basemap</a> | &copy; <a href="//osm.org/copyright">OpenStreetMap</a> contributors'
 						url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
 					/>
-					{this.renderMarkers()}
+					{this.renderMarkers(this.leafletMap)}
 					{this.currentPositionMarker()}
 				</Map>
 			</div>
