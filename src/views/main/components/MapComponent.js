@@ -34,14 +34,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 class MapComponent extends Component {
+
+	calculateMarkerSize = (zoom) => Math.cos(zoom * Math.PI / 36) * (-20) + 20
+
 	constructor(props) {
 		super(props);
-		this.state = {
+
+		this.constans = {
 			lat: 50.0622881,
 			lng: 19.9311482,
 			radius: 100000,
 			initialZoom: 13,
-			currentZoom: 13,
+		}
+
+		this.state = {
+			currentMarkerSize: this.calculateMarkerSize(this.constans.initialZoom),
 			stationData: null,
 			isGeolocalizationEnable: false,
 			userCurrentPosition: {
@@ -113,9 +120,9 @@ class MapComponent extends Component {
 
 	getMarkers() {
 		fetch(getApiUrl('getMarkers', null, {
-			'latitude': this.state.lat,
-			'longitude': this.state.lng,
-			'radius': this.state.radius,
+			'latitude': this.constans.lat,
+			'longitude': this.constans.lng,
+			'radius': this.constans.radius,
 		}))
 		.then(response => response.json())
 		.then(data => {
@@ -127,8 +134,6 @@ class MapComponent extends Component {
 		.catch(e => console.error(e));
 	}
 
-	calculateMarkerSize = (map) => Math.cos(map.leafletElement.getZoom() * Math.PI / 36) * (-29) + 30
-
 	renderMarkers(map) {
 		if(!this.state.stationData) return;
 		return this.state.stationData.map((item, index) => {
@@ -137,7 +142,7 @@ class MapComponent extends Component {
 			let stationDataKey = `station${stationId}Key`;
 			let color = AirQualityColors[indexToLevel(item.aqi)]
 			return(
-				<CircleMarker key={index} center={position} fillColor={color} color={color} onClick={() => this.getStationData(stationId)} fillOpacity={0.3} opacity={1} radius={this.calculateMarkerSize(map)}>
+				<CircleMarker key={index} center={position} fillColor={color} color={color} onClick={() => this.getStationData(stationId)} fillOpacity={0.3} opacity={1} radius={this.state.currentMarkerSize}>
 					<AnimatedMapPopup stationData={this.state[stationDataKey]} color={color} />
 				</CircleMarker>
 			)
@@ -153,12 +158,12 @@ class MapComponent extends Component {
 	}
 
 	render() {
-		const position = [this.state.lat, this.state.lng];
+		const position = [this.constans.lat, this.constans.lng];
 
 		return(
 			<div className="mapContainer">
-				<Map zoomControl={false} center={position} zoom={this.state.initialZoom} ref={m => { this.leafletMap = m; }} 
-					onzoomend={(x) => this.setState({currentZoom: this.leafletMap.leafletElement.getZoom()})} className="map" >
+				<Map zoomControl={false} center={position} zoom={this.constans.initialZoom} ref={m => { this.leafletMap = m; }} 
+					onzoomend={(x) => this.setState({currentMarkerSize: this.calculateMarkerSize(this.leafletMap.leafletElement.getZoom())})} className="map" >
 					<TileLayer
 						attribution='<a href="//basemaps.cartocdn.com">Basemap</a> | &copy; <a href="//osm.org/copyright">OpenStreetMap</a> contributors'
 						url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'
