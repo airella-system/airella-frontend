@@ -1,15 +1,14 @@
-@import './const/var.scss';
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap&subset=latin-ext');
+@import './const/var.scss', './const/minix.scss';
 
 body {
+    @include fontFamily;
     background: #333;
     color: rgb(177, 177, 177);
     margin: 0 !important;
-    font-family: 'Quicksand', sans-serif;
     overflow-x: hidden;
 }
 input {
-    font-family: 'Quicksand', sans-serif;
+    @include fontFamily;
 }
 .verticalHolder{
     display: flex;
