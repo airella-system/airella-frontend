@@ -83,21 +83,19 @@ class TopBar extends Component {
 					<Menu />
 					{/* logo placeholder */}
 					<div className="searchArea" ref={this.setSearchAreaRef} >
-					<div className="inputHolder">
-						<div className="mainSearch">
-							<input className="mainInput" type="text"
-							placeholder="Search..."
-								value={this.state.searchText}
-								onChange={this.handleSearchTextChange}
-								onFocus={this.handleSearchFocusOn} />
+						<div className="inputHolder">
+							<div className="mainSearch">
+								<input className="mainInput" type="text"
+								placeholder="Search..."
+									value={this.state.searchText}
+									onChange={this.handleSearchTextChange}
+									onFocus={this.handleSearchFocusOn} />
+							</div>
+							<div className="searchBtn"><FaSearch className="btnSearchIcon" /></div>
 						</div>
-						<div className="searchBtn"><FaSearch className="btnSearchIcon" /></div>
+						{this.state.searchFocus && this.state.searchData && this.getAutoCompleteList()}
 					</div>
-
-					{this.state.searchFocus && this.state.searchData && this.getAutoCompleteList()}
 				</div>
-				</div>
-				
 				<div className="accountContainer"></div>
 			</div>
 		);

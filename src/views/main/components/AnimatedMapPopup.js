@@ -272,7 +272,7 @@ class AnimatedMapPopup extends Component {
 	render() {
     return (
       <Popup className="custom-popup" closeButton={false} onClose={this.onPopupClose} >     
-          <div className="animated-popup-children">
+        <div className="animated-popup-children">
           <div className="animated-popup-point" ref="point">
             <div ref="morphbutton" className="morph-emoji">
               <div ref="left" style={{clipPath: this.emojis.default.topleft.polygon, transform: this.emojis.default.topleft.transform, background: this.props.color}}></div>
