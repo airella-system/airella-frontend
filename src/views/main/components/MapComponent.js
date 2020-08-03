@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map, TileLayer, CircleMarker, Marker, Circle, Tooltip, Polygon, SVGOverlay } from "react-leaflet";
-import '../../../style/main/components/MapComponent.scss';
+import styles from '../../../style/main/components/MapComponent.scss';
 import 'leaflet/dist/leaflet.css';
 import { getApiUrl } from '../../../config/ApiURL';
 import AnimatedMapPopup from './AnimatedMapPopup'
@@ -141,9 +141,10 @@ class MapComponent extends Component {
 			let stationId = item.id;
 			let stationDataKey = `station${stationId}Key`;
 			let color = AirQualityColors[indexToLevel(item.aqi)]
+			let hiddenClass = ""
 			return(
-				<CircleMarker key={index} center={position} fillColor={color} color={color} onClick={() => this.getStationData(stationId)} fillOpacity={0.3} opacity={1} radius={this.state.currentMarkerSize}>
-					<AnimatedMapPopup stationData={this.state[stationDataKey]} color={color} />
+				<CircleMarker className={hiddenClass} key={index} center={position} fillColor={color} color={color} onClick={() => this.getStationData(stationId)} fillOpacity={0.3} opacity={1} radius={this.state.currentMarkerSize}>
+					<AnimatedMapPopup stationData={this.state[stationDataKey]} color={color} onOpen={() => hiddenClass = styles.hiddenMarker}/>
 				</CircleMarker>
 			)
 		});
