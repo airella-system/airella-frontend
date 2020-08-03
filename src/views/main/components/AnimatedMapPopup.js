@@ -9,7 +9,7 @@ import { IoIosTime, IoMdThermometer } from "react-icons/io";
 import { BsThreeDots } from "react-icons/bs";
 import { indexToLevel } from '../../../config/AirQuality'
 
-import '../../../style/main/components/AnimatedMapPopup.scss'
+import styles from '../../../style/main/components/AnimatedMapPopup.scss'
 
 class AnimatedMapPopup extends Component {
 
@@ -250,7 +250,6 @@ class AnimatedMapPopup extends Component {
 
     this.refs.bottom.style.transform = emoji.bottom.transform
     this.refs.bottom.style.clipPath = emoji.bottom.polygon
-
   }
 
   showData = () => {
@@ -271,7 +270,7 @@ class AnimatedMapPopup extends Component {
 
 	render() {
     return (
-      <Popup className="custom-popup" closeButton={false} onClose={this.onPopupClose} >     
+      <Popup className="custom-popup" closeButton={false} onClose={this.onPopupClose} onOpen={this.props.onOpen()} >     
         <div className="animated-popup-children">
           <div className="animated-popup-point" ref="point">
             <div ref="morphbutton" className="morph-emoji">
