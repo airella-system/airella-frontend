@@ -43,7 +43,7 @@ class MapComponent extends Component {
 		this.constans = {
 			lat: 50.0622881,
 			lng: 19.9311482,
-			radius: 100000,
+			radius: 1000000,
 			initialZoom: 13,
 		}
 

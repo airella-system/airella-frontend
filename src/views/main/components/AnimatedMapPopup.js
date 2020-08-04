@@ -140,9 +140,9 @@ class AnimatedMapPopup extends Component {
   
   translateHeight = (number) => Math.sin(number / this.totalCount() * 2 * Math.PI + 1.5 * Math.PI) * this.vars.distance;
   
-  makeContentContainer = (number, content) => (
+  makeContentContainer = (number, content, onClick=undefined) => (
     <div style={{transform: `translate(${this.translateWidth(number)}px, ${this.translateHeight(number)}px)`}}>
-      <div style={{animationDelay: `${number * this.vars.delayUnit}s`}}>
+      <div className={onClick ? "clickable" : ""} onClick={onClick} style={{animationDelay: `${number * this.vars.delayUnit}s`}}>
         {content}
       </div>
     </div>
@@ -169,7 +169,7 @@ class AnimatedMapPopup extends Component {
 
   makeStylizedIcon = (icon, style) => (
     <IconContext.Provider value={{style: style}}>
-      <div>
+      <div className="icon">
         {icon}
       </div>
     </IconContext.Provider>
@@ -216,10 +216,10 @@ class AnimatedMapPopup extends Component {
           </div>
         ))}
         {this.makeContentContainer(i++, (
-          <div onClick={() => this.props.dispatch(sensorDetailAction(this.props.stationData))}>
+          <div>
             {this.makeStylizedIcon(<BsThreeDots/>, {fontSize: '60px', paddingTop: '8px'})}
           </div>
-        ))}
+        ), () => this.props.dispatch(sensorDetailAction(this.props.stationData)))}
         {timestamp && this.makeContentContainer(i++, (
           <div>
             {this.makeStylizedIcon(<IoIosTime/>, {fontSize: '30px'})} {timestamp}

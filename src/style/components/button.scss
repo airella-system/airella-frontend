@@ -9,8 +9,7 @@
   background: $mainColor;
   @extend %neu-shadow-over;
   @extend %neu-rounded;
-  color: rgb(100, 100, 100);
-
+  color: $buttonIconColor;
 }
 
 .buttonContainer:hover{

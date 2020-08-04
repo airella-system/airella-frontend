@@ -19,7 +19,7 @@ $neu-round-radius: 15px;
 }
 
 %neu-hover {
-    color: rgb(80, 200, 240);
+    color: $neuHoverBackgroundColor;
     background-color: #FFFFFF;
 }
 

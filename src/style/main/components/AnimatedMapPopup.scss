@@ -95,7 +95,27 @@ $animation-easing: cubic-bezier(0.61, 1, 0.88, 1);
   top: 10px;
   left: 10px;
   position: relative;
+
+  .clickable {
+    &:hover {
+      cursor: pointer;
+      span {
+        background-color: $iconBaseHover;
+      }
+      .icon {
+        color: $neuHoverBackgroundColor;
+      }
+    }
+    &:active {
+      @extend %neu-active;
+    }
+  }
+
+  .icon {
+    color: $buttonIconColor;
+  }
 }
+
 .animated-popup-content > div > div {
   position: absolute;
   visibility: hidden;
