@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 class MapComponent extends Component {
 
-	calculateMarkerSize = (zoom) => Math.cos(zoom * Math.PI / 36) * (-20) + 20
+	calculateMarkerSize = (zoom) => Math.cos(zoom * Math.PI / 36) * (-10) + 10
 
 	constructor(props) {
 		super(props);
