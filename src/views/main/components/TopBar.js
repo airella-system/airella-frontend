@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import { FaSearch, FaHamburger, FaMapMarkedAlt, FaCube, FaRegTimesCircle, FaRegLifeRing, FaDivide, FaBars } from "react-icons/fa";
+import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import Menu from '../../../components/Menu';
 import Button from '../../../components/Button'
 import PropTypes from 'prop-types';
@@ -81,13 +81,16 @@ class TopBar extends Component {
 	}
 
 	render() {
+
+		let iconSize = 22
+		let icon = this.state.isOpen ? <FaTimes size={iconSize} rotate={45}/> : <FaBars size={iconSize}/>
+
 		return (
 			<div className="topBar">
 				<div className="menuLeftItems">
 					<div className="topItems">
-						{/* <Menu onClick={() => {console.log("hehe")}}/> */}
 						<Button onClick={() => this.setState({ isOpen: !this.state.isOpen })}>
-							<FaBars size={22}></FaBars>
+							{icon}
 						</Button>
 						{/* logo placeholder */}
 						<div className="searchArea" ref={this.setSearchAreaRef} >
@@ -105,30 +108,7 @@ class TopBar extends Component {
 						</div>
 					</div>
 					<div className={`bottomItems ${this.state.isOpen ? "bottomItemsOpen" : ""}`}>
-						<Link className="link map" to="/">
-							<div className="holder holder-active">
-								<div><FaMapMarkedAlt className="menuIcon" /></div>
-								<div className="textAligner">Map</div>
-							</div>
-						</Link>
-						<Link className="link account" to="/account">
-							<div className="holder holder-nonactive">
-								<div><FaCube className="menuIcon" /></div>
-								<div className="textAligner">Account</div>
-							</div>
-						</Link>
-						<Link className="link about" to="/test">
-							<div className="holder holder-nonactive">
-								<div><FaCube className="menuIcon" /></div>
-								<div className="textAligner">About project</div>
-							</div>
-						</Link>
-						<a className="link docs" href="//airella.cyfrogen.com/api/docs">
-							<div className="holder holder-nonactive">
-								<div><FaRegLifeRing className="menuIcon" /></div>
-								<div className="textAligner">API Docs</div>
-							</div>
-						</a>
+						<Menu/>
 					</div>
 				</div>
 				<div className="accountContainer"></div>
