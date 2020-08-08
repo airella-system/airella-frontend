@@ -20,7 +20,7 @@ class Menu extends React.Component {
 
 		return (
 			<div className="menuContainter">
-				<Button onClick={() => this.setState({ isOpen: true, isFirst: false })}>
+				<Button onClick={this.setState({ isOpen: true, isFirst: false })}>
 					<FaBars size={22}></FaBars>
 				</Button>
 				<div className={noneClass + `menuHolder faster2 animated ${this.state.isOpen ? "slideInLeft" : "slideOutLeft"}`} >

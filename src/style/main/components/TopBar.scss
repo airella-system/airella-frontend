@@ -1,27 +1,110 @@
 @import "../../const/var.scss", "../../const/minix.scss", '../../additional/neumorphism.scss';
 
 .topBar {
-    height: 55px;
+    $item-gap: 10px;
+
     position: absolute;
     z-index: 1050;
+
     .menuHolder {
     }
-    .menuLeftItems {
+    .menuLeftItems {	
         display: flex;
-        align-items: center;
-        float: left;
-        height: 100%;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: stretch;
+        align-content: stretch;
 
         background: $mainColor;
         @extend %neu-shadow-over;
         @extend %neu-rounded;
         margin: 10px;
-        padding: 5px 10px 5px 10px;
-  
+        padding: ($item-gap / 2) $item-gap ($item-gap / 2) $item-gap;
+
         .logo {
             font-size: 30px;
             margin-left: 20px;
             margin-top: 4px;
+        }
+        .bottomItems {
+            transform-origin: top;
+            opacity: 0;
+            max-height: 0;
+            margin-top: 0;
+            transition: opacity 250ms linear,
+                        max-height 250ms linear 250ms,
+                        margin-top 250ms linear 250ms;
+
+            display: grid;
+            grid-gap: $item-gap;
+
+            .map {
+                grid-column: 1;
+                grid-row: 1;
+            }
+            .account {
+                grid-column: 2;
+                grid-row: 1;
+            }
+            .about {
+                grid-column: 1;
+                grid-row: 2;
+            }
+            .docs {
+                grid-column: 2;
+                grid-row: 2;
+            }
+
+            .link {
+                color: $menuLinkColor;
+                text-decoration: none;
+                display: block;
+        
+                .holder {
+                    display: flex;
+                    align-items: center;
+                    padding: 8px 10px;
+                    margin: 0 auto 0 auto; 
+                    .menuIcon {
+                        font-size: 25px;
+                        position: relative;
+                        top: 3px;
+                    }
+                    .textAligner {
+                        margin-left: 15px;
+                        font-size: 18px;
+                    }
+                }
+                .holder-nonactive {
+                    @extend %neu-shadow-over;
+                    @extend %neu-rounded;
+                    &:hover {
+                        @extend %neu-hover;
+                    }
+                    &:active {
+                        @extend %neu-active;
+                    }
+                }
+                .holder-active{
+                    @extend %neu-shadow-under;
+                    @extend %neu-rounded;
+                }
+            }
+        }
+        .bottomItemsOpen {
+            opacity: 1;
+            max-height: 140px;
+            margin-top: $item-gap;
+            transition: opacity 250ms linear 250ms,
+                        max-height 250ms linear,
+                        margin-top 250ms linear;
+        }
+
+        .topItems {
+            display: flex;
+            align-items: center;
+            float: left;
         }
     }
     .autoCompleteBox {
@@ -39,6 +122,7 @@
         box-shadow: 0 3px 5px #00000033;
         padding: 5px 0px 5px 0px;
         list-style: none;
+
         li {
             .suggestionTitle {
                 color: black;
@@ -54,15 +138,19 @@
         }
     }
     .searchArea {
+        $search-button-width: 35px;
+
         margin: auto;
         position: relative;
         margin-left: 20px;
-        width: 250px;
+        width: 100%;
         height: 100%;
+
         .inputHolder {
             @include flexCenter;
             width: 100%;
             height: 100%;
+
             .mainSearch {
                 width: 100%;
                 border-radius: 25px;
@@ -73,8 +161,10 @@
                 padding: 5px 25px 5px 20px;
                 font-size: 17px;
                 @extend %neu-shadow-under;
+
                 .mainInput {
-                    width: 180px;
+                    // width: 100%;
+                    width: calc(100% - #{$search-button-width});
                     font-size: 15px;
                     border: none;
                     background: #00000000;
@@ -87,14 +177,15 @@
             }
             .searchBtn {
                 width: 0px;
+
                 &:hover {
                     cursor: pointer;
                 }
                 .btnSearchIcon {
                     position: relative;
                     top: 4px;
-                    right: 45px;
-                    padding: 1px 1px 1px 10px;
+                    right: $search-button-width;
+                    padding: 1px 1px 1px 1px;
                 }
             }
         }

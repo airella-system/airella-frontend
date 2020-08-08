@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import { FaSearch, FaHamburger } from "react-icons/fa";
-import '../../../style/main/components/TopBar.scss';
+import { FaSearch, FaHamburger, FaMapMarkedAlt, FaCube, FaRegTimesCircle, FaRegLifeRing, FaDivide, FaBars } from "react-icons/fa";
 import Menu from '../../../components/Menu';
+import Button from '../../../components/Button'
 import PropTypes from 'prop-types';
+
+import '../../../style/main/components/TopBar.scss';
 
 class TopBar extends Component {
 
@@ -11,7 +14,8 @@ class TopBar extends Component {
 		super(props);
 		this.state = {
 			searchText: "",
-			searchFocus: false
+			searchFocus: false,
+			isOpen: false
 		};
 	}
 
@@ -80,20 +84,51 @@ class TopBar extends Component {
 		return (
 			<div className="topBar">
 				<div className="menuLeftItems">
-					<Menu />
-					{/* logo placeholder */}
-					<div className="searchArea" ref={this.setSearchAreaRef} >
-						<div className="inputHolder">
-							<div className="mainSearch">
-								<input className="mainInput" type="text"
-								placeholder="Search..."
-									value={this.state.searchText}
-									onChange={this.handleSearchTextChange}
-									onFocus={this.handleSearchFocusOn} />
+					<div className="topItems">
+						{/* <Menu onClick={() => {console.log("hehe")}}/> */}
+						<Button onClick={() => this.setState({ isOpen: !this.state.isOpen })}>
+							<FaBars size={22}></FaBars>
+						</Button>
+						{/* logo placeholder */}
+						<div className="searchArea" ref={this.setSearchAreaRef} >
+							<div className="inputHolder">
+								<div className="mainSearch">
+									<input className="mainInput" type="text"
+									placeholder="Search..."
+										value={this.state.searchText}
+										onChange={this.handleSearchTextChange}
+										onFocus={this.handleSearchFocusOn} />
+								</div>
+								<div className="searchBtn"><FaSearch className="btnSearchIcon" /></div>
 							</div>
-							<div className="searchBtn"><FaSearch className="btnSearchIcon" /></div>
+							{this.state.searchFocus && this.state.searchData && this.getAutoCompleteList()}
 						</div>
-						{this.state.searchFocus && this.state.searchData && this.getAutoCompleteList()}
+					</div>
+					<div className={`bottomItems ${this.state.isOpen ? "bottomItemsOpen" : ""}`}>
+						<Link className="link map" to="/">
+							<div className="holder holder-active">
+								<div><FaMapMarkedAlt className="menuIcon" /></div>
+								<div className="textAligner">Map</div>
+							</div>
+						</Link>
+						<Link className="link account" to="/account">
+							<div className="holder holder-nonactive">
+								<div><FaCube className="menuIcon" /></div>
+								<div className="textAligner">Account</div>
+							</div>
+						</Link>
+						<Link className="link about" to="/test">
+							<div className="holder holder-nonactive">
+								<div><FaCube className="menuIcon" /></div>
+								<div className="textAligner">About project</div>
+							</div>
+						</Link>
+						<a className="link docs" href="//airella.cyfrogen.com/api/docs">
+							<div className="holder holder-nonactive">
+								<div><FaRegLifeRing className="menuIcon" /></div>
+								<div className="textAligner">API Docs</div>
+							</div>
+						</a>
 					</div>
 				</div>
 				<div className="accountContainer"></div>
