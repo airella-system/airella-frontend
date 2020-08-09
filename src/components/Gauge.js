@@ -54,10 +54,10 @@ class Gauge extends React.Component {
 
 		return (
 			<div className={styles.root} 
-			style={{ position: "relative", width: this.props.width, height: this.props.height }}>
+			style={{ position: "relative", width: this.props.width }}>
 				<div className={styles.gauge}>
-					<GaugeCanvas percent={percent} color={cssColor} width={this.props.width} 
-						height={this.props.height} lineWidth={this.props.lineWidth}
+					<GaugeCanvas percent={percent} color={cssColor} canvasWidth={this.props.canvasWidth}
+						canvasHeight={this.props.canvasHeight} lineWidth={this.props.lineWidth}
 						shadowRadius={this.props.shadowRadius}>
 					</GaugeCanvas>
 				</div>
@@ -93,7 +93,7 @@ class Gauge extends React.Component {
 					</div> 
 					}
 				</div>
-				<div className={styles.name} style={{width: this.props.width}}>
+				<div className={styles.name}>
 					{this.props.name}
 				</div>
 			</div>
@@ -103,8 +103,10 @@ class Gauge extends React.Component {
 
 Gauge.defaultProps = {
 	name: "PM10",
-	width: 200,
-	height: 140,
+	width: "50%",
+	height: "140px",
+	canvasWidth: 200,
+	canvasHeight: 140,
 	percent: 0.5,
 	color: 'rgb(253, 150, 100)',
 	lineWidth: 20,

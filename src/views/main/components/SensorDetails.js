@@ -172,7 +172,9 @@ class SensorDetails extends Component {
 		return (
 			<div className={`stationDetail animated faster ${this.state.visible ? "slideInRight" : "slideOutRight"}`}>
 				
-				<div className="close">
+			
+				<div className="stationInside">
+				<div className="close close-desktop">
 				<Button onClick={() => {
 					this.props.dispatch(sensorDetailAction(null));
 					this.setState({ visible: false });
@@ -181,8 +183,16 @@ class SensorDetails extends Component {
 					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
 				</Button>
 				</div>
-				<div className="stationInside">
 				<ScrollBar className="stationList" options={{suppressScrollX : true}}>
+				<div className="close close-mobile">
+				<Button onClick={() => {
+					this.props.dispatch(sensorDetailAction(null));
+					this.setState({ visible: false });
+				}}>
+					
+					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
+				</Button>
+				</div>
 				<div className="card">
 					<div className="innerCard">
 					<div className="holder">
@@ -198,7 +208,7 @@ class SensorDetails extends Component {
 					</div>
 						</div>
 				
-					<Gauge key={this.state.latestData["id"]} name="AQI" value={Math.round(this.state.latestData.aqi)} norm={50} width={200} height={140} lineWidth={20}></Gauge>
+					<Gauge key={this.state.latestData["id"]} name="AQI" value={Math.round(this.state.latestData.aqi)} norm={50} lineWidth={20}></Gauge>
 					</div>
 					</div>
 
