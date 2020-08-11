@@ -1,29 +1,29 @@
-@import '../const/var.scss', '../const/minix.scss';
+@import "../const/var.scss", "../const/minix.scss";
 
 $neu-round-radius: 15px;
 
 %neu-shadow-under {
-    box-shadow: inset 5px 5px 5px #00225533, inset -5px -5px 5px #FFFFFFFF;
+  box-shadow: inset 5px 5px 5px #00225533, inset -5px -5px 5px #ffffffff;
 }
 
 %neu-shadow-under-subtle {
-    box-shadow: inset 5px 5px 5px #00225533, inset -5px -5px 5px #FFFFFF88;
+  box-shadow: inset 5px 5px 5px #00225533, inset -5px -5px 5px #ffffff88;
 }
 
 %neu-shadow-over {
-    box-shadow: 5px 5px 5px #00225533, -5px -5px 5px #FFFFFFFF;
+  box-shadow: 5px 5px 5px #00225533, -5px -5px 5px #ffffffff;
 }
 
 %neu-rounded {
-    border-radius: $neu-round-radius;
+  border-radius: $neu-round-radius;
 }
 
 %neu-hover {
-    color: $neuHoverBackgroundColor;
-    background-color: #FFFFFF;
+  color: $neuHoverBackgroundColor;
+  background-color: #ffffff;
 }
 
 %neu-active {
-    @extend %neu-shadow-under;
-    background: $mainColor;
+  @extend %neu-shadow-under;
+  background: $mainColor;
 }

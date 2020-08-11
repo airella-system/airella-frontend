@@ -1,221 +1,220 @@
-@import '../../const/var.scss', '../../const/minix.scss', '../../additional/neumorphism.scss';
+@import "../../const/var.scss", "../../const/minix.scss",
+  "../../additional/neumorphism.scss";
 
-.stationDetail{
+.stationDetail {
+  height: 100vh;
+  width: 470px;
+  z-index: 9999;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  .close {
+    position: absolute;
+    top: 8px;
+    left: -45px;
+  }
+  .stationInside {
+    border-top-left-radius: $neu-round-radius;
+    border-bottom-left-radius: $neu-round-radius;
+    @extend %neu-shadow-over;
     height: 100vh;
-    width: 470px;
-    z-index: 9999;
+    background: $mainColor;
+    color: $textColor;
+    display: block;
+    width: 420px;
     position: absolute;
     right: 0px;
     top: 0px;
-    .close{
-        position: absolute;
-        top: 8px;
-        left: -45px;
+
+    .innerCard {
+      @extend %neu-shadow-over;
+      @extend %neu-rounded;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      margin-left: 10px;
+      margin-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
-    .stationInside {
-        border-top-left-radius: $neu-round-radius;
-        border-bottom-left-radius: $neu-round-radius;
-        @extend %neu-shadow-over;
-        height: 100vh;
-        background: $mainColor;
-        color: $textColor;
+
+    .block {
+      // margin-bottom: 20px;
+      // margin: 10px;
+      // padding: 10px;
+      // @extend %neu-rounded;
+      // @extend %neu-shadow-under;
+    }
+
+    .holder {
+      display: flex;
+      justify-content: space-between;
+      font-size: 25px;
+      font-weight: 500;
+      color: $textColor;
+      margin-left: 15px;
+      margin-bottom: 0px;
+    }
+    .card {
+      overflow: hidden;
+      background: $mainColor;
+      border-top-left-radius: $neu-round-radius;
+      border-bottom-left-radius: $neu-round-radius;
+
+      .summaryContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+        .summaryImageContainer {
+          width: 200px;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .summary {
+            @extend %neu-shadow-under-subtle;
+            border-radius: 50%;
+            background-image: url("https://storage.needpix.com/rsynced_images/character-2927150_1280.png");
+            background-size: cover;
+            width: 150px;
+            height: 150px;
+          }
+        }
+      }
+      .statisticsRow {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      .gaugesRow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      .horizontalLine {
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+
+        border: 0.5px solid #cfcfcf;
+      }
+      .address {
+        font-size: 23px;
+        font-weight: bold;
+      }
+      .temperature {
+        margin-right: 50px;
+        position: relative;
+        top: 2px;
+        font-size: 20px;
+      }
+      .airQualityLabel {
+        margin-top: 13px;
+      }
+      .airQualityIcon {
+        font-size: 40px;
+        margin-right: 70px;
+      }
+    }
+    .hd {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      margin-left: 15px;
+      font-size: 22px;
+      font-weight: 400;
+      color: $textColor;
+      .subInfo {
+        font-size: 13px;
+        font-weight: normal;
+        color: $thinTextColor;
         display: block;
-        width: 420px;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-
-        .innerCard {
-            @extend %neu-shadow-over;
-            @extend %neu-rounded;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            margin-left: 10px;
-            margin-right: 10px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-
-        .block {
-            // margin-bottom: 20px;
-            // margin: 10px;
-            // padding: 10px;
-            // @extend %neu-rounded;
-            // @extend %neu-shadow-under;
-        }
-
-
-        .holder{
-            display: flex;
-            justify-content: space-between;
-            font-size: 25px;
-            font-weight: 500;
-            color: $textColor;
-            margin-left: 15px;
-            margin-bottom: 0px;
-        }
-        .card{
-            overflow: hidden;
-            background: $mainColor;
-            border-top-left-radius: $neu-round-radius;
-            border-bottom-left-radius: $neu-round-radius;
-
-            .summaryContainer {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 5px;
-                .summaryImageContainer {
-                    width: 200px;
-                    height: 150px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    .summary {
-                        @extend %neu-shadow-under-subtle;
-                        border-radius: 50%;
-                        background-image: url("https://storage.needpix.com/rsynced_images/character-2927150_1280.png");
-                        background-size: cover;
-                        width: 150px;
-                        height: 150px;
-                    }
-                }
-
-            }
-            .statisticsRow {
-                display: flex;
-                align-items: center;
-                flex-wrap: wrap;
-                margin-left: 10px;
-                margin-right: 10px;
-            }
-            .gaugesRow {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-wrap: wrap;
-                margin-left: 10px;
-                margin-right: 10px;
-            }
-            .horizontalLine {
-                margin-left: 20px;
-                margin-right: 20px;
-                margin-top: 8px;
-                margin-bottom: 8px;
-
-                border: 0.5px solid #cfcfcf;
-            }
-            .address{
-                font-size: 23px;
-                font-weight: bold;
-            }
-            .temperature{
-                margin-right: 50px;
-                position: relative;
-                top: 2px;
-                font-size: 20px;
-            }
-            .airQualityLabel{
-                margin-top: 13px;
-            }
-            .airQualityIcon{
-                font-size: 40px;
-                margin-right: 70px;
-            }
-        }
-        .hd{
-            padding-top: 5px;
-            padding-bottom: 5px;
-            margin-left: 15px;
-            font-size: 22px;
-            font-weight: 400;
-            color: $textColor;
-            .subInfo{
-                font-size: 13px;
-                font-weight: normal;
-                color: $thinTextColor;
-                display: block;
-            }
-        }
-        .sensorsInfo{
-            margin-left: 15px;
-            .verticalItemHolder{
-                display: flex;
-                align-items: center;
-            }
-            .qualityStatusCircle{
-                width: 15px;
-                height: 15px;
-                border-radius: 100%;
-                display: block;
-                position: relative;
-                top: -2px;
-                margin-left: 30px;
-            }
-            .valueName{
-                text-transform: uppercase;
-                margin-left: 15px;
-                font-size: 20px;
-            }
-            .valuePrecentage{
-                font-size: 20px;
-                margin-right: 30px;
-            }
-            .value{
-                text-align: left;
-                min-width: 120px;
-                font-size: 20px;
-                span{
-                    font-size: 15px;
-                }
-            }
-        }
-        .lastMeasuremtnTime{
-            font-size: 12px;
-            margin-left: 40px;
-            margin-top: 5px;
-            color: $thinTextColor;
-        }
-        .sensorChart {
-            display: flex;
-            justify-content: center;
-            .chart {
-                width: 350px !important;
-                height: 120px !important;
-            }
-            .panel-wrapper{
-                min-height: 308px;
-                overflow: hidden;
-            }
-        }
+      }
     }
+    .sensorsInfo {
+      margin-left: 15px;
+      .verticalItemHolder {
+        display: flex;
+        align-items: center;
+      }
+      .qualityStatusCircle {
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        display: block;
+        position: relative;
+        top: -2px;
+        margin-left: 30px;
+      }
+      .valueName {
+        text-transform: uppercase;
+        margin-left: 15px;
+        font-size: 20px;
+      }
+      .valuePrecentage {
+        font-size: 20px;
+        margin-right: 30px;
+      }
+      .value {
+        text-align: left;
+        min-width: 120px;
+        font-size: 20px;
+        span {
+          font-size: 15px;
+        }
+      }
+    }
+    .lastMeasuremtnTime {
+      font-size: 12px;
+      margin-left: 40px;
+      margin-top: 5px;
+      color: $thinTextColor;
+    }
+    .sensorChart {
+      display: flex;
+      justify-content: center;
+      .chart {
+        width: 350px !important;
+        height: 120px !important;
+      }
+      .panel-wrapper {
+        min-height: 308px;
+        overflow: hidden;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: $mediaMobileMaxWidth) {
-    .stationDetail {
-        height: 100vh;
-        width: 100%;
-        .close{
-            position: relative;
-            top: 0px;
-            left: 0px;
-            margin-left: 10px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-        }
-        .close-desktop{
-            display: none;
-        }
-        .stationInside {
-            width: 100%;
-        }
+  .stationDetail {
+    height: 100vh;
+    width: 100%;
+    .close {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      margin-left: 10px;
+      margin-top: 5px;
+      margin-bottom: 10px;
     }
+    .close-desktop {
+      display: none;
+    }
+    .stationInside {
+      width: 100%;
+    }
+  }
 }
 
 @media only screen and (min-width: $mediaMobileMaxWidth) {
-    .stationDetail {
-        .close-mobile{
-            display: none;
-        }
+  .stationDetail {
+    .close-mobile {
+      display: none;
     }
+  }
 }

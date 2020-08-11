@@ -1,12 +1,12 @@
-@import '../const/var.scss', '../const/minix.scss';
+@import "../const/var.scss", "../const/minix.scss";
 
-.infoContainer{
+.infoContainer {
   color: $textColor;
   background: transparent;
   position: fixed;
   overflow: hidden;
   z-index: 400;
-  opacity: 0.70;
+  opacity: 0.7;
   bottom: 1vh;
   right: 2vh;
   text-align: right;

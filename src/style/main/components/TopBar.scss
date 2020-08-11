@@ -1,104 +1,105 @@
-@import "../../const/var.scss", "../../const/minix.scss", '../../additional/neumorphism.scss';
+@import "../../const/var.scss", "../../const/minix.scss",
+  "../../additional/neumorphism.scss";
 
 .topBar {
-    height: 55px;
-    position: absolute;
-    z-index: 1050;
-    .menuHolder {
-    }
-    .menuLeftItems {
-        display: flex;
-        align-items: center;
-        float: left;
-        height: 100%;
+  height: 55px;
+  position: absolute;
+  z-index: 1050;
+  .menuHolder {
+  }
+  .menuLeftItems {
+    display: flex;
+    align-items: center;
+    float: left;
+    height: 100%;
 
+    background: $mainColor;
+    @extend %neu-shadow-over;
+    @extend %neu-rounded;
+    margin: 10px;
+    padding: 5px 10px 5px 10px;
+
+    .logo {
+      font-size: 30px;
+      margin-left: 20px;
+      margin-top: 4px;
+    }
+  }
+  .autoCompleteBox {
+    margin: auto;
+    left: 0px;
+    right: 0px;
+    width: 95%;
+    box-sizing: border-box;
+    position: absolute;
+    top: 45px;
+    z-index: 1100;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+    box-shadow: 0 3px 5px #00000033;
+    padding: 5px 0px 5px 0px;
+    list-style: none;
+    li {
+      .suggestionTitle {
+        color: black;
+        margin-right: 10px;
+      }
+      .suggestionSubtitle {
+      }
+      padding: 10px 0px 10px 10px;
+      border-bottom: 1px solid #eee;
+      &:hover {
+        background-color: #eee;
+      }
+    }
+  }
+  .searchArea {
+    margin: auto;
+    position: relative;
+    margin-left: 20px;
+    width: 250px;
+    height: 100%;
+    .inputHolder {
+      @include flexCenter;
+      width: 100%;
+      height: 100%;
+      .mainSearch {
+        width: 100%;
+        border-radius: 25px;
+        border-radius: 25px;
+        border: none;
+        outline: none;
         background: $mainColor;
-        @extend %neu-shadow-over;
-        @extend %neu-rounded;
-        margin: 10px;
-        padding: 5px 10px 5px 10px;
-  
-        .logo {
-            font-size: 30px;
-            margin-left: 20px;
-            margin-top: 4px;
+        padding: 5px 25px 5px 20px;
+        font-size: 17px;
+        @extend %neu-shadow-under;
+        .mainInput {
+          width: 180px;
+          font-size: 15px;
+          border: none;
+          background: #00000000;
+          border-bottom: 1px solid #aaa;
         }
-    }
-    .autoCompleteBox {
-        margin: auto;
-        left: 0px;
-        right: 0px;
-        width: 95%;
-        box-sizing: border-box;
-        position: absolute;
-        top: 45px;
-        z-index: 1100;
-        background-color: #fff;
-        border-radius: 5px;
-        border: 1px solid #bbb;
-        box-shadow: 0 3px 5px #00000033;
-        padding: 5px 0px 5px 0px;
-        list-style: none;
-        li {
-            .suggestionTitle {
-                color: black;
-                margin-right: 10px;
-            }
-            .suggestionSubtitle {
-            }
-            padding: 10px 0px 10px 10px;
-            border-bottom: 1px solid #eee;
-            &:hover {
-                background-color: #eee;
-            }
+        .mainInput:focus {
+          outline: none;
+          border-bottom: 1px solid #333;
         }
-    }
-    .searchArea {
-        margin: auto;
-        position: relative;
-        margin-left: 20px;
-        width: 250px;
-        height: 100%;
-        .inputHolder {
-            @include flexCenter;
-            width: 100%;
-            height: 100%;
-            .mainSearch {
-                width: 100%;
-                border-radius: 25px;
-                border-radius: 25px;
-                border: none;
-                outline: none;
-                background: $mainColor;
-                padding: 5px 25px 5px 20px;
-                font-size: 17px;
-                @extend %neu-shadow-under;
-                .mainInput {
-                    width: 180px;
-                    font-size: 15px;
-                    border: none;
-                    background: #00000000;
-                    border-bottom:1px solid #AAA;
-                }
-                .mainInput:focus {
-                    outline: none;
-                    border-bottom:1px solid #333;
-                }
-            }
-            .searchBtn {
-                width: 0px;
-                &:hover {
-                    cursor: pointer;
-                }
-                .btnSearchIcon {
-                    position: relative;
-                    top: 4px;
-                    right: 45px;
-                    padding: 1px 1px 1px 10px;
-                }
-            }
+      }
+      .searchBtn {
+        width: 0px;
+        &:hover {
+          cursor: pointer;
         }
+        .btnSearchIcon {
+          position: relative;
+          top: 4px;
+          right: 45px;
+          padding: 1px 1px 1px 10px;
+        }
+      }
     }
-    .accountContainer {
-    }
+  }
+  .accountContainer {
+  }
 }

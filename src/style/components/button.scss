@@ -1,6 +1,7 @@
-@import '../const/var.scss', '../const/minix.scss', '../additional/neumorphism.scss';
+@import "../const/var.scss", "../const/minix.scss",
+  "../additional/neumorphism.scss";
 
-.buttonContainer{
+.buttonContainer {
   width: 42px;
   height: 42px;
   display: flex;
@@ -12,11 +13,10 @@
   color: $buttonIconColor;
 }
 
-.buttonContainer:hover{
+.buttonContainer:hover {
   @extend %neu-hover;
 }
 
 .buttonContainer:active {
   @extend %neu-active;
 }
-

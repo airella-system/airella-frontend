@@ -1,4 +1,5 @@
-@import '../../const/var.scss', '../../const/minix.scss', '../../additional/neumorphism.scss';
+@import "../../const/var.scss", "../../const/minix.scss",
+  "../../additional/neumorphism.scss";
 
 $animation-easing: cubic-bezier(0.61, 1, 0.88, 1);
 
@@ -19,12 +20,20 @@ $animation-easing: cubic-bezier(0.61, 1, 0.88, 1);
 }
 
 @keyframes animated-popup-point-intro {
-  0% { transform: scale(var(--startScale)) }
-  100% { transform: scale(1) }
+  0% {
+    transform: scale(var(--startScale));
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 @keyframes animated-popup-point-exit {
-  0% { transform: scale(1) }
-  100% { transform: scale(0) }
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
 }
 .animated-popup-point {
   --startScale: 0.38;
@@ -54,12 +63,20 @@ $animation-easing: cubic-bezier(0.61, 1, 0.88, 1);
 }
 
 @keyframes animated-popup-loader-pulse {
-  0% { transform: scale(1) }
-  50% { transform: scale(1.2) }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }
 @keyframes animated-popup-loader-exit {
-  0% { transform: scale(1) }
-  100% { transform: scale(0) }
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
 }
 .animated-popup-loader {
   width: 100%;
@@ -82,12 +99,24 @@ $animation-easing: cubic-bezier(0.61, 1, 0.88, 1);
 }
 
 @keyframes animated-popup-content-grow {
-  0% { transform: scale(0); visibility: visible; }
-  100% { transform: scale(1); visibility: visible; }
+  0% {
+    transform: scale(0);
+    visibility: visible;
+  }
+  100% {
+    transform: scale(1);
+    visibility: visible;
+  }
 }
 @keyframes animated-popup-content-exit {
-  0% { transform: scale(1); visibility: visible; }
-  100% { transform: scale(0); visibility: hidden; }
+  0% {
+    transform: scale(1);
+    visibility: visible;
+  }
+  100% {
+    transform: scale(0);
+    visibility: hidden;
+  }
 }
 .animated-popup-content {
   width: 100%;
@@ -136,7 +165,7 @@ $animation-easing: cubic-bezier(0.61, 1, 0.88, 1);
   align-items: center;
   text-align: center;
 
-  .address{
+  .address {
     font-size: 17px;
     white-space: nowrap;
     overflow: hidden;
@@ -144,13 +173,13 @@ $animation-easing: cubic-bezier(0.61, 1, 0.88, 1);
     max-width: 70px;
     font-weight: bold;
   }
-  
+
   .sensor-info {
-    .key{
+    .key {
       font-size: 15px;
       font-weight: bold;
     }
-    .value{
+    .value {
       font-size: 20px;
       span {
         font-size: 15px;

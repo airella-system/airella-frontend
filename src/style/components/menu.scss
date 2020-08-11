@@ -1,24 +1,25 @@
-@import '../const/var.scss', '../const/minix.scss', '../additional/neumorphism.scss';
+@import "../const/var.scss", "../const/minix.scss",
+  "../additional/neumorphism.scss";
 
-.menuContainter{
-  span{
+.menuContainter {
+  span {
     display: block;
     width: 20px;
     height: 3px;
     background-color: $iconBase;
     margin-top: 4px;
     border-radius: 3px;
-    &:first-child{
+    &:first-child {
       margin-top: 0px;
     }
   }
-  &:hover{
+  &:hover {
     cursor: pointer;
-    span{
+    span {
       background-color: $iconBaseHover;
     }
   }
-  .menuHolder{
+  .menuHolder {
     border-top-right-radius: $neu-round-radius;
     border-bottom-right-radius: $neu-round-radius;
     @extend %neu-shadow-over;
@@ -29,30 +30,30 @@
     z-index: 9999;
     left: 0px;
     top: 0px;
-    .close{
+    .close {
       margin-bottom: 15px;
       margin-top: 15px;
       margin-right: 15px;
       margin-bottom: 15px;
       float: right;
     }
-    .link{
+    .link {
       color: $menuLinkColor;
       text-decoration: none;
       display: block;
 
-      .holder{
+      .holder {
         display: flex;
         align-items: center;
         padding: 8px 10px;
-        margin: 12px auto 12px auto; 
+        margin: 12px auto 12px auto;
         width: 200px;
-        .menuIcon{
+        .menuIcon {
           font-size: 25px;
           position: relative;
           top: 3px;
         }
-        .textAligner{
+        .textAligner {
           margin-left: 15px;
           font-size: 18px;
         }
@@ -60,20 +61,20 @@
       .holder-nonactive {
         @extend %neu-shadow-over;
         @extend %neu-rounded;
-        &:hover{
+        &:hover {
           @extend %neu-hover;
         }
-        &:active{
+        &:active {
           @extend %neu-active;
         }
       }
-      .holder-active{
+      .holder-active {
         @extend %neu-shadow-under;
         @extend %neu-rounded;
       }
     }
   }
 }
-.none{
+.none {
   display: none;
 }

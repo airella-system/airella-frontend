@@ -1,33 +1,33 @@
-@import './const/var.scss', './const/minix.scss';
+@import "./const/var.scss", "./const/minix.scss";
 
 body {
-    @include fontFamily;
-    background: #333;
-    color: rgb(177, 177, 177);
-    margin: 0 !important;
-    overflow-x: hidden;
+  @include fontFamily;
+  background: #333;
+  color: rgb(177, 177, 177);
+  margin: 0 !important;
+  overflow-x: hidden;
 }
 input {
-    @include fontFamily;
+  @include fontFamily;
 }
-.verticalHolder{
-    display: flex;
+.verticalHolder {
+  display: flex;
 }
-.none{
-    visibility: hidden;
+.none {
+  visibility: hidden;
 }
-.quality_0{
-    background: $qualityStateColor_1;
+.quality_0 {
+  background: $qualityStateColor_1;
 }
-.quality_1{
-    background: $qualityStateColor_2;
+.quality_1 {
+  background: $qualityStateColor_2;
 }
-.quality_2{
-    background: $qualityStateColor_3;
+.quality_2 {
+  background: $qualityStateColor_3;
 }
-.quality_3{
-    background: $qualityStateColor_4;
+.quality_3 {
+  background: $qualityStateColor_4;
 }
-.quality_4{
-    background: $qualityStateColor_5;
+.quality_4 {
+  background: $qualityStateColor_5;
 }
