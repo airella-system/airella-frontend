@@ -11,7 +11,9 @@ class Statistic extends React.Component {
             return	<div className={styles.root}>
             <div className={styles.root2}>
                 <div className={styles.leftIconContainer}>
-                    <div className={styles.leftIcon}></div>
+                    <div className={styles.leftIconBackgroundContainer}>
+                        {this.props.icon}
+                    </div>
                 </div>
                 <div className={styles.rightContainer}>
                     <div className={styles.valueContainer}>
@@ -32,7 +34,9 @@ class Statistic extends React.Component {
             return	<div className={styles.root}>
             <div className={styles.root2}>
                 <div className={styles.leftIconContainer}>
-                    <div className={styles.leftIcon}></div>
+                    <div className={styles.leftIconBackgroundContainer}>
+                        {this.props.icon}
+                    </div>
                 </div>
                 <div className={styles.rightContainer}>
                     <div className={styles.valueContainer}>

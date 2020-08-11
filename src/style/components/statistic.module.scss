@@ -1,5 +1,7 @@
 .root {
     width: 50%;
+    min-width: 165px;
+    max-width: 200px;
     height: 60px;
     display: flex;
     align-items: center;
@@ -9,31 +11,39 @@
 }
 
 .root2 {
-    width: 80%;
+    width: 170px;
     height: 100%;
 }
 
 .leftIconContainer {
     float: left;
-    width: 35%;
+    width: 50px;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.leftIcon {
-    background: #DDDDDD;
+.leftIconBackgroundContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 0px 2px #AAAAAA inset;
     border-radius: 50%;
     width: 50px;
     height: 50px;
 }
 
+.leftIcon {
+    width: 60%;
+    height: 60%;
+    color: #AAAAAA;
+}
+
 .rightContainer {
-    float: left;
-    width: 55%;
+    float: right;
+    width: 105px;
     height: 100%;
-    margin-left: 10%;
 }
 
 .valueContainer {

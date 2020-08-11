@@ -1,14 +1,10 @@
-@media only screen and (min-width: 600px) {
-    .root {
-        position: relative;
-        height: 140px;
-    }
+.root {
+    min-width: 170px;
 }
 
-@media only screen and (max-width: 600px) {
-    .root {
-        padding-bottom: 35%;
-    }
+.root2 {
+    width: 100%;
+    padding-bottom: 70%;
 }
 
 .gauge {

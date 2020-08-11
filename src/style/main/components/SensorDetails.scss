@@ -82,10 +82,20 @@
                 }
 
             }
-            .gaugesRow {
+            .statisticsRow {
                 display: flex;
                 align-items: center;
                 flex-wrap: wrap;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .gaugesRow {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                margin-left: 10px;
+                margin-right: 10px;
             }
             .horizontalLine {
                 margin-left: 20px;

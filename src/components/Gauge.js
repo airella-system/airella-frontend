@@ -55,6 +55,7 @@ class Gauge extends React.Component {
 		return (
 			<div className={styles.root} 
 			style={{ position: "relative", width: this.props.width }}>
+				<div className={styles.root2}>
 				<div className={styles.gauge}>
 					<GaugeCanvas percent={percent} color={cssColor} canvasWidth={this.props.canvasWidth}
 						canvasHeight={this.props.canvasHeight} lineWidth={this.props.lineWidth}
@@ -95,6 +96,7 @@ class Gauge extends React.Component {
 				</div>
 				<div className={styles.name}>
 					{this.props.name}
+				</div>
 				</div>
 			</div>
 		)
