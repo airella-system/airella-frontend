@@ -9,11 +9,9 @@ class GaugeCanvas extends React.Component {
 		var rect = canvas.getBoundingClientRect();
 		// Give the canvas pixel dimensions of their CSS
 		// size * the device pixel ratio.
-		canvas.style.width = canvas.width + 'px';
-		canvas.style.height = canvas.height + 'px';
-		canvas.width = rect.width * dpr;
-		canvas.height = rect.height * dpr;
-
+		canvas.width = this.props.canvasWidth * dpr;
+		canvas.height = this.props.canvasHeight * dpr;
+		
 		var ctx = canvas.getContext('2d');
 		// Scale all drawing operations by the dpr, so you
 		// don't have to worry about the difference.
@@ -155,9 +153,9 @@ class GaugeCanvas extends React.Component {
 
 	  render() {
 		return(
-		  <div className={styles.root} style={{width: this.props.width, height: this.props.height}}>
-			<canvas className={styles.canvas} ref="canvas" width={this.props.width} height={this.props.height} />
-			<canvas className={styles.canvas} ref="canvas2" width={this.props.width} height={this.props.height} />
+		  <div className={styles.root}>
+			<canvas className={styles.canvas} ref="canvas" width={this.props.canvasWidth} height={this.props.canvasHeight} />
+			<canvas className={styles.canvas} ref="canvas2" width={this.props.canvasWidth} height={this.props.canvasHeight} />
 		  </div>
 		)
 	  }

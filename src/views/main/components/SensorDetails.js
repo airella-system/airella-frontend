@@ -14,6 +14,13 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import ScrollBar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import Statistic from "../../../components/Statistic";
+import { IoMdThermometer, IoMdSpeedometer } from "react-icons/io";
+import { GiWaterDrop } from "react-icons/gi";
+import { IoIosSpeedometer } from "react-icons/io";
+import { WiSmoke } from "react-icons/wi";
+
+import statisticStyles from '../../../style/components/statistic.module.scss';
+
 class SensorDetails extends Component {
 	constructor(props) {
 		super(props);
@@ -100,7 +107,7 @@ class SensorDetails extends Component {
 		}
 		let id = this.state.latestData["id"];
 		let typeToGaugeGenerator = {
-			'pm1': (sensorData) => <Statistic pollution={true} key={id+"PM1"} name="PM1" value={sensorData.values[0].value} unit="µg/m³"></Statistic>,
+			'pm1': (sensorData) => <Statistic pollution={true} key={id+"PM1"} name="PM1" value={sensorData.values[0].value} unit="µg/m³" icon={<WiSmoke className={statisticStyles.leftIcon}/>}></Statistic>,
 		}
 
 		let priority = ['pm1'];
@@ -120,9 +127,9 @@ class SensorDetails extends Component {
 		}
 		let id = this.state.latestData["id"];
 		let typeToGaugeGenerator = {
-			'temperature': (sensorData) => <Statistic key={id+"temperature"} name="Temperature" value={sensorData.values[0].value} unit="℃"></Statistic>,
-			'humidity': (sensorData) => <Statistic key={id+"humidity"} name="Humidity" value={sensorData.values[0].value} unit="%"></Statistic>,
-			'pressure': (sensorData) => <Statistic key={id+"pressure"} name="Pressure" value={sensorData.values[0].value} unit="hPa"></Statistic>,
+		'temperature': (sensorData) => <Statistic key={id+"temperature"} name="Temperature" value={sensorData.values[0].value} unit="℃" icon={<IoMdThermometer className={statisticStyles.leftIcon}/>}></Statistic>,
+			'humidity': (sensorData) => <Statistic key={id+"humidity"} name="Humidity" value={sensorData.values[0].value} unit="%" icon={<GiWaterDrop className={statisticStyles.leftIcon}/>}></Statistic>,
+			'pressure': (sensorData) => <Statistic key={id+"pressure"} name="Pressure" value={sensorData.values[0].value} unit="hPa" icon={<IoMdSpeedometer className={statisticStyles.leftIcon}/>}></Statistic>,
 		}
 
 		let priority = ['temperature', 'humidity', 'pressure'];
@@ -172,7 +179,9 @@ class SensorDetails extends Component {
 		return (
 			<div className={`stationDetail animated faster ${this.state.visible ? "slideInRight" : "slideOutRight"}`}>
 				
-				<div className="close">
+			
+				<div className="stationInside">
+				<div className="close close-desktop">
 				<Button onClick={() => {
 					this.props.dispatch(sensorDetailAction(null));
 					this.setState({ visible: false });
@@ -181,8 +190,16 @@ class SensorDetails extends Component {
 					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
 				</Button>
 				</div>
-				<div className="stationInside">
 				<ScrollBar className="stationList" options={{suppressScrollX : true}}>
+				<div className="close close-mobile">
+				<Button onClick={() => {
+					this.props.dispatch(sensorDetailAction(null));
+					this.setState({ visible: false });
+				}}>
+					
+					<FaRegTimesCircle className="closeIcon" size={22}></FaRegTimesCircle>
+				</Button>
+				</div>
 				<div className="card">
 					<div className="innerCard">
 					<div className="holder">
@@ -198,7 +215,7 @@ class SensorDetails extends Component {
 					</div>
 						</div>
 				
-					<Gauge key={this.state.latestData["id"]} name="AQI" value={Math.round(this.state.latestData.aqi)} norm={50} width={200} height={140} lineWidth={20}></Gauge>
+					<Gauge key={this.state.latestData["id"]} name="AQI" value={Math.round(this.state.latestData.aqi)} norm={50} lineWidth={20}></Gauge>
 					</div>
 					</div>
 
@@ -212,7 +229,7 @@ class SensorDetails extends Component {
 						{this.getGauges()}
 					</div>
 					<div className="horizontalLine"></div>
-					<div className="gaugesRow">
+					<div className="statisticsRow">
 						{this.getPollutionStatistics()}
 					</div>
 					{/* <div className="horizontalLine"></div>
@@ -228,7 +245,7 @@ class SensorDetails extends Component {
 					<div className="hd">
 						Other statistics:
 					</div>
-					<div className="gaugesRow">
+					<div className="statisticsRow">
 					{this.getStatistics()}
 					</div>
 					</div>

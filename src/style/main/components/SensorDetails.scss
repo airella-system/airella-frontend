@@ -10,6 +10,7 @@
     .close{
         position: absolute;
         top: 8px;
+        left: -45px;
     }
     .stationInside {
         border-top-left-radius: $neu-round-radius;
@@ -81,10 +82,20 @@
                 }
 
             }
-            .gaugesRow {
+            .statisticsRow {
                 display: flex;
                 align-items: center;
                 flex-wrap: wrap;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            .gaugesRow {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                margin-left: 10px;
+                margin-right: 10px;
             }
             .horizontalLine {
                 margin-left: 20px;
@@ -176,6 +187,35 @@
                 min-height: 308px;
                 overflow: hidden;
             }
+        }
+    }
+}
+
+@media only screen and (max-width: $mediaMobileMaxWidth) {
+    .stationDetail {
+        height: 100vh;
+        width: 100%;
+        .close{
+            position: relative;
+            top: 0px;
+            left: 0px;
+            margin-left: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .close-desktop{
+            display: none;
+        }
+        .stationInside {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (min-width: $mediaMobileMaxWidth) {
+    .stationDetail {
+        .close-mobile{
+            display: none;
         }
     }
 }
