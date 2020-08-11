@@ -9,7 +9,7 @@ class Statistic extends React.Component {
 	render() {
         if (this.props.pollution) {
             return	<div className={styles.root}>
-            <div className={styles.root2}>
+            <div className={styles.centeredContainer}>
                 <div className={styles.leftIconContainer}>
                     <div className={styles.leftIconBackgroundContainer}>
                         {this.props.icon}
@@ -32,7 +32,7 @@ class Statistic extends React.Component {
             </div>
         } else {
             return	<div className={styles.root}>
-            <div className={styles.root2}>
+            <div className={styles.centeredContainer}>
                 <div className={styles.leftIconContainer}>
                     <div className={styles.leftIconBackgroundContainer}>
                         {this.props.icon}

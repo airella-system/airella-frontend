@@ -1,3 +1,5 @@
+@import '../const/var.scss', '../const/minix.scss';
+
 .root {
     width: 50%;
     min-width: 165px;
@@ -10,7 +12,7 @@
     margin-bottom: 5px;
 }
 
-.root2 {
+.centeredContainer {
     width: 170px;
     height: 100%;
 }
@@ -28,7 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 0px 0px 2px #AAAAAA inset;
+    box-shadow: 0px 0px 0px 2px $statisticIconColor inset;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -37,7 +39,7 @@
 .leftIcon {
     width: 60%;
     height: 60%;
-    color: #AAAAAA;
+    color: $statisticIconColor;
 }
 
 .rightContainer {
