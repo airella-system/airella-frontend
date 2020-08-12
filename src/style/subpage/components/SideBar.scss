@@ -1,6 +1,6 @@
-@import '../../const/var.scss', '../../const/minix.scss';
+@import "../../const/var.scss", "../../const/minix.scss";
 
-.sideBar{
+.sideBar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,12 +9,12 @@
   top: 50vh;
   bottom: 50vh;
   background: transparent;
-  .itemList{
+  .itemList {
     padding-right: 10px;
     list-style: none;
-    .nav-item{
+    .nav-item {
       color: $subpagePanelColorLight;
-      .active{
+      .active {
         color: $subpagePanelColor;
       }
     }

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from "react-scroll"
-import '../../../style/subpage/components/SideBar.scss'
+import React from "react";
+import { Link } from "react-scroll";
+import "../../../style/subpage/components/SideBar.scss";
 
 const SideBar = () => {
   const makeLink = (to) => {
@@ -12,23 +12,21 @@ const SideBar = () => {
         spy={true}
         smooth={true}
         offset={0}
-        duration= {400}
-      >{"\u2601"}</Link>
-    )
-  }
+        duration={400}
+      >
+        {"\u2601"}
+      </Link>
+    );
+  };
 
-  return(
+  return (
     <div className="sideBar">
       <ul className="itemList">
-        <li className="nav-item">
-          {makeLink("section1")}
-        </li>
-        <li className="nav-item">
-          {makeLink("section2")}
-        </li>
+        <li className="nav-item">{makeLink("section1")}</li>
+        <li className="nav-item">{makeLink("section2")}</li>
       </ul>
     </div>
-  )
-}
+  );
+};
 
 export default SideBar;

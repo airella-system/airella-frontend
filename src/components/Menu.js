@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkedAlt, FaCube, FaRegLifeRing, FaUser } from "react-icons/fa";
 import Button from './Button';
@@ -6,16 +6,16 @@ import '../style/components/menu.scss';
 import '../style/additional/animationLib.scss';
 
 class Menu extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			isOpen: false,
-			isFirst: true,
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false,
+      isFirst: true,
+    };
+  }
 
-	render() {
-		let noneClass = this.state.isFirst ? "none " : "";
+  render() {
+    let noneClass = this.state.isFirst ? "none " : "";
 
 		return (
 			<div className="menuContainter">

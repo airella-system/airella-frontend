@@ -1,6 +1,6 @@
-@import '../../const/var.scss', '../../const/minix.scss';
+@import "../../const/var.scss", "../../const/minix.scss";
 
-.contact{
+.contact {
   @include flexCenter;
   padding: 10px 10px;
   height: 10vh;

@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-import search from './search';
-import sensorDetail from './sensorDetail';
+import { combineReducers } from "redux";
+import search from "./search";
+import sensorDetail from "./sensorDetail";
 
-export default combineReducers({search, sensorDetail})
+export default combineReducers({ search, sensorDetail });

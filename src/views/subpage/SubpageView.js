@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import NavBar from './components/NavBar';
-import Section1 from './components/Section1';
-import Section2 from './components/Section2';
-import BottomPanel from './components/BottomPanel';
-import SideBar from './components/SideBar';
+import React, { Component } from "react";
+import NavBar from "./components/NavBar";
+import Section1 from "./components/Section1";
+import Section2 from "./components/Section2";
+import BottomPanel from "./components/BottomPanel";
+import SideBar from "./components/SideBar";
 
 class SubpageView extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-	render() {
-		return(
-			<div>
+  render() {
+    return (
+      <div>
         <SideBar />
-				<NavBar />
+        <NavBar />
         <Section1 />
         <Section2 />
         <BottomPanel />
-			</div>
-		);
-	}
+      </div>
+    );
+  }
 }
-
 
 export default SubpageView;

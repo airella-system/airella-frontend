@@ -1,27 +1,27 @@
 .mapContainer {
+  width: 100%;
+  .map {
+    height: 100vh;
     width: 100%;
-    .map {
-        height: 100vh;
-        width: 100%;
-    }
-    
-    .airellaLogo {
-        pointer-events: none;
-        font-size: 24px;
-        font-weight: 500;
-        color: #55555555;
-        width: 100%;
-        margin-left: 5px;
-        text-align: left;
-        position: absolute;
-        left: 0px;
-        bottom: 0px;
-        z-index: 1050;
-    }
+  }
 
-    .hiddenMarker {
-        width: 0;
-        height: 0;
-        background: black;
-    }
+  .airellaLogo {
+    pointer-events: none;
+    font-size: 24px;
+    font-weight: 500;
+    color: #55555555;
+    width: 100%;
+    margin-left: 5px;
+    text-align: left;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1050;
+  }
+
+  .hiddenMarker {
+    width: 0;
+    height: 0;
+    background: black;
+  }
 }

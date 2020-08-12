@@ -4,7 +4,7 @@ export let stationDetailDataMock = {
     country: "PL",
     city: "Kraków",
     street: "Looong Street",
-    number: "12/4"
+    number: "12/4",
   },
   location: {
     latitude: 50.1261338,
@@ -135,7 +135,7 @@ export let stationDetailDataMock = {
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
-      ]
+      ],
     },
     pm2_5: {
       type: "pm2_5",
@@ -261,7 +261,7 @@ export let stationDetailDataMock = {
           state: 2,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
-      ]
+      ],
     },
     pm10: {
       type: "pm10",
@@ -387,7 +387,7 @@ export let stationDetailDataMock = {
           state: 20,
           timestamp: "2020-04-18T14:35:24.357Z",
         },
-      ]
+      ],
     },
     airQuality: {
       type: "airQuality",
@@ -488,7 +488,7 @@ export let stationDetailDataMock = {
           state: 14,
           timestamp: "2020-04-17T15:35:24.357Z",
         },
-      ]
+      ],
     },
   },
   airQuality: 2,

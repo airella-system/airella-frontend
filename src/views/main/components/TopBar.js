@@ -9,6 +9,13 @@ import PropTypes from 'prop-types';
 import '../../../style/main/components/TopBar.scss';
 
 class TopBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: "",
+      searchFocus: false,
+    };
+  }
 
 	constructor(props) {
 		super(props);
@@ -19,50 +26,61 @@ class TopBar extends Component {
 		};
 	}
 
-	static propTypes = {
-		onLocationChanged: PropTypes.func
-	}
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
 
-	componentDidMount() {
-		document.addEventListener('mousedown', this.handleClickOutside);
-	}
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
 
-	componentWillUnmount() {
-		document.removeEventListener('mousedown', this.handleClickOutside);
-	}
+  handleSearchTextChange = (event) => {
+    var text = event.target.value;
+    this.setState({ searchText: text });
+    if (text.length >= 3) {
+      fetch("http://photon.komoot.de/api/?q=" + text)
+        .then((response) => response.json())
+        .then((data) => this.setState({ searchData: data }));
+    } else {
+      this.setState({ searchData: null });
+    }
+  };
 
-	handleSearchTextChange = (event) => {
-		var text = event.target.value;
-		this.setState({ searchText: text });
-		if (text.length >= 3) {
-			fetch('http://photon.komoot.de/api/?q=' + text)
-				.then(response => response.json())
-				.then(data => this.setState({ searchData: data }));
-		} else {
-			this.setState({ searchData: null });
-		}
-	}
+  handleSearchFocusOn = (event) => {
+    this.setState({ searchFocus: true });
+  };
 
-	handleSearchFocusOn = (event) => {
-		this.setState({ searchFocus: true });
-	}
+  handleSuggestionClick = (feature) => {
+    if (this.props.onLocationChanged) {
+      this.props.onLocationChanged(feature.geometry.coordinates);
+    }
+    this.setState({ searchFocus: false });
+  };
 
-	handleSuggestionClick = (feature) => {
-		if (this.props.onLocationChanged) {
-			this.props.onLocationChanged(feature.geometry.coordinates);
-		}
-		this.setState({ searchFocus: false });
-	}
+  handleClickOutside = (event) => {
+    if (this.searchAreaRef && !this.searchAreaRef.contains(event.target)) {
+      this.setState({ searchFocus: false });
+    }
+  };
 
-	handleClickOutside = (event) => {
-		if (this.searchAreaRef && !this.searchAreaRef.contains(event.target)) {
-			this.setState({ searchFocus: false });
-		}
-	}
+  setSearchAreaRef = (node) => {
+    this.searchAreaRef = node;
+  };
 
-	setSearchAreaRef = (node) => {
-		this.searchAreaRef = node;
-	}
+  getAutoCompleteList = () => {
+    const features = this.state.searchData.features;
+    const newFeaturesSize = Math.min(8, features.length);
+    const limitedFeatures = features.slice(0, newFeaturesSize);
+    const listItems = limitedFeatures.map((feature, index) => (
+      <li key={index} onClick={() => this.handleSuggestionClick(feature)}>
+        <span className="suggestionTitle">{feature.properties.name}</span>
+        {feature.properties.street != null && (
+          <span className="suggestionSubtitle">{feature.properties.name}</span>
+        )}
+      </li>
+    ));
+    return <ol className="autoCompleteBox">{listItems}</ol>;
+  };
 
 	getAutoCompleteList = () => {
 		const features = this.state.searchData.features;
@@ -118,7 +136,7 @@ class TopBar extends Component {
 }
 
 function mapStateToProps(state) {
-	return { searchText: state.searchText };
+  return { searchText: state.searchText };
 }
 
 export default connect(mapStateToProps)(TopBar);
