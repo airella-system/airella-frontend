@@ -51,7 +51,6 @@ class MapComponent extends Component {
     this.constans = {
       lat: 50.0622881,
       lng: 19.9311482,
-      radius: 1000000,
       initialZoom: 13,
     };
 
@@ -72,6 +71,7 @@ class MapComponent extends Component {
 
   componentDidMount() {
     this.trySetMapPositionWithGeolocation();
+    this.updateMarkers();
   }
 
   setMapPositionWithGeolocation() {
@@ -106,7 +106,6 @@ class MapComponent extends Component {
       // Safari doesn't support navigator.permissions
       this.setMapPositionWithGeolocation();
     }
-    this.getMarkers();
   }
 
   getStationData(stationId) {
@@ -126,17 +125,16 @@ class MapComponent extends Component {
       .catch((e) => console.error(e));
   }
 
-  getMarkers() {
+  getMarkers(lat, lng, radius) {
     fetch(
       getApiUrl("getMarkers", null, {
-        latitude: this.constans.lat,
-        longitude: this.constans.lng,
-        radius: this.constans.radius,
+        latitude: lat,
+        longitude: lng,
+        radius: radius,
       })
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.data);
         this.setState({
           stationData: data.data,
         });
@@ -189,6 +187,14 @@ class MapComponent extends Component {
     );
   }
 
+  updateMarkers = () => {
+    let bounds = this.leafletMap.leafletElement.getBounds();
+    let center = this.leafletMap.leafletElement.getCenter();
+    let radius = this.leafletMap.leafletElement.distance(bounds._northEast, center);
+
+    this.getMarkers(center.lat, center.lng, radius);
+  }
+
   render() {
     const position = [this.constans.lat, this.constans.lng];
 
@@ -201,13 +207,19 @@ class MapComponent extends Component {
           ref={(m) => {
             this.leafletMap = m;
           }}
-          onzoomend={(x) =>
+          onzoomend={(x) => {
             this.setState({
               currentMarkerSize: this.calculateMarkerSize(
                 this.leafletMap.leafletElement.getZoom()
               ),
             })
+            this.updateMarkers();
           }
+          }
+          onMoveEnd={
+            (x) => this.updateMarkers()
+          }
+
           className="map"
         >
           <TileLayer
