@@ -11,7 +11,11 @@ class Button extends React.Component {
 	}
 
 	render() {
-		return(
+		let result = this.props.isPushed ? (
+			<div className="pushedButtonContainer" onClick={this.props.onClick}>
+				{this.props.children}
+			</div>
+		) : (
 			<div className="buttonContainer" onClick={this.props.onClick}>
 				<div className="buttonContainerOuterShadow"/>
 				<div className="buttonContainerInnerShadow"/>
@@ -19,6 +23,10 @@ class Button extends React.Component {
 					{this.props.children}
 				</div>
 			</div>
+		)
+
+		return(
+			result
 		);
 	}
 }

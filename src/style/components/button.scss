@@ -7,7 +7,7 @@
   height: 100%;
 }
 
-.buttonContainer{
+.buttonContainer {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -54,4 +54,16 @@
       opacity: 1;
     }
   }
+}
+
+.pushedButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: $mainColor;
+  color: $buttonIconColor;
+  @extend %neu-color-transition;
+  @extend %neu-rounded;
+  @extend %neu-shadow-under;
 }

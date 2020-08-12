@@ -1,8 +1,8 @@
 @import '../const/var.scss', '../const/minix.scss', '../additional/neumorphism.scss';
 
-.menuContainter{
+.menuContainter {
   display: grid;
- grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 12px;
 
   .map {
@@ -23,13 +23,11 @@
   }
   
   .link {
-    color: $menuLinkColor;
     text-decoration: none;
     display: block;
 
     .holder {
-      display: flex;
-      align-items: center;
+      width: 100%;
       padding: 8px 10px;
       margin: 0 auto 0 auto; 
 
@@ -43,21 +41,9 @@
         font-size: 18px;
       }
     }
-    .holder-nonactive {
-      @extend %neu-shadow-over;
-      @extend %neu-rounded;
-
-      &:hover {
-        @extend %neu-hover;
-      }
-      &:active {
-        @extend %neu-active;
-      }
-    }
-    .holder-active{
-      @extend %neu-shadow-under;
-      @extend %neu-rounded;
-    }
+  }
+  .buttonContainer {
+    color: $menuLinkColor;
   }
 }
 .none{
