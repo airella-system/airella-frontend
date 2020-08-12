@@ -135,9 +135,13 @@ class MapComponent extends Component {
     )
       .then((response) => response.json())
       .then((data) => {
-        this.setState({
-          stationData: data.data,
-        });
+        let currentDate = Date();
+        if (!this.state.stationDataFetchDate || currentDate > this.state.stationDataLastFetchDate) {
+          this.setState({
+            stationData: data.data,
+            stationDataLastFetchDate: currentDate
+          });
+        }
       })
       .catch((e) => console.error(e));
   }
@@ -213,7 +217,6 @@ class MapComponent extends Component {
                 this.leafletMap.leafletElement.getZoom()
               ),
             })
-            this.updateMarkers();
           }
           }
           onMoveEnd={
