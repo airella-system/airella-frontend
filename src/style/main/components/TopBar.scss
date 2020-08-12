@@ -1,6 +1,6 @@
 @import "../../const/var.scss", "../../const/minix.scss", '../../additional/neumorphism.scss';
 
-$item-gap: 10px;
+$item-gap: 12px;
 
 .topBar {
 
@@ -21,7 +21,7 @@ $item-gap: 10px;
     @extend %neu-shadow-over;
     @extend %neu-rounded;
     margin: 10px;
-    padding: ($item-gap / 2) $item-gap ($item-gap / 2) $item-gap;
+    padding: $item-gap $item-gap $item-gap $item-gap;
 
     .logo {
       font-size: 30px;
@@ -33,9 +33,9 @@ $item-gap: 10px;
       opacity: 0;
       max-height: 0;
       margin-top: 0;
-      transition: opacity 250ms linear,
-                  max-height 250ms linear 250ms,
-                  margin-top 250ms linear 250ms;
+      transition: opacity 250ms $animation-easing,
+                  max-height 250ms $animation-easing 250ms,
+                  margin-top 250ms $animation-easing 250ms;
 
       .link {
         color: $menuLinkColor;
@@ -75,11 +75,11 @@ $item-gap: 10px;
     }
     .bottomItemsOpen {
       opacity: 1;
-      max-height: 100px;
+      max-height: 120px;
       margin-top: $item-gap;
-      transition: opacity 250ms linear 250ms,
-                  max-height 250ms linear,
-                  margin-top 250ms linear;
+      transition: opacity 250ms $animation-easing 250ms,
+                  max-height 250ms $animation-easing,
+                  margin-top 250ms $animation-easing;
     }
     .topItems {
       display: flex;
@@ -144,8 +144,8 @@ $item-gap: 10px;
         @extend %neu-shadow-under;
 
         .mainInput {
-          // width: 100%;
-          width: calc(100% - #{$search-button-width});
+          width: 100%;
+          width: calc(100% - (#{$search-button-width} * 0.55));
           font-size: 15px;
           border: none;
           background: #00000000;

@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { FaMapMarkedAlt, FaCube, FaRegLifeRing, FaUser } from "react-icons/fa";
 import '../style/additional/animationLib.scss';
 import '../style/components/menu.scss';
-import VersionInfo from './VersionInfo';
-import Button from '../components/Button'
 
 class Menu extends React.Component {
 	constructor(props) {

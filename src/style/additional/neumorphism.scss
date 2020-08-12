@@ -25,5 +25,14 @@ $neu-round-radius: 15px;
 
 %neu-active {
     @extend %neu-shadow-under;
-    background: $mainColor;
+    background-color: $mainColor;
+}
+
+%neu-color-transition {
+    transition: background-color 150ms $animation-easing,
+                color 150ms $animation-easing;
+}
+
+%neu-shadow-transition {
+    transition: opacity 150ms $animation-easing;
 }

@@ -1,7 +1,5 @@
 @import '../../const/var.scss', '../../const/minix.scss', '../../additional/neumorphism.scss';
 
-$animation-easing: cubic-bezier(0.61, 1, 0.88, 1);
-
 .custom-popup {
   .leaflet-popup-content-wrapper {
     width: 0;

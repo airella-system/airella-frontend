@@ -13,7 +13,11 @@ class Button extends React.Component {
 	render() {
 		return(
 			<div className="buttonContainer" onClick={this.props.onClick}>
-				{this.props.children}
+				<div className="buttonContainerOuterShadow"/>
+				<div className="buttonContainerInnerShadow"/>
+				<div className="buttonContainerContent">
+					{this.props.children}
+				</div>
 			</div>
 		);
 	}
