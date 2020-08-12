@@ -222,7 +222,6 @@ class MapComponent extends Component {
           onMoveEnd={
             (x) => this.updateMarkers()
           }
-
           className="map"
         >
           <TileLayer
