@@ -9,14 +9,6 @@ import PropTypes from 'prop-types';
 import '../../../style/main/components/TopBar.scss';
 
 class TopBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchText: "",
-      searchFocus: false,
-    };
-  }
-
 	constructor(props) {
 		super(props);
 		this.state = {

@@ -249,13 +249,40 @@ class AnimatedMapPopup extends Component {
           <div className="address">
             {street} <br /> {number}
           </div>
-        ))}
-        {pm10Data && this.makeContentContainer(i++, (
-          <div className="sensor-info">
-            <div className="key"> PM 10 </div>
-            <div className="value"> {Math.round(pm10Data.value / 45 * 100)} <span>%</span> </div>
-          </div>
-        ))}
+        )}
+        {pm1Data &&
+          this.makeContentContainer(
+            i++,
+            <div className="sensor-info">
+              <div className="key"> PM 1 </div>
+              <div className="value">
+                {" "}
+                {Math.round(pm1Data.value)} <span>µg/m³</span>{" "}
+              </div>
+            </div>
+          )}
+        {pm2_5Data &&
+          this.makeContentContainer(
+            i++,
+            <div className="sensor-info">
+              <div className="key"> PM 2.5 </div>
+              <div className="value">
+                {" "}
+                {Math.round((pm2_5Data.value / 45) * 100)} <span>%</span>{" "}
+              </div>
+            </div>
+          )}
+        {pm10Data &&
+          this.makeContentContainer(
+            i++,
+            <div className="sensor-info">
+              <div className="key"> PM 10 </div>
+              <div className="value">
+                {" "}
+                {Math.round((pm10Data.value / 45) * 100)} <span>%</span>{" "}
+              </div>
+            </div>
+          )}
         {this.makeContentContainer(i++, (
           <Button>
             <div>
@@ -263,25 +290,6 @@ class AnimatedMapPopup extends Component {
             </div>
           </Button>
         ), () => this.props.dispatch(sensorDetailAction(this.props.stationData)))}
-        {timestamp && this.makeContentContainer(i++, (
-          <div>
-            {this.makeStylizedIcon(<IoIosTime/>, {fontSize: '30px'})} {timestamp}
-          </div>
-        ))}
-        {humidityData && this.makeContentContainer(i++, (
-          <div>
-            {this.makeStylizedIcon(<GiWaterDrop/>, {fontSize: '30px'})} {humidityData.value.toFixed(2) + " %"}
-          </div>
-        ))}
-        {temperatureData && this.makeContentContainer(i++, (
-          <div>
-            {this.makeStylizedIcon(<BsThreeDots />, {
-              fontSize: "60px",
-              paddingTop: "8px",
-            })}
-          </div>,
-          () => this.props.dispatch(sensorDetailAction(this.props.stationData))
-        )}
         {timestamp &&
           this.makeContentContainer(
             i++,
