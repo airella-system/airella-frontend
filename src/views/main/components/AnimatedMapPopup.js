@@ -7,9 +7,10 @@ import { IconContext } from "react-icons";
 import { GiWaterDrop } from "react-icons/gi";
 import { IoIosTime, IoMdThermometer } from "react-icons/io";
 import { BsThreeDots } from "react-icons/bs";
-import { indexToLevel } from '../../../config/AirQuality'
+import { indexToLevel } from '../../../config/AirQuality';
+import Button from '../../../components/Button';
 
-import styles from '../../../style/main/components/AnimatedMapPopup.scss'
+import styles from '../../../style/main/components/AnimatedMapPopup.scss';
 
 class AnimatedMapPopup extends Component {
 
@@ -142,7 +143,7 @@ class AnimatedMapPopup extends Component {
   
   makeContentContainer = (number, content, onClick=undefined) => (
     <div style={{transform: `translate(${this.translateWidth(number)}px, ${this.translateHeight(number)}px)`}}>
-      <div className={onClick ? "clickable" : ""} onClick={onClick} style={{animationDelay: `${number * this.vars.delayUnit}s`}}>
+      <div className={onClick ? "clickable" : "notClickable"} onClick={onClick} style={{animationDelay: `${number * this.vars.delayUnit}s`}}>
         {content}
       </div>
     </div>
@@ -216,9 +217,11 @@ class AnimatedMapPopup extends Component {
           </div>
         ))}
         {this.makeContentContainer(i++, (
-          <div>
-            {this.makeStylizedIcon(<BsThreeDots/>, {fontSize: '60px', paddingTop: '8px'})}
-          </div>
+          <Button>
+            <div>
+              {this.makeStylizedIcon(<BsThreeDots/>, {fontSize: '60px', paddingTop: '8px'})}
+            </div>
+          </Button>
         ), () => this.props.dispatch(sensorDetailAction(this.props.stationData)))}
         {timestamp && this.makeContentContainer(i++, (
           <div>

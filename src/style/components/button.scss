@@ -28,14 +28,14 @@
   .buttonContainerOuterShadow {
     @include contentGeneralStyle;
     opacity: 1;
-    @extend %neu-rounded;
+    border-radius: inherit;
     @extend %neu-shadow-over;
     @extend %neu-shadow-transition;
   }
   .buttonContainerInnerShadow {
     @include contentGeneralStyle;
     opacity: 0;
-    @extend %neu-rounded;
+    border-radius: inherit;
     @extend %neu-shadow-under;
     @extend %neu-shadow-transition;
   }
