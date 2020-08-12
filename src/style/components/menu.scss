@@ -27,6 +27,8 @@
     display: block;
 
     .holder {
+      display: flex;
+      align-items: center;
       width: 100%;
       padding: 8px 10px;
       margin: 0 auto 0 auto; 
@@ -44,6 +46,10 @@
   }
   .buttonContainer {
     color: $menuLinkColor;
+    
+    &:hover {
+      color: $neuHoverBackgroundColor;
+    }
   }
 }
 .none{

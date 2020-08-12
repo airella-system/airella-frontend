@@ -30,50 +30,16 @@ $item-gap: 12px;
     }
     .bottomItems {
       transform-origin: top;
+      pointer-events: none;
       opacity: 0;
       max-height: 0;
       margin-top: 0;
       transition: opacity 250ms $animation-easing,
                   max-height 250ms $animation-easing 250ms,
                   margin-top 250ms $animation-easing 250ms;
-
-      .link {
-        color: $menuLinkColor;
-        text-decoration: none;
-        display: block;
-
-        .holder {
-          display: flex;
-          align-items: center;
-          padding: 8px 10px;
-          margin: 0 auto 0 auto; 
-          .menuIcon {
-            font-size: 25px;
-            position: relative;
-            top: 3px;
-          }
-          .textAligner {
-            margin-left: 15px;
-            font-size: 18px;
-          }
-        }
-        .holder-nonactive {
-          @extend %neu-shadow-over;
-          @extend %neu-rounded;
-          &:hover {
-            @extend %neu-hover;
-          }
-          &:active {
-            @extend %neu-active;
-          }
-        }
-        .holder-active{
-          @extend %neu-shadow-under;
-          @extend %neu-rounded;
-        }
-      }
     }
     .bottomItemsOpen {
+      pointer-events: auto;
       opacity: 1;
       max-height: 120px;
       margin-top: $item-gap;
