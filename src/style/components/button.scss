@@ -1,22 +1,70 @@
 @import "../const/var.scss", "../const/minix.scss",
   "../additional/neumorphism.scss";
 
+@mixin contentGeneralStyle {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+}
+
 .buttonContainer {
-  width: 42px;
-  height: 42px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  min-width: 42px;
+  min-height: 42px;
+  cursor: pointer;
+  background: $mainColor;
+  @extend %neu-color-transition;
+  @extend %neu-rounded;
+  color: $buttonIconColor;
+
+  .buttonContainerContent {
+    @include contentGeneralStyle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .buttonContainerOuterShadow {
+    @include contentGeneralStyle;
+    opacity: 1;
+    border-radius: inherit;
+    @extend %neu-shadow-over;
+    @extend %neu-shadow-transition;
+  }
+  .buttonContainerInnerShadow {
+    @include contentGeneralStyle;
+    opacity: 0;
+    border-radius: inherit;
+    @extend %neu-shadow-under;
+    @extend %neu-shadow-transition;
+  }
+
+  &:hover {
+    @extend %neu-hover;
+  }
+  
+  &:active {
+    background-color: $mainColor;
+
+    .buttonContainerOuterShadow {
+      opacity: 0;
+    }
+    .buttonContainerInnerShadow {
+      opacity: 1;
+    }
+  }
+}
+
+.pushedButtonContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   background: $mainColor;
-  @extend %neu-shadow-over;
-  @extend %neu-rounded;
   color: $buttonIconColor;
-}
-
-.buttonContainer:hover {
-  @extend %neu-hover;
-}
-
-.buttonContainer:active {
-  @extend %neu-active;
+  @extend %neu-color-transition;
+  @extend %neu-rounded;
+  @extend %neu-shadow-under;
 }

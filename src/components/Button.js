@@ -16,13 +16,25 @@ class Button extends React.Component {
     super(props);
   }
 
-  render() {
-    return (
-      <div className="buttonContainer" onClick={this.props.onClick}>
-        {this.props.children}
-      </div>
-    );
-  }
+	render() {
+		let result = this.props.isPushed ? (
+			<div className="pushedButtonContainer" onClick={this.props.onClick}>
+				{this.props.children}
+			</div>
+		) : (
+			<div className="buttonContainer" onClick={this.props.onClick}>
+				<div className="buttonContainerOuterShadow"/>
+				<div className="buttonContainerInnerShadow"/>
+				<div className="buttonContainerContent">
+					{this.props.children}
+				</div>
+			</div>
+		)
+
+		return(
+			result
+		);
+	}
 }
 
 export default Button;

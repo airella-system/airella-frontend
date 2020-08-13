@@ -2,76 +2,54 @@
   "../additional/neumorphism.scss";
 
 .menuContainter {
-  span {
-    display: block;
-    width: 20px;
-    height: 3px;
-    background-color: $iconBase;
-    margin-top: 4px;
-    border-radius: 3px;
-    &:first-child {
-      margin-top: 0px;
-    }
-  }
-  &:hover {
-    cursor: pointer;
-    span {
-      background-color: $iconBaseHover;
-    }
-  }
-  .menuHolder {
-    border-top-right-radius: $neu-round-radius;
-    border-bottom-right-radius: $neu-round-radius;
-    @extend %neu-shadow-over;
-    width: 250px;
-    height: 100vh;
-    background: $mainColor;
-    position: absolute;
-    z-index: 9999;
-    left: 0px;
-    top: 0px;
-    .close {
-      margin-bottom: 15px;
-      margin-top: 15px;
-      margin-right: 15px;
-      margin-bottom: 15px;
-      float: right;
-    }
-    .link {
-      color: $menuLinkColor;
-      text-decoration: none;
-      display: block;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 12px;
 
-      .holder {
-        display: flex;
-        align-items: center;
-        padding: 8px 10px;
-        margin: 12px auto 12px auto;
-        width: 200px;
-        .menuIcon {
-          font-size: 25px;
-          position: relative;
-          top: 3px;
-        }
-        .textAligner {
-          margin-left: 15px;
-          font-size: 18px;
-        }
+  .map {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .account {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .about {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .docs {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  
+  .link {
+    text-decoration: none;
+    display: block;
+
+    .holder {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 8px 10px;
+      margin: 0 auto 0 auto; 
+
+      .menuIcon {
+        font-size: 25px;
+        position: relative;
+        top: 3px;
       }
-      .holder-nonactive {
-        @extend %neu-shadow-over;
-        @extend %neu-rounded;
-        &:hover {
-          @extend %neu-hover;
-        }
-        &:active {
-          @extend %neu-active;
-        }
+      .textAligner {
+        margin-left: 15px;
+        font-size: 18px;
       }
-      .holder-active {
-        @extend %neu-shadow-under;
-        @extend %neu-rounded;
-      }
+    }
+  }
+  .buttonContainer {
+    color: $menuLinkColor;
+    
+    &:hover {
+      color: $neuHoverBackgroundColor;
     }
   }
 }

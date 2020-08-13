@@ -1,28 +1,57 @@
 @import "../../const/var.scss", "../../const/minix.scss",
   "../../additional/neumorphism.scss";
 
+$item-gap: 12px;
+
 .topBar {
-  height: 55px;
+
   position: absolute;
   z-index: 1050;
+
   .menuHolder {
   }
-  .menuLeftItems {
+  .menuLeftItems {	
     display: flex;
-    align-items: center;
-    float: left;
-    height: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
 
     background: $mainColor;
     @extend %neu-shadow-over;
     @extend %neu-rounded;
     margin: 10px;
-    padding: 5px 10px 5px 10px;
+    padding: $item-gap $item-gap $item-gap $item-gap;
 
     .logo {
       font-size: 30px;
       margin-left: 20px;
       margin-top: 4px;
+    }
+    .bottomItems {
+      transform-origin: top;
+      pointer-events: none;
+      opacity: 0;
+      max-height: 0;
+      margin-top: 0;
+      transition: opacity 250ms $animation-easing,
+                  max-height 250ms $animation-easing 250ms,
+                  margin-top 250ms $animation-easing 250ms;
+    }
+    .bottomItemsOpen {
+      pointer-events: auto;
+      opacity: 1;
+      max-height: 120px;
+      margin-top: $item-gap;
+      transition: opacity 250ms $animation-easing 250ms,
+                  max-height 250ms $animation-easing,
+                  margin-top 250ms $animation-easing;
+    }
+    .topItems {
+      display: flex;
+      align-items: center;
+      float: left;
     }
   }
   .autoCompleteBox {
@@ -40,30 +69,36 @@
     box-shadow: 0 3px 5px #00000033;
     padding: 5px 0px 5px 0px;
     list-style: none;
+
     li {
+      padding: 10px 0px 10px 10px;
+      border-bottom: 1px solid #eee;
+
       .suggestionTitle {
         color: black;
         margin-right: 10px;
       }
       .suggestionSubtitle {
       }
-      padding: 10px 0px 10px 10px;
-      border-bottom: 1px solid #eee;
       &:hover {
         background-color: #eee;
       }
     }
   }
   .searchArea {
+    $search-button-width: 35px;
+
     margin: auto;
     position: relative;
     margin-left: 20px;
-    width: 250px;
+    width: 100%;
     height: 100%;
+
     .inputHolder {
       @include flexCenter;
       width: 100%;
       height: 100%;
+
       .mainSearch {
         width: 100%;
         border-radius: 25px;
@@ -74,28 +109,31 @@
         padding: 5px 25px 5px 20px;
         font-size: 17px;
         @extend %neu-shadow-under;
+
         .mainInput {
-          width: 180px;
+          width: 100%;
+          width: calc(100% - (#{$search-button-width} * 0.55));
           font-size: 15px;
           border: none;
           background: #00000000;
-          border-bottom: 1px solid #aaa;
+          border-bottom:1px solid #AAA;
         }
         .mainInput:focus {
           outline: none;
-          border-bottom: 1px solid #333;
+          border-bottom:1px solid #333;
         }
       }
       .searchBtn {
         width: 0px;
+
         &:hover {
           cursor: pointer;
         }
         .btnSearchIcon {
           position: relative;
           top: 4px;
-          right: 45px;
-          padding: 1px 1px 1px 10px;
+          right: $search-button-width;
+          padding: 1px 1px 1px 1px;
         }
       }
     }
