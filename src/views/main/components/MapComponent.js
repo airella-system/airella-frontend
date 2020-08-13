@@ -196,7 +196,8 @@ class MapComponent extends Component {
     let center = this.leafletMap.leafletElement.getCenter();
     let radius = this.leafletMap.leafletElement.distance(bounds._northEast, center);
 
-    this.getMarkers(center.lat, center.lng, radius);
+    // this.getMarkers(center.lat, center.lng, radius); // todo markers logic
+    this.getMarkers(center.lat, center.lng, 1000000);
   }
 
   render() {
@@ -219,9 +220,10 @@ class MapComponent extends Component {
             })
           }
           }
-          onMoveEnd={
-            (x) => this.updateMarkers()
-          }
+          // onMoveEnd={
+          //   (x) => this.updateMarkers()
+          // }
+          // todo markers logic
           className="map"
         >
           <TileLayer
