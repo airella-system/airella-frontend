@@ -1,6 +1,6 @@
-export const setSearch = (text) => ({
-  type: "STANDARD_SEARCH",
-  text,
+export const setMapPositionRequest = (position) => ({
+  type: "MAP_POSITION_REQUEST",
+  position,
 });
 
 export const sensorDetailAction = (sensorData) => ({

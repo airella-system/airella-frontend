@@ -54,6 +54,16 @@ $item-gap: 12px;
       float: left;
     }
   }
+
+  .autoCompleteBoxHidden {
+    top: 30px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .autoCompleteBoxVisible {
+    top: 45px;
+    opacity: 1;
+  }
   .autoCompleteBox {
     margin: auto;
     left: 0px;
@@ -61,18 +71,20 @@ $item-gap: 12px;
     width: 95%;
     box-sizing: border-box;
     position: absolute;
-    top: 45px;
     z-index: 1100;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #bbb;
-    box-shadow: 0 3px 5px #00000033;
-    padding: 5px 0px 5px 0px;
+    padding: 15px 0px 15px 0px;
     list-style: none;
+    background: $mainColor;
+    @extend %neu-shadow-over;
+    @extend %neu-rounded;
 
+    transition: opacity $animation-easing 250ms,
+              top $animation-easing 250ms;
+
+    li:last-child { border-bottom: 1px solid #ddd;}
     li {
       padding: 10px 0px 10px 10px;
-      border-bottom: 1px solid #eee;
+      border-top: 1px solid #ddd;
 
       .suggestionTitle {
         color: black;
@@ -81,7 +93,7 @@ $item-gap: 12px;
       .suggestionSubtitle {
       }
       &:hover {
-        background-color: #eee;
+        background-color: #eaeaea;
       }
     }
   }
@@ -134,6 +146,7 @@ $item-gap: 12px;
           top: 4px;
           right: $search-button-width;
           padding: 1px 1px 1px 1px;
+          pointer-events: none;
         }
       }
     }

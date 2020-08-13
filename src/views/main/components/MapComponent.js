@@ -200,6 +200,25 @@ class MapComponent extends Component {
     this.getMarkers(center.lat, center.lng, 1000000);
   }
 
+  componentDidUpdate(prevProps) {
+    console.log(this.props.mapPositionRequest);
+    let changePosition = false;
+    if (!prevProps.mapPositionRequest && this.props.mapPositionRequest) {
+      changePosition = true;
+    } else if (prevProps.mapPositionRequest && this.props.mapPositionRequest) {
+      if (this.props.mapPositionRequest[0] !== prevProps.mapPositionRequest[0] || 
+        this.props.mapPositionRequest[1] !== prevProps.mapPositionRequest[1]) {
+          changePosition = true;
+        }
+    }
+    if (changePosition) {
+      this.leafletMap.leafletElement.flyTo(this.props.mapPositionRequest, 13, {
+        animate: true,
+        duration: 4
+    });
+    }
+  }
+
   render() {
     const position = [this.constans.lat, this.constans.lng];
 
@@ -240,7 +259,9 @@ class MapComponent extends Component {
 }
 
 function mapStateToProps(state) {
-  return state.search;
+  return {
+    mapPositionRequest: state.mapPositionRequest.position
+  }
 }
 
 export default connect(mapStateToProps)(MapComponent);
