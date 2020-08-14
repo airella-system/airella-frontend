@@ -8,7 +8,7 @@
   height: 100%;
 }
 
-.buttonContainer {
+.standard {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -20,20 +20,20 @@
   @extend %neu-rounded;
   color: $buttonIconColor;
 
-  .buttonContainerContent {
+  .content {
     @include contentGeneralStyle;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .buttonContainerOuterShadow {
+  .outerShadow {
     @include contentGeneralStyle;
     opacity: 1;
     border-radius: inherit;
     @extend %neu-shadow-over;
     @extend %neu-shadow-transition;
   }
-  .buttonContainerInnerShadow {
+  .innerShadow {
     @include contentGeneralStyle;
     opacity: 0;
     border-radius: inherit;
@@ -48,16 +48,16 @@
   &:active {
     background-color: $mainColor;
 
-    .buttonContainerOuterShadow {
+    .OuterShadow {
       opacity: 0;
     }
-    .buttonContainerInnerShadow {
+    .InnerShadow {
       opacity: 1;
     }
   }
 }
 
-.pushedButtonContainer {
+.pushed {
   display: flex;
   align-items: center;
   justify-content: center;
