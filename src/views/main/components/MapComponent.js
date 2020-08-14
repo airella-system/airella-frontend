@@ -16,7 +16,7 @@ import "leaflet/dist/leaflet.css";
 import { getApiUrl } from "../../../config/ApiURL";
 import AnimatedMapPopup from "./AnimatedMapPopup";
 import { AirQualityColors, indexToLevel } from "../../../config/AirQuality";
-
+import { setMapPositionRequest } from "../../../redux/actions";
 import L from "leaflet";
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -136,10 +136,13 @@ class MapComponent extends Component {
       .then((response) => response.json())
       .then((data) => {
         let currentDate = Date();
-        if (!this.state.stationDataFetchDate || currentDate > this.state.stationDataLastFetchDate) {
+        if (
+          !this.state.stationDataFetchDate ||
+          currentDate > this.state.stationDataLastFetchDate
+        ) {
           this.setState({
             stationData: data.data,
-            stationDataLastFetchDate: currentDate
+            stationDataLastFetchDate: currentDate,
           });
         }
       })
@@ -194,28 +197,22 @@ class MapComponent extends Component {
   updateMarkers = () => {
     let bounds = this.leafletMap.leafletElement.getBounds();
     let center = this.leafletMap.leafletElement.getCenter();
-    let radius = this.leafletMap.leafletElement.distance(bounds._northEast, center);
+    let radius = this.leafletMap.leafletElement.distance(
+      bounds._northEast,
+      center
+    );
 
     // this.getMarkers(center.lat, center.lng, radius); // todo markers logic
     this.getMarkers(center.lat, center.lng, 1000000);
-  }
+  };
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.mapPositionRequest);
-    let changePosition = false;
     if (!prevProps.mapPositionRequest && this.props.mapPositionRequest) {
-      changePosition = true;
-    } else if (prevProps.mapPositionRequest && this.props.mapPositionRequest) {
-      if (this.props.mapPositionRequest[0] !== prevProps.mapPositionRequest[0] || 
-        this.props.mapPositionRequest[1] !== prevProps.mapPositionRequest[1]) {
-          changePosition = true;
-        }
-    }
-    if (changePosition) {
       this.leafletMap.leafletElement.flyTo(this.props.mapPositionRequest, 13, {
         animate: true,
-        duration: 4
-    });
+        duration: 4,
+      });
+      this.props.dispatch(setMapPositionRequest(null));
     }
   }
 
@@ -236,9 +233,8 @@ class MapComponent extends Component {
               currentMarkerSize: this.calculateMarkerSize(
                 this.leafletMap.leafletElement.getZoom()
               ),
-            })
-          }
-          }
+            });
+          }}
           // onMoveEnd={
           //   (x) => this.updateMarkers()
           // }
@@ -260,8 +256,8 @@ class MapComponent extends Component {
 
 function mapStateToProps(state) {
   return {
-    mapPositionRequest: state.mapPositionRequest.position
-  }
+    mapPositionRequest: state.mapPositionRequest.position,
+  };
 }
 
 export default connect(mapStateToProps)(MapComponent);

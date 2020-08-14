@@ -4,13 +4,12 @@
 $item-gap: 12px;
 
 .topBar {
-
   position: absolute;
   z-index: 1050;
 
   .menuHolder {
   }
-  .menuLeftItems {	
+  .menuLeftItems {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -36,8 +35,8 @@ $item-gap: 12px;
       max-height: 0;
       margin-top: 0;
       transition: opacity 250ms $animation-easing,
-                  max-height 250ms $animation-easing 250ms,
-                  margin-top 250ms $animation-easing 250ms;
+        max-height 250ms $animation-easing 250ms,
+        margin-top 250ms $animation-easing 250ms;
     }
     .bottomItemsOpen {
       pointer-events: auto;
@@ -45,8 +44,7 @@ $item-gap: 12px;
       max-height: 120px;
       margin-top: $item-gap;
       transition: opacity 250ms $animation-easing 250ms,
-                  max-height 250ms $animation-easing,
-                  margin-top 250ms $animation-easing;
+        max-height 250ms $animation-easing, margin-top 250ms $animation-easing;
     }
     .topItems {
       display: flex;
@@ -72,20 +70,31 @@ $item-gap: 12px;
     box-sizing: border-box;
     position: absolute;
     z-index: 1100;
-    padding: 15px 0px 15px 0px;
+    padding: 0px;
     list-style: none;
     background: $mainColor;
     @extend %neu-shadow-over;
     @extend %neu-rounded;
 
-    transition: opacity $animation-easing 250ms,
-              top $animation-easing 250ms;
+    transition: opacity $animation-easing 250ms, top $animation-easing 250ms;
 
-    li:last-child { border-bottom: 1px solid #ddd;}
+    li:first-child {
+      border-top-left-radius: $neu-round-radius;
+      border-top-right-radius: $neu-round-radius;
+    }
+    li:last-child {
+      border-bottom-left-radius: $neu-round-radius;
+      border-bottom-right-radius: $neu-round-radius;
+    }
+    li:not(:last-child) {
+      border-bottom: 1px solid #ddd;
+    }
     li {
-      padding: 10px 0px 10px 10px;
-      border-top: 1px solid #ddd;
-
+      padding: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      text-overflow: ellipsis;
       .suggestionTitle {
         color: black;
         margin-right: 10px;
@@ -93,7 +102,7 @@ $item-gap: 12px;
       .suggestionSubtitle {
       }
       &:hover {
-        background-color: #eaeaea;
+        background-color: $search-bar-sugggestion-hover-color;
       }
     }
   }
@@ -123,34 +132,48 @@ $item-gap: 12px;
         @extend %neu-shadow-under;
 
         .mainInput {
-          width: 100%;
           width: calc(100% - (#{$search-button-width} * 0.55));
           font-size: 15px;
           border: none;
-          background: #00000000;
-          border-bottom:1px solid #AAA;
+          background: transparent;
+          border-bottom: 1px solid #aaa;
         }
         .mainInput:focus {
           outline: none;
-          border-bottom:1px solid #333;
+          border-bottom: 1px solid #333;
         }
       }
       .searchBtn {
-        width: 0px;
-
+        width: 18px;
+        height: 18px;
         &:hover {
           cursor: pointer;
         }
         .btnSearchIcon {
+          color: $search-bar-icon-color;
           position: relative;
-          top: 4px;
           right: $search-button-width;
           padding: 1px 1px 1px 1px;
           pointer-events: none;
+          stroke-width: 3;
+        }
+        .btnSearchIconLoading {
+          width: 14px;
+          height: 14px;
+          border: 2px solid $search-bar-icon-color;
+          border-radius: 50%;
+          border-top-color: transparent;
+          border-left-color: transparent;
+          border-right-color: transparent;
+          animation: rotate 1.5s linear infinite;
         }
       }
     }
   }
-  .accountContainer {
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
   }
 }
