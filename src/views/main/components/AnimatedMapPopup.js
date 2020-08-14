@@ -10,7 +10,9 @@ import { BsThreeDots } from "react-icons/bs";
 import { indexToLevel } from '../../../config/AirQuality';
 import Button from '../../../components/Button';
 
-import styles from '../../../style/main/components/AnimatedMapPopup.scss';
+import styles from '../../../style/main/components/AnimatedMapPopup.module.scss';
+import '../../../style/main/components/AnimatedMapPopup.scss';
+
 
 class AnimatedMapPopup extends Component {
   constructor(props) {
@@ -188,7 +190,7 @@ class AnimatedMapPopup extends Component {
   
   makeContentContainer = (number, content, onClick=undefined) => (
     <div style={{transform: `translate(${this.translateWidth(number)}px, ${this.translateHeight(number)}px)`}}>
-      <div className={onClick ? "clickable" : "notClickable"} onClick={onClick} style={{animationDelay: `${number * this.vars.delayUnit}s`}}>
+      <div className={onClick ? styles.clickable : styles.notClickable} onClick={onClick} style={{animationDelay: `${number * this.vars.delayUnit}s`}}>
         {content}
       </div>
     </div>
@@ -243,19 +245,19 @@ class AnimatedMapPopup extends Component {
     let i = 0;
 
     var children = (
-      <div className="animatedPopupContent">
+      <div className={styles.animatedPopupContent}>
         {this.makeContentContainer(
           i++,
-          <div className="address">
+          <div className={styles.address}>
             {street} <br /> {number}
           </div>
         )}
         {pm1Data &&
           this.makeContentContainer(
             i++,
-            <div className="sensorInfo">
-              <div className="key"> PM 1 </div>
-              <div className="value">
+            <div className={styles.sensorInfo}>
+              <div className={styles.key}> PM 1 </div>
+              <div className={styles.value}>
                 {" "}
                 {Math.round(pm1Data.value)} <span>µg/m³</span>{" "}
               </div>
@@ -264,9 +266,9 @@ class AnimatedMapPopup extends Component {
         {pm2_5Data &&
           this.makeContentContainer(
             i++,
-            <div className="sensorInfo">
-              <div className="key"> PM 2.5 </div>
-              <div className="value">
+            <div className={styles.sensorInfo}>
+              <div className={styles.key}> PM 2.5 </div>
+              <div className={styles.value}>
                 {" "}
                 {Math.round((pm2_5Data.value / 45) * 100)} <span>%</span>{" "}
               </div>
@@ -275,9 +277,9 @@ class AnimatedMapPopup extends Component {
         {pm10Data &&
           this.makeContentContainer(
             i++,
-            <div className="sensorInfo">
-              <div className="key"> PM 10 </div>
-              <div className="value">
+            <div className={styles.sensorInfo}>
+              <div className={styles.key}> PM 10 </div>
+              <div className={styles.value}>
                 {" "}
                 {Math.round((pm10Data.value / 45) * 100)} <span>%</span>{" "}
               </div>
@@ -351,6 +353,7 @@ class AnimatedMapPopup extends Component {
   };
 
   render() {
+    console.log(styles)
     return (
       <Popup
         className="customPopup"
@@ -358,9 +361,9 @@ class AnimatedMapPopup extends Component {
         onClose={this.onPopupClose}
         onOpen={this.props.onOpen()}
       >
-        <div className="animatedPopupChildren">
-          <div className="animatedPopupPoint" ref="point">
-            <div ref="morphbutton" className="morphEmoji">
+        <div className={styles.animatedPopupChildren}>
+          <div className={styles.animatedPopupPoint} ref="point">
+            <div ref="morphbutton" className={styles.morphEmoji}>
               <div
                 ref="left"
                 style={{
@@ -387,7 +390,7 @@ class AnimatedMapPopup extends Component {
               ></div>
             </div>
           </div>
-          <div className="animatedPopupLoader">
+          <div className={styles.animatedPopupLoader}>
             <div ref="loader"></div>
           </div>
           <div ref="containers">{this.showData()}</div>
