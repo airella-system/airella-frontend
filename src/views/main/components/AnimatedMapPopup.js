@@ -243,7 +243,7 @@ class AnimatedMapPopup extends Component {
     let i = 0;
 
     var children = (
-      <div className="animated-popup-content">
+      <div className="animatedPopupContent">
         {this.makeContentContainer(
           i++,
           <div className="address">
@@ -253,7 +253,7 @@ class AnimatedMapPopup extends Component {
         {pm1Data &&
           this.makeContentContainer(
             i++,
-            <div className="sensor-info">
+            <div className="sensorInfo">
               <div className="key"> PM 1 </div>
               <div className="value">
                 {" "}
@@ -264,7 +264,7 @@ class AnimatedMapPopup extends Component {
         {pm2_5Data &&
           this.makeContentContainer(
             i++,
-            <div className="sensor-info">
+            <div className="sensorInfo">
               <div className="key"> PM 2.5 </div>
               <div className="value">
                 {" "}
@@ -275,7 +275,7 @@ class AnimatedMapPopup extends Component {
         {pm10Data &&
           this.makeContentContainer(
             i++,
-            <div className="sensor-info">
+            <div className="sensorInfo">
               <div className="key"> PM 10 </div>
               <div className="value">
                 {" "}
@@ -353,14 +353,14 @@ class AnimatedMapPopup extends Component {
   render() {
     return (
       <Popup
-        className="custom-popup"
+        className="customPopup"
         closeButton={false}
         onClose={this.onPopupClose}
         onOpen={this.props.onOpen()}
       >
-        <div className="animated-popup-children">
-          <div className="animated-popup-point" ref="point">
-            <div ref="morphbutton" className="morph-emoji">
+        <div className="animatedPopupChildren">
+          <div className="animatedPopupPoint" ref="point">
+            <div ref="morphbutton" className="morphEmoji">
               <div
                 ref="left"
                 style={{
@@ -387,7 +387,7 @@ class AnimatedMapPopup extends Component {
               ></div>
             </div>
           </div>
-          <div className="animated-popup-loader">
+          <div className="animatedPopupLoader">
             <div ref="loader"></div>
           </div>
           <div ref="containers">{this.showData()}</div>
