@@ -4,20 +4,23 @@ import styles from "../style/components/button.module.scss";
 
 class Button extends React.Component {
   constructor(props) {
-    super(props);
+		super(props);
   }
 
 	render() {
-		let result = this.props.isPushed ? (
-			<div className={styles.pushed} onClick={this.props.onClick}>
+		let {isPushed, isCircle, isFilling, children} = this.props
+		let generalStyles = `${isCircle ? styles.circle : ""} ${isFilling ? styles.filling : ""}`
+		
+		let result = isPushed ? (
+			<div className={`${styles.pushed} ${generalStyles}`} onClick={this.props.onClick}>
 				{this.props.children}
 			</div>
 		) : (
-			<div className={styles.standard} onClick={this.props.onClick}>
+			<div className={`${styles.standard} ${generalStyles}`} onClick={this.props.onClick}>
 				<div className={styles.outerShadow}/>
 				<div className={styles.innerShadow}/>
 				<div className={styles.content}>
-					{this.props.children}
+					{children}
 				</div>
 			</div>
 		)

@@ -190,7 +190,7 @@ class AnimatedMapPopup extends Component {
   
   makeContentContainer = (number, content, onClick=undefined) => (
     <div style={{transform: `translate(${this.translateWidth(number)}px, ${this.translateHeight(number)}px)`}}>
-      <div className={onClick ? styles.clickable : styles.notClickable} onClick={onClick} style={{animationDelay: `${number * this.vars.delayUnit}s`}}>
+      <div className={onClick ? "" : styles.withShadow} onClick={onClick} style={{animationDelay: `${number * this.vars.delayUnit}s`}}>
         {content}
       </div>
     </div>
@@ -262,7 +262,7 @@ class AnimatedMapPopup extends Component {
                 {Math.round(pm1Data.value)} <span>µg/m³</span>{" "}
               </div>
             </div>
-          )}
+        )}
         {pm2_5Data &&
           this.makeContentContainer(
             i++,
@@ -273,7 +273,7 @@ class AnimatedMapPopup extends Component {
                 {Math.round((pm2_5Data.value / 45) * 100)} <span>%</span>{" "}
               </div>
             </div>
-          )}
+        )}
         {pm10Data &&
           this.makeContentContainer(
             i++,
@@ -284,9 +284,9 @@ class AnimatedMapPopup extends Component {
                 {Math.round((pm10Data.value / 45) * 100)} <span>%</span>{" "}
               </div>
             </div>
-          )}
+        )}
         {this.makeContentContainer(i++, (
-          <Button>
+          <Button isCircle={true} isFilling={true}>
             <div>
               {this.makeStylizedIcon(<BsThreeDots/>, {fontSize: '60px', paddingTop: '8px'})}
             </div>
@@ -299,7 +299,7 @@ class AnimatedMapPopup extends Component {
               {this.makeStylizedIcon(<IoIosTime />, { fontSize: "30px" })}{" "}
               {timestamp}
             </div>
-          )}
+        )}
         {humidityData &&
           this.makeContentContainer(
             i++,
@@ -307,7 +307,7 @@ class AnimatedMapPopup extends Component {
               {this.makeStylizedIcon(<GiWaterDrop />, { fontSize: "30px" })}{" "}
               {humidityData.value.toFixed(2) + " %"}
             </div>
-          )}
+        )}
         {temperatureData &&
           this.makeContentContainer(
             i++,
@@ -315,7 +315,7 @@ class AnimatedMapPopup extends Component {
               {this.makeStylizedIcon(<IoMdThermometer />, { fontSize: "30px" })}{" "}
               {temperatureData.value.toFixed(2) + " °C"}
             </div>
-          )}
+        )}
       </div>
     );
 

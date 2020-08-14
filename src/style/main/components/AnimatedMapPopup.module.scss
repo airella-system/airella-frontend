@@ -86,15 +86,7 @@
   left: 10px;
   position: relative;
 
-  .clickable {
-    .buttonContainer {
-      border-radius: 50%;
-      width: 100%;
-      height: 100%;
-      box-shadow: none;
-    }
-  }
-  .notClickable {
+  .withShadow {
     @extend %neu-shadow-over;
   }
 }
