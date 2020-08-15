@@ -354,8 +354,10 @@ class SensorDetails extends Component {
   }
 }
 
-function stateToProps(state) {
-  return state.sensorDetail;
+function mapStateToProps(state) {
+  return {
+    sensorData: state.sensorDetail.sensorData
+  };
 }
 
-export default connect(stateToProps)(SensorDetails);
+export default connect(mapStateToProps)(SensorDetails);
