@@ -198,7 +198,7 @@ function MapComponent(props) {
       });
       props.dispatch(setMapPositionRequest(null));
     }
-  }, [props.mapPositionRequest])
+  })
 
   return (
     <div className={styles.container}>
