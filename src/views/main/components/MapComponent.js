@@ -16,7 +16,7 @@ import "leaflet/dist/leaflet.css";
 import { getApiUrl } from "../../../config/ApiURL";
 import AnimatedMapPopup from "./AnimatedMapPopup";
 import { AirQualityColors, indexToLevel } from "../../../config/AirQuality";
-
+import { setMapPositionRequest } from "../../../redux/actions";
 import L from "leaflet";
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -25,7 +25,15 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
-function MapComponent() {
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
+function MapComponent(props) {
   const constans = {
     lat: 50.0622881,
     lng: 19.9311482,
@@ -50,6 +58,8 @@ function MapComponent() {
   })
 
   const [leafletMap, setLeafletMap] = useState(null)
+
+  const prevMapPositionRequest = usePrevious(props.mapPositionRequest)
 
   const setMapPositionWithGeolocation = () => {
     navigator.geolocation.getCurrentPosition(
@@ -105,11 +115,14 @@ function MapComponent() {
 
     let bounds = leafletMap.leafletElement.getBounds();
     let center = leafletMap.leafletElement.getCenter();
-    let radius = leafletMap.leafletElement.distance(bounds._northEast, center);
+    let radius = leafletMap.leafletElement.distance(
+      bounds._northEast,
+      center
+    );
 
     // this.getMarkers(center.lat, center.lng, radius); // todo markers logic
     getMarkers(center.lat, center.lng, 1000000);
-  }
+  };
 
   const getStationData = (stationId) => {
     let key = `station${stationId}Key`;
@@ -177,6 +190,16 @@ function MapComponent() {
     updateMarkers();
   }, [leafletMap])
 
+  useEffect(() => {
+    if (leafletMap && !prevMapPositionRequest && props.mapPositionRequest) {
+      leafletMap.leafletElement.flyTo(props.mapPositionRequest, 13, {
+        animate: true,
+        duration: 4,
+      });
+      props.dispatch(setMapPositionRequest(null));
+    }
+  }, [props.mapPositionRequest])
+
   return (
     <div className={styles.container}>
       <Map
@@ -204,7 +227,9 @@ function MapComponent() {
 }
 
 function mapStateToProps(state) {
-  return state.search;
+  return {
+    mapPositionRequest: state.mapPositionRequest.position,
+  };
 }
 
 export default connect(mapStateToProps)(MapComponent);

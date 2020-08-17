@@ -1,0 +1,78 @@
+@import "../const/var.scss", "../const/minix.scss",
+  "../additional/neumorphism.scss";
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $mainColor;
+  width: 100vw;
+  height: 100vh;
+
+  .card {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    @extend %neu-rounded;
+    @extend %neu-shadow-over;
+    width: 800px;
+    height: 300px;
+    max-width: 85%;
+
+    .cardContent {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      flex-direction: column;
+
+      .iconContainer {
+        text-align: center;
+        width: 100px;
+        height: 100px;
+
+        .icon {
+          width: 100px;
+          height: 100%;
+        }
+
+        .iconLoading {
+          color: #43b8ee;
+          animation: rotate 1.5s linear infinite;
+        }
+
+        .iconSuccess {
+          color: #42d45a;
+        }
+
+        .iconWarning {
+          color: #ebd86c;
+        }
+
+        .iconFailure {
+          color: #ee4343;
+        }
+      }
+      .title {
+        text-align: center;
+        margin: 10px;
+        font-size: 30px;
+        font-weight: 400;
+        color: #333;
+      }
+
+      .description {
+        text-align: center;
+        font-size: 12;
+        font-weight: 300;
+        color: #888;
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
