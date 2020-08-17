@@ -1,12 +1,12 @@
 @import "../../const/var.scss", "../../const/minix.scss",
   "../../additional/neumorphism.scss";
 
-.animatedPopupChildren {
+.children {
   @include fontFamily;
   transform: translate(-49px, -29px);
 }
 
-@keyframes animatedPopupPointIntro {
+@keyframes pointIntro {
   0% {
     transform: scale(var(--startScale));
   }
@@ -14,7 +14,7 @@
     transform: scale(1);
   }
 }
-.animatedPopupPoint {
+.point {
   --startScale: 0.38;
   position: absolute;
   top: 10px;
@@ -22,7 +22,7 @@
   width: 40px;
   height: 40px;
   scale: var(--startScale);
-  animation: animatedPopupPointIntro 0.5s $animation-easing 1 forwards;
+  animation: pointIntro 0.5s $animation-easing 1 forwards;
 }
 
 .morphEmoji {
@@ -41,7 +41,7 @@
   transition: all 1000ms;
 }
 
-@keyframes animatedPopupLoaderPulse {
+@keyframes loaderPulse {
   0% {
     transform: scale(1);
   }
@@ -49,7 +49,7 @@
     transform: scale(1.2);
   }
 }
-.animatedPopupLoader {
+.loader {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -65,11 +65,11 @@
     @extend %neu-rounded;
     @extend %neu-shadow-over;
     z-index: -1;
-    animation: animatedPopupLoaderPulse 1s $animation-easing infinite;
+    animation: loaderPulse 1s $animation-easing infinite;
   }
 }
 
-@keyframes animatedPopupContentGrow {
+@keyframes contentGrow {
   0% {
     transform: scale(0);
     visibility: visible;
@@ -79,7 +79,7 @@
     visibility: visible;
   }
 }
-.animatedPopupContent {
+.content {
   width: 100%;
   height: 100%;
   top: 10px;
@@ -91,7 +91,7 @@
   }
 }
 
-.animatedPopupContent > div > div {
+.content > div > div {
   position: absolute;
   visibility: hidden;
   top: -25px;
@@ -102,7 +102,7 @@
   background: $mainColor;
   color: $textColor;
   @extend %neu-rounded;
-  animation: animatedPopupContentGrow 0.3s $animation-easing 1 forwards;
+  animation: contentGrow 0.3s $animation-easing 1 forwards;
 
   font-size: 14px;
   display: flex;
