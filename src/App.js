@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import MainView from "./views/main/MainView";
 import SubpageView from "./views/subpage/SubpageView";
+import ActivationView from "./views/activateAccount/ActivationView";
 
 class App extends React.Component {
   constructor(props) {
@@ -25,6 +26,13 @@ class App extends React.Component {
             path="/subpage"
             render={(props) => {
               return <SubpageView />;
+            }}
+          />
+          <Route
+            exact
+            path="/activateAccount/:email/:activationCode"
+            render={(props) => {
+              return <ActivationView {...props} />;
             }}
           />
         </Switch>
