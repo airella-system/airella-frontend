@@ -25,8 +25,6 @@ class ActivationView extends Component {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        console.log(data.success);
         if (data.success) {
           this.setState({
             activationState: "SUCCESS",
@@ -37,18 +35,15 @@ class ActivationView extends Component {
               this.setState({
                 activationState: "ALREADY_ACTIVATED_WARNING",
               });
-            }
-            else if (data.errors[0].title === "UNKNOWN_USER_EMAIL") {
+            } else if (data.errors[0].title === "UNKNOWN_USER_EMAIL") {
               this.setState({
                 activationState: "UNKNOWN_USER_EMAIL_FAILURE",
               });
-            }
-            else if (data.errors[0].title === "WRONG_ACTIVATION_CODE") {
+            } else if (data.errors[0].title === "WRONG_ACTIVATION_CODE") {
               this.setState({
                 activationState: "WRONG_ACTIVATION_CODE_FAILURE",
               });
-            }
-            else {
+            } else {
               this.setState({
                 activationState: "UNKNOWN_FAILURE",
               });
@@ -84,7 +79,7 @@ class ActivationView extends Component {
           <AiOutlineCheckCircle />
         </IconContext.Provider>
       );
-    }  else if (this.state.activationState == "ALREADY_ACTIVATED_WARNING") {
+    } else if (this.state.activationState == "ALREADY_ACTIVATED_WARNING") {
       return (
         <IconContext.Provider
           value={{ className: styles.icon + " " + styles.iconWarning }}
@@ -94,9 +89,9 @@ class ActivationView extends Component {
       );
     } else if (
       this.state.activationState == "UNKNOWN_USER_EMAIL_FAILURE" ||
-      this.state.activationState == "WRONG_ACTIVATION_CODE_FAILURE" || 
+      this.state.activationState == "WRONG_ACTIVATION_CODE_FAILURE" ||
       this.state.activationState == "CONNECTION_FAILURE" ||
-      this.state.activationState == "UNKNOWN_FAILURE" 
+      this.state.activationState == "UNKNOWN_FAILURE"
     ) {
       return (
         <IconContext.Provider
@@ -109,39 +104,29 @@ class ActivationView extends Component {
   };
 
   getTitle = () => {
-    if (this.state.activationState == "IN_PROGRESS") {
-      return "Activating account...";
-    } else if (this.state.activationState == "SUCCESS") {
-      return "Account activated";
-    } else if (this.state.activationState == "ALREADY_ACTIVATED_WARNING") {
-      return "Already activated";
-    }  else if (this.state.activationState == "UNKNOWN_USER_EMAIL_FAILURE") {
-      return "Email not found";
-    }  else if (this.state.activationState == "WRONG_ACTIVATION_CODE_FAILURE") {
-      return "Wrong activation code";
-    } else if (this.state.activationState == "CONNECTION_FAILURE") {
-      return "Connection error";
-    } else if (this.state.activationState == "UNKNOWN_FAILURE") {
-      return "Unknown failure";
-    }
+    const message = {
+      IN_PROGRESS: "Activating account...",
+      SUCCESS: "Account activated",
+      ALREADY_ACTIVATED_WARNING: "Already activated",
+      UNKNOWN_USER_EMAIL_FAILURE: "Email not found",
+      WRONG_ACTIVATION_CODE_FAILURE: "Wrong activation code",
+      CONNECTION_FAILURE: "Connection error",
+      UNKNOWN_FAILURE: "Unknown failure",
+    };
+    return message[this.state.activationState];
   };
 
   getDescription = () => {
-    if (this.state.activationState == "IN_PROGRESS") {
-      return "Please wait...";
-    } else if (this.state.activationState == "SUCCESS") {
-      return "You can now log in with your credentials.";
-    } else if (this.state.activationState == "ALREADY_ACTIVATED_WARNING") {
-      return "This account has already been activated.";
-    }  else if (this.state.activationState == "UNKNOWN_USER_EMAIL_FAILURE") {
-      return "User with this email does not exist.";
-    }  else if (this.state.activationState == "WRONG_ACTIVATION_CODE_FAILURE") {
-      return "Typed activation code is wrong for this user.";
-    } else if (this.state.activationState == "CONNECTION_FAILURE") {
-      return "Couldn't connect with server.";
-    } else if (this.state.activationState == "UNKNOWN_FAILURE") {
-      return "We don't have more details about this error :(";
-    }
+    const message = {
+      IN_PROGRESS: "Please wait...",
+      SUCCESS: "You can now log in with your credentials.",
+      ALREADY_ACTIVATED_WARNING: "This account has already been activated.",
+      UNKNOWN_USER_EMAIL_FAILURE: "User with this email does not exist.",
+      WRONG_ACTIVATION_CODE_FAILURE: "Activation code is wrong for this user.",
+      CONNECTION_FAILURE: "Couldn't connect with server.",
+      UNKNOWN_FAILURE: "We don't have more details about this error :(",
+    };
+    return message[this.state.activationState];
   };
 
   render() {
