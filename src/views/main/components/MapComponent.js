@@ -114,7 +114,6 @@ function MapComponent(props) {
       center
     );
 
-    leafletMap.leafletElement.closePopup()
     getMarkers(center.lat, center.lng, radius);
   };
 
@@ -147,7 +146,7 @@ function MapComponent(props) {
       
       return (
         <CircleMarker
-          key={index}
+          key={stationId}
           center={position}
           fillColor={color}
           color={color}
