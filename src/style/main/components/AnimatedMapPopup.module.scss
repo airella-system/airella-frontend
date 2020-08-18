@@ -1,0 +1,134 @@
+@import "../../const/var.scss", "../../const/minix.scss",
+  "../../additional/neumorphism.scss";
+
+.children {
+  @include fontFamily;
+  transform: translate(-49px, -29px);
+}
+
+@keyframes pointIntro {
+  0% {
+    transform: scale(var(--startScale));
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.point {
+  --startScale: 0.38;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  scale: var(--startScale);
+  animation: pointIntro 0.5s $animation-easing 1 forwards;
+}
+
+.morphEmoji {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 50px;
+  height: 50px;
+  z-index: 300;
+}
+.morphEmoji div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 4%;
+  transition: all 1000ms;
+}
+
+@keyframes loaderPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+.loader {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  div {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: $mainColor;
+    @extend %neu-rounded;
+    @extend %neu-shadow-over;
+    z-index: -1;
+    animation: loaderPulse 1s $animation-easing infinite;
+  }
+}
+
+@keyframes contentGrow {
+  0% {
+    transform: scale(0);
+    visibility: visible;
+  }
+  100% {
+    transform: scale(1);
+    visibility: visible;
+  }
+}
+.content {
+  width: 100%;
+  height: 100%;
+  top: 10px;
+  left: 10px;
+  position: relative;
+
+  .withShadow {
+    @extend %neu-shadow-over;
+  }
+}
+
+.content > div > div {
+  position: absolute;
+  visibility: hidden;
+  top: -25px;
+  left: -25px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: $mainColor;
+  color: $textColor;
+  @extend %neu-rounded;
+  animation: contentGrow 0.3s $animation-easing 1 forwards;
+
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .address {
+    font-size: 17px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70px;
+    font-weight: bold;
+  }
+  .sensorInfo {
+    .key {
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .value {
+      font-size: 20px;
+
+      span {
+        font-size: 15px;
+      }
+    }
+  }
+}

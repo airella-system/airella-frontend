@@ -1,32 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import {
-  FaMapMarkedAlt,
-  FaCube,
-  FaRegTimesCircle,
-  FaRegLifeRing,
-  FaDivide,
-} from "react-icons/fa";
 import "../style/additional/animationLib.scss";
-import "../style/components/button.scss";
-import VersionInfo from "./VersionInfo";
+import styles from "../style/components/button.module.scss";
 
 class Button extends React.Component {
   constructor(props) {
-    super(props);
+		super(props);
   }
 
 	render() {
-		let result = this.props.isPushed ? (
-			<div className="pushedButtonContainer" onClick={this.props.onClick}>
+		let {isPushed, isCircle, isFilling, children} = this.props
+		let generalStyles = `${isCircle ? styles.circle : ""} ${isFilling ? styles.filling : ""}`
+		
+		let result = isPushed ? (
+			<div className={`${styles.pushed} ${generalStyles}`} onClick={this.props.onClick}>
 				{this.props.children}
 			</div>
 		) : (
-			<div className="buttonContainer" onClick={this.props.onClick}>
-				<div className="buttonContainerOuterShadow"/>
-				<div className="buttonContainerInnerShadow"/>
-				<div className="buttonContainerContent">
-					{this.props.children}
+			<div className={`${styles.standard} ${generalStyles}`} onClick={this.props.onClick}>
+				<div className={styles.outerShadow}/>
+				<div className={styles.innerShadow}/>
+				<div className={styles.content}>
+					{children}
 				</div>
 			</div>
 		)
