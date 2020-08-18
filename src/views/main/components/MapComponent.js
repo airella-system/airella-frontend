@@ -105,7 +105,6 @@ function MapComponent(props) {
   }
 
   const updateMarkers = () => {
-    console.log("UPDATE MARKERS")
     if (!leafletMap) return;
 
     let bounds = leafletMap.leafletElement.getBounds();
