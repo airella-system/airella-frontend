@@ -87,6 +87,7 @@
   top: 10px;
   left: 10px;
   position: relative;  
+
   .withShadow {
     @extend %neu-shadow-over;
     pointer-events: none;
