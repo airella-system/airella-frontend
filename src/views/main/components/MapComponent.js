@@ -5,11 +5,6 @@ import {
   Map,
   TileLayer,
   CircleMarker,
-  Marker,
-  Circle,
-  Tooltip,
-  Polygon,
-  SVGOverlay,
 } from "react-leaflet";
 import styles from "../../../style/main/components/MapComponent.module.scss";
 import "leaflet/dist/leaflet.css";
@@ -103,7 +98,6 @@ function MapComponent(props) {
         let currentDate = Date();
         if (!stationDataLastFetchDate || currentDate > stationDataLastFetchDate) {
           setStationDataLastFetchDate(currentDate)
-          console.log(data.data)
           setStationData(data.data)
         }
       })
@@ -111,6 +105,7 @@ function MapComponent(props) {
   }
 
   const updateMarkers = () => {
+    console.log("UPDATE MARKERS")
     if (!leafletMap) return;
 
     let bounds = leafletMap.leafletElement.getBounds();
@@ -120,8 +115,8 @@ function MapComponent(props) {
       center
     );
 
-    // this.getMarkers(center.lat, center.lng, radius); // todo markers logic
-    getMarkers(center.lat, center.lng, 1000000);
+    leafletMap.leafletElement.closePopup()
+    getMarkers(center.lat, center.lng, radius);
   };
 
   const getStationData = (stationId) => {
@@ -157,9 +152,7 @@ function MapComponent(props) {
           center={position}
           fillColor={color}
           color={color}
-          onClick={() => {
-            getStationData(stationId)
-          }}
+          onClick={(x) => getStationData(stationId)}
           fillOpacity={0.3}
           opacity={1}
           radius={currentMarkerSize}
@@ -208,10 +201,7 @@ function MapComponent(props) {
         zoom={constans.initialZoom}
         ref={(m) => setLeafletMap(m)}
         onzoomend={(x) => setCurrentMarkerSize(calculateMarkerSize(leafletMap.leafletElement.getZoom()))}
-        // onMoveEnd={
-        //   (x) => this.updateMarkers()
-        // }
-        // todo markers logic
+        onMoveEnd={() => updateMarkers()}
         className={styles.map}
       >
         <TileLayer
