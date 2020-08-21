@@ -220,6 +220,7 @@ function AnimatedMapPopup(props) {
       closeButton={false}
       onClose={onPopupClose}
       onOpen={onPopupOpen}
+      autoPan={false}
     >
       <div className={styles.children}>
         <div className={styles.point}>

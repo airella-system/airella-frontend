@@ -23,6 +23,7 @@
   height: 40px;
   scale: var(--startScale);
   animation: pointIntro 0.5s $animation-easing 1 forwards;
+  pointer-events: none;
 }
 
 .morphEmoji {
@@ -53,6 +54,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
+  pointer-events: none;
 
   div {
     position: absolute;
@@ -88,6 +90,7 @@
 
   .withShadow {
     @extend %neu-shadow-over;
+    pointer-events: none;
   }
 }
 
