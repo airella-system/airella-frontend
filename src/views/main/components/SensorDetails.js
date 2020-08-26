@@ -48,21 +48,6 @@ class SensorDetails extends Component {
     return AirQualityIcons[indexToLevel(this.state.stationDetal.airQuality)];
   }
 
-  pmToPrecentage(type, value) {
-    let norm = 1;
-    switch (type) {
-      case "pm2_5":
-        norm = 25;
-        break;
-      case "pm10":
-        norm = 50;
-        break;
-      default:
-        return "";
-    }
-    return Math.round((value / norm) * 100) + "%";
-  }
-
   getLastMeasuremtnTime() {
     let latestData = this.state.latestData;
     if (!latestData) {
@@ -187,7 +172,7 @@ class SensorDetails extends Component {
         <Statistic
           key={id + "pressure"}
           name="Pressure"
-          value={sensorData.values[0].value}
+          value={sensorData.values[0].value / 100}
           unit="hPa"
           icon={<IoMdSpeedometer className={statisticStyles.leftIcon} />}
         ></Statistic>
