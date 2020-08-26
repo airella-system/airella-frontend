@@ -100,7 +100,7 @@ class SensorDetails extends Component {
           key={id + "PM2.5"}
           name="PM2.5"
           value={sensorData.values[0].value}
-          norm={25}
+          percent={sensorData.status}
           unit="µg/m³"
         ></Gauge>
       ),
@@ -109,7 +109,7 @@ class SensorDetails extends Component {
           key={id + "PM10"}
           name="PM10"
           value={sensorData.values[0].value}
-          norm={50}
+          percent={sensorData.status}
           unit="µg/m³"
         ></Gauge>
       ),
@@ -299,7 +299,7 @@ class SensorDetails extends Component {
                     key={this.state.latestData["id"]}
                     name="AQI"
                     value={Math.round(this.state.latestData.aqi)}
-                    norm={50}
+                    percent={Math.min(this.state.latestData.aqi / 100, 100)}
                     lineWidth={20}
                   ></Gauge>
                 </div>

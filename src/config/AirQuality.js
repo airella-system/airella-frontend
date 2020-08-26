@@ -24,9 +24,9 @@ export let AirQualityIcons = {
 };
 
 export let indexToLevel = (aqi) => {
-  if (aqi <= 12) return 0;
-  else if (aqi <= 25) return 1;
-  else if (aqi <= 38) return 2;
-  else if (aqi <= 50) return 3;
+  if (aqi <= 25) return 0;
+  else if (aqi <= 50) return 1;
+  else if (aqi <= 75) return 2;
+  else if (aqi <= 100) return 3;
   return 4;
 };
