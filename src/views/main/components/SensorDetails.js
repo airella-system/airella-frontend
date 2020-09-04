@@ -6,6 +6,12 @@ import { FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from "../../../mocks/StationDetailApiMock";
 import Gauge from "../../../components/Gauge";
 import "../../../style/main/components/SensorDetails.scss";
+import { ReactComponent as Cloud1 } from "../../../style/main/components/assets/cloud1.svg";
+import { ReactComponent as Cloud2 } from "../../../style/main/components/assets/cloud2.svg";
+import { ReactComponent as Cloud3 } from "../../../style/main/components/assets/cloud3.svg";
+import { ReactComponent as Boy1 } from "../../../style/main/components/assets/boy1.svg";
+import { ReactComponent as Smile } from "../../../style/main/components/assets/smile1.svg";
+
 import { AirQualityIcons, indexToLevel } from "../../../config/AirQuality";
 import ChartTabs from "./ChartTabs.js";
 import Button from "../../../components/Button";
@@ -269,24 +275,22 @@ class SensorDetails extends Component {
               </Button>
             </div>
             <div className="card">
-              <div className="innerCard">
-                <div className="holder">
-                  <div>{this.getTitle()}</div>
-                </div>
-                <div className="hd">Air quality:</div>
-
-                <div className="summaryContainer">
-                  <div className="summaryImageContainer">
-                    <div className="summary"></div>
+              <div className="innerCardSummary">
+                <div className="innerCardSummary2">
+                  <Cloud1 className="cloud1" fill="#0000009d" style={{'animation-delay': "-" + (Math.random() * 5000) + "ms", 'animation-duration' : (Math.random() * 4000 + 2000) + "ms"}}/>
+                  <Cloud2 className="cloud2" fill="#0000009d" style={{'animation-delay': "-" + (Math.random() * 5000) + "ms", 'animation-duration' : (Math.random() * 4000 + 2000) + "ms"}}/>
+                  <Cloud3 className="cloud3" fill="#0000009d" style={{'animation-delay': "-" + (Math.random() * 5000) + "ms", 'animation-duration' : (Math.random() * 4000 + 2000) + "ms"}}/>
+                  <Cloud1 className="cloud1" fill="#0000009d" style={{'animation-delay': "-" + (Math.random() * 5000) + "ms", 'animation-duration' : (Math.random() * 4000 + 4000) + "ms"}}/>
+                  <Cloud2 className="cloud2" fill="#0000009d" style={{'animation-delay': "-" + (Math.random() * 5000) + "ms", 'animation-duration' : (Math.random() * 4000 + 4000) + "ms"}}/>
+                  <Cloud3 className="cloud3" fill="#0000009d" style={{'animation-delay': "-" + (Math.random() * 5000) + "ms", 'animation-duration' : (Math.random() * 4000 + 4000) + "ms"}}/>
+                  <Boy1 className="person"/>
+                  <Smile className="person"/>
+                  <Cloud1 className="cloud4" fill="#00000033" style={{'animation-delay': "-" + (Math.random() * 30) + "s", 'animation-duration' : (Math.random() * 15 + 15) + "s"}}/>
+                  <Cloud2 className="cloud4" fill="#00000033" style={{'animation-delay': "-" + (Math.random() * 30) + "s", 'animation-duration' : (Math.random() * 15 + 15) + "s"}}/>
+                  <Cloud3 className="cloud4" fill="#00000033" style={{'animation-delay': "-" + (Math.random() * 30) + "s", 'animation-duration' : (Math.random() * 15 + 15) + "s"}}/>
+                  <div className="title">
+                    {this.getTitle()}
                   </div>
-
-                  <Gauge
-                    key={this.state.latestData["id"]}
-                    name="AQI"
-                    value={Math.round(this.state.latestData.aqi)}
-                    percent={Math.min(this.state.latestData.aqi / 100, 100)}
-                    lineWidth={20}
-                  ></Gauge>
                 </div>
               </div>
 

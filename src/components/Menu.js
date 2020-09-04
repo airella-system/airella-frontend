@@ -4,6 +4,8 @@ import { FaMapMarkedAlt, FaCube, FaRegLifeRing, FaUser } from "react-icons/fa";
 import Button from './Button';
 import '../style/components/menu.scss';
 import '../style/additional/animationLib.scss';
+import { setLoginDialogVisibility } from "../redux/actions";
+import { connect } from "react-redux";
 
 class Menu extends React.Component {
   constructor(props) {
@@ -27,14 +29,12 @@ class Menu extends React.Component {
 						</div>
 					</Button>
 				</Link>
-				<Link className="link account" to="/account">
-					<Button>
-						<div className="holder">
-							<div><FaUser className="menuIcon" /></div>
-							<div className="textAligner">Account</div>
-						</div>
-					</Button>
-				</Link>
+				<Button onClick={() => this.props.dispatch(setLoginDialogVisibility(true))}>
+					<div className="holder">
+						<div><FaUser className="menuIcon" /></div>
+						<div className="textAligner">Account</div>
+					</div>
+				</Button>
 				<Link className="link about" to="/test">
 					<Button>
 						<div className="holder">
@@ -56,4 +56,4 @@ class Menu extends React.Component {
 	}
 }
 
-export default Menu;
+export default connect()(Menu);
