@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import "../../../style/main/components/Summary.scss";
+import styles from "../../../style/main/components/Summary.module.scss";
+
 import { ReactComponent as Cloud1 } from "../../../style/main/components/assets/cloud1.svg";
 import { ReactComponent as Cloud2 } from "../../../style/main/components/assets/cloud2.svg";
 import { ReactComponent as Cloud3 } from "../../../style/main/components/assets/cloud3.svg";
+
 import { ReactComponent as Person1 } from "../../../style/main/components/assets/person1.svg";
 import { ReactComponent as PersonForeground1 } from "../../../style/main/components/assets/person_foreground1.svg";
 import { ReactComponent as Person2 } from "../../../style/main/components/assets/person2.svg";
@@ -50,65 +52,79 @@ class SensorDetails extends Component {
 
   getBackground(num) {
     switch (num) {
+      case -1:
+        return <Background1 className={styles.background}></Background1>;
       case 1:
-        return <Background1 className="background"></Background1>;
+        return <Background1 className={styles.background}></Background1>;
       case 2:
-        return <Background2 className="background"></Background2>;
+        return <Background2 className={styles.background}></Background2>;
       case 3:
-        return <Background3 className="background"></Background3>;
+        return <Background3 className={styles.background}></Background3>;
       case 4:
-        return <Background4 className="background"></Background4>;
+        return <Background4 className={styles.background}></Background4>;
       case 5:
-        return <Background5 className="background"></Background5>;
+        return <Background5 className={styles.background}></Background5>;
     }
   }
 
   getPerson(num) {
     switch (num) {
       case 1:
-        return <Person1 className="person"></Person1>;
+        return <Person1 className={styles.person}></Person1>;
       case 2:
-        return <Person2 className="person"></Person2>;
+        return <Person2 className={styles.person}></Person2>;
       case 3:
-        return <Person3 className="person"></Person3>;
+        return <Person3 className={styles.person}></Person3>;
       case 4:
-        return <Person4 className="person"></Person4>;
+        return <Person4 className={styles.person}></Person4>;
       case 5:
-        return <Person5 className="person"></Person5>;
+        return <Person5 className={styles.person}></Person5>;
       case 6:
-        return <Person6 className="person"></Person6>;
+        return <Person6 className={styles.person}></Person6>;
     }
   }
 
   getPersonForegeound(num) {
     switch (num) {
       case 1:
-        return <PersonForeground1 className="person"></PersonForeground1>;
+        return (
+          <PersonForeground1 className={styles.person}></PersonForeground1>
+        );
       case 2:
-        return <PersonForeground2 className="person"></PersonForeground2>;
+        return (
+          <PersonForeground2 className={styles.person}></PersonForeground2>
+        );
       case 3:
-        return <PersonForeground3 className="person"></PersonForeground3>;
+        return (
+          <PersonForeground3 className={styles.person}></PersonForeground3>
+        );
       case 4:
-        return <PersonForeground4 className="person"></PersonForeground4>;
+        return (
+          <PersonForeground4 className={styles.person}></PersonForeground4>
+        );
       case 5:
-        return <PersonForeground5 className="person"></PersonForeground5>;
+        return (
+          <PersonForeground5 className={styles.person}></PersonForeground5>
+        );
       case 6:
-        return <PersonForeground6 className="person"></PersonForeground6>;
+        return (
+          <PersonForeground6 className={styles.person}></PersonForeground6>
+        );
     }
   }
 
   getSmile(num) {
     switch (num) {
       case 1:
-        return <Smile1 className="person"></Smile1>;
+        return <Smile1 className={styles.person}></Smile1>;
       case 2:
-        return <Smile2 className="person"></Smile2>;
+        return <Smile2 className={styles.person}></Smile2>;
       case 3:
-        return <Smile3 className="person"></Smile3>;
+        return <Smile3 className={styles.person}></Smile3>;
       case 4:
-        return <Smile4 className="person"></Smile4>;
+        return <Smile4 className={styles.person}></Smile4>;
       case 5:
-        return <Smile5 className="person"></Smile5>;
+        return <Smile5 className={styles.person}></Smile5>;
     }
   }
 
@@ -150,7 +166,7 @@ class SensorDetails extends Component {
         clouds.push(
           <Cloud1
             ref={(ref) => this.cloudRefs.push(ref)}
-            className="backgroundCloud"
+            className={styles.backgroundCloud}
             fill={color}
           />
         );
@@ -158,7 +174,7 @@ class SensorDetails extends Component {
         clouds.push(
           <Cloud2
             ref={(ref) => this.cloudRefs.push(ref)}
-            className="backgroundCloud"
+            className={styles.backgroundCloud}
             fill={color}
           />
         );
@@ -166,7 +182,7 @@ class SensorDetails extends Component {
         clouds.push(
           <Cloud3
             ref={(ref) => this.cloudRefs.push(ref)}
-            className="backgroundCloud"
+            className={styles.backgroundCloud}
             fill={color}
           />
         );
@@ -179,7 +195,7 @@ class SensorDetails extends Component {
     return (
       <>
         <Cloud1
-          className="foregroundCloud"
+          className={styles.foregroundCloud}
           fill={color}
           style={{
             "animation-delay": "-" + 0 + "s",
@@ -187,7 +203,7 @@ class SensorDetails extends Component {
           }}
         />
         <Cloud2
-          className="foregroundCloud"
+          className={styles.foregroundCloud}
           fill={color}
           style={{
             "animation-delay": "-" + 5 + "s",
@@ -195,7 +211,7 @@ class SensorDetails extends Component {
           }}
         />
         <Cloud3
-          className="foregroundCloud"
+          className={styles.foregroundCloud}
           fill={color}
           style={{
             "animation-delay": "-" + 10 + "s",
@@ -203,7 +219,7 @@ class SensorDetails extends Component {
           }}
         />
         <Cloud1
-          className="foregroundCloud"
+          className={styles.foregroundCloud}
           fill={color}
           style={{
             "animation-delay": "-" + 15 + "s",
@@ -211,7 +227,7 @@ class SensorDetails extends Component {
           }}
         />
         <Cloud2
-          className="foregroundCloud"
+          className={styles.foregroundCloud}
           fill={color}
           style={{
             "animation-delay": "-" + 20 + "s",
@@ -219,7 +235,7 @@ class SensorDetails extends Component {
           }}
         />
         <Cloud3
-          className="foregroundCloud"
+          className={styles.foregroundCloud}
           fill={color}
           style={{
             "animation-delay": "-" + 25 + "s",
@@ -238,7 +254,7 @@ class SensorDetails extends Component {
     let color = "";
     switch (this.getAirQualityLevel()) {
       case -1:
-        color = "#b7ddfcff";
+        color = "#4e1b16ff";
         break;
       case 1:
         color = "#4e1b16ff";
@@ -264,6 +280,9 @@ class SensorDetails extends Component {
   }
 
   renderRandomPerson() {
+    if (this.getAirQualityLevel() == -1) {
+      return <PersonGrave className={styles.person}></PersonGrave>;
+    }
     return (
       <>
         {this.getPerson(this.state.personNum)}
@@ -333,17 +352,18 @@ class SensorDetails extends Component {
 
   render() {
     return (
-      <div className="innerCardSummary">
-        <div className="innerCardSummary2">
+      <div className={styles.cardSummary}>
+        <div className={styles.innerCardSummary}>
           {this.renderBackground()}
           {this.renderBackgroundClouds()}
           {this.renderRandomPerson()}
           {this.renderForegroundClouds()}
-
-          <div className="title">{this.props.title}</div>
-          <div className="aqiValue">{this.props.aqi}</div>
-          <div className="aqiText">AQI</div>
-          <div className="aqiDescription">{this.getDescriptionText()}</div>
+          <div className={styles.title}>{this.props.title}</div>
+          <div className={styles.aqiValue}>{this.props.aqi}</div>
+          <div className={styles.aqiText}>AQI</div>
+          <div className={styles.aqiDescription}>
+            {this.getDescriptionText()}
+          </div>
         </div>
       </div>
     );

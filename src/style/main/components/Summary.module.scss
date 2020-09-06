@@ -1,10 +1,7 @@
 @import "../../const/var.scss", "../../const/minix.scss",
   "../../additional/neumorphism.scss";
 
-
-
-
-.innerCardSummary {
+.cardSummary {
   position: relative;
   @extend %neu-shadow-over;
   @extend %neu-rounded;
@@ -15,7 +12,7 @@
   overflow: hidden;
 }
 
-.innerCardSummary2 {
+.innerCardSummary {
   width: 100%;
   height: 200px;
 
@@ -66,14 +63,22 @@
   }
 }
 
-@keyframes example {
-  from {left: 100%;}
-  to {left: -75px;}
+@keyframes backgroundCloudAnimation {
+  from {
+    left: 100%;
+  }
+  to {
+    left: -75px;
+  }
 }
 
-@keyframes example2 {
-  from {left: 100%;}
-  to {left: -500px;}
+@keyframes foregroundCloudAnimation {
+  from {
+    left: 100%;
+  }
+  to {
+    left: -250px;
+  }
 }
 
 .backgroundCloud {
@@ -81,9 +86,8 @@
   right: 0px;
   width: calc(100px * 0.75);
   height: calc(70px * 0.75);
-  animation: example 4s linear infinite;
+  animation: backgroundCloudAnimation 4s linear infinite;
 }
-
 
 .foregroundCloud {
   position: absolute;
@@ -92,7 +96,7 @@
   height: calc(70px * 2.5);
   top: 130px;
 
-  animation-name: example2;
+  animation-name: foregroundCloudAnimation;
   animation-duration: 30s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
@@ -104,12 +108,4 @@
   height: calc(110px * 1.5);
   bottom: 0px;
   left: 30px;
-}
-
-.block {
-  // margin-bottom: 20px;
-  // margin: 10px;
-  // padding: 10px;
-  // @extend %neu-rounded;
-  // @extend %neu-shadow-under;
 }

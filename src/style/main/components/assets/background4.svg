@@ -49,11 +49,11 @@
     <linearGradient
        id="linearGradient4002">
       <stop
-         style="stop-color:#11bff6;stop-opacity:1"
+         style="stop-color:#11bff6ff;stop-opacity:1"
          offset="0"
          id="stop3998" />
       <stop
-         style="stop-color:#eff2a9;stop-opacity:1"
+         style="stop-color:#e7ec7eff;stop-opacity:1"
          offset="1"
          id="stop4000" />
     </linearGradient>
