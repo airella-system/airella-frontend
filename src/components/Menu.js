@@ -29,12 +29,14 @@ class Menu extends React.Component {
 						</div>
 					</Button>
 				</Link>
+				<div className="link account">
 				<Button onClick={() => this.props.dispatch(setLoginDialogVisibility(true))}>
 					<div className="holder">
 						<div><FaUser className="menuIcon" /></div>
 						<div className="textAligner">Account</div>
 					</div>
 				</Button>
+				</div>
 				<Link className="link about" to="/test">
 					<Button>
 						<div className="holder">
