@@ -45,8 +45,11 @@ class Gauge extends React.Component {
   }
 
   render() {
-    let percent = this.props.percent;
-
+    let percent = this.props.percent / 2
+    // divide percent by 2 so 100% is half of gauge and 200% is full gauge
+    let percentText = this.props.percent
+    // don't divide percent text
+    
     percent = Math.max(0.01, percent); // 0.01 so gauge will always be visible
     percent = Math.min(1, percent);
 
@@ -81,7 +84,7 @@ class Gauge extends React.Component {
                 <div className={styles.spaceBetween}></div>
                 <div className={styles.rightValueContainer}>
                   <span className={styles.rightValue}>
-                    {Math.round(this.props.percent * 100)}
+                    {Math.round(percentText * 100)}
                   </span>
                   <span className={styles.rightUnit}>%</span>
                 </div>

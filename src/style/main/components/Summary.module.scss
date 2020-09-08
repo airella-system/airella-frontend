@@ -12,9 +12,32 @@
   overflow: hidden;
 }
 
+.background1 {
+  background-image: url("./assets/background1.svg"), none;
+}
+
+.background2 {
+  background-image: url("./assets/background2.svg"), none;
+}
+
+.background3 {
+  background-image: url("./assets/background3.svg"), none;
+}
+
+.background4 {
+  background-image: url("./assets/background4.svg"), none;
+}
+
+.background5 {
+  background-image: url("./assets/background5.svg"), none;
+}
+
 .innerCardSummary {
   width: 100%;
   height: 200px;
+  background-size: cover;
+
+
 
   .background {
     width: 100%;

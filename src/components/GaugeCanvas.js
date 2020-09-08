@@ -268,6 +268,17 @@ class GaugeCanvas extends React.Component {
     this.drawBackground();
     this.rAF = requestAnimationFrame(this.updateAnimationState);
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.percent != this.props.percent || prevProps.color != this.props.color) {
+      cancelAnimationFrame(this.rAF);
+      this.clearCanvases();
+      this.startTime = undefined;
+      this.drawBackground();
+      this.rAF = requestAnimationFrame(this.updateAnimationState);
+    }
+  }
+
   componentWillUnmount() {
     cancelAnimationFrame(this.rAF);
   }

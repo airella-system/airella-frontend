@@ -25,14 +25,6 @@ import { ReactComponent as Smile3 } from "../../../style/main/components/assets/
 import { ReactComponent as Smile4 } from "../../../style/main/components/assets/smile4.svg";
 import { ReactComponent as Smile5 } from "../../../style/main/components/assets/smile5.svg";
 
-import { ReactComponent as Background1 } from "../../../style/main/components/assets/background1.svg";
-import { ReactComponent as Background2 } from "../../../style/main/components/assets/background2.svg";
-import { ReactComponent as Background3 } from "../../../style/main/components/assets/background3.svg";
-import { ReactComponent as Background4 } from "../../../style/main/components/assets/background4.svg";
-import { ReactComponent as Background5 } from "../../../style/main/components/assets/background5.svg";
-
-import ReactDOM from "react-dom";
-
 class SensorDetails extends Component {
   constructor(props) {
     super(props);
@@ -50,20 +42,20 @@ class SensorDetails extends Component {
     }
   }
 
-  getBackground(num) {
-    switch (num) {
+  getBackgroundClassName() {
+    switch (this.getAirQualityLevel()) {
       case -1:
-        return <Background1 className={styles.background}></Background1>;
+        return styles.background1;
       case 1:
-        return <Background1 className={styles.background}></Background1>;
+        return styles.background1;
       case 2:
-        return <Background2 className={styles.background}></Background2>;
+        return styles.background2;
       case 3:
-        return <Background3 className={styles.background}></Background3>;
+        return styles.background3;
       case 4:
-        return <Background4 className={styles.background}></Background4>;
+        return styles.background4;
       case 5:
-        return <Background5 className={styles.background}></Background5>;
+        return styles.background5;
     }
   }
 
@@ -246,10 +238,6 @@ class SensorDetails extends Component {
     );
   }
 
-  renderBackground() {
-    return this.getBackground(this.getAirQualityLevel());
-  }
-
   renderBackgroundClouds() {
     let color = "";
     switch (this.getAirQualityLevel()) {
@@ -353,8 +341,7 @@ class SensorDetails extends Component {
   render() {
     return (
       <div className={styles.cardSummary}>
-        <div className={styles.innerCardSummary}>
-          {this.renderBackground()}
+        <div className={styles.innerCardSummary + " " + this.getBackgroundClassName()}>
           {this.renderBackgroundClouds()}
           {this.renderRandomPerson()}
           {this.renderForegroundClouds()}
