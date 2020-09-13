@@ -20,11 +20,11 @@
         font-size: 15px;
         border: none;
         background: transparent;
-        border-bottom: 1px solid #aaa;
+        border-bottom: 1px solid $inputColor;
       }
       .mainInput:focus {
         outline: none;
-        border-bottom: 1px solid #333;
+        border-bottom: 1px solid $inputFocusedColor;
       }
     }
   }

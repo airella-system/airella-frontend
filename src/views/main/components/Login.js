@@ -7,7 +7,6 @@ import { FaRegTimesCircle } from "react-icons/fa";
 import { setLoginDialogVisibility } from "../../../redux/actions";
 
 function Login(props) {
-  console.log("ess " + props.visibility)
   if (props.visibility) {
     return (
       <div className={styles.container}>

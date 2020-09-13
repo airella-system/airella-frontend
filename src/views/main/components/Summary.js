@@ -43,81 +43,50 @@ class SensorDetails extends Component {
   }
 
   getBackgroundClassName() {
-    switch (this.getAirQualityLevel()) {
-      case -1:
-        return styles.background1;
-      case 1:
-        return styles.background1;
-      case 2:
-        return styles.background2;
-      case 3:
-        return styles.background3;
-      case 4:
-        return styles.background4;
-      case 5:
-        return styles.background5;
+    let airQualityToBackgroundClassName = {
+      "-1": styles.background1,
+      "5": styles.background5,
+      "4": styles.background4,
+      "3": styles.background3,
+      "2": styles.background2,
+      "1": styles.background1
     }
+    return airQualityToBackgroundClassName[this.getAirQualityLevel().toString()]
   }
 
   getPerson(num) {
-    switch (num) {
-      case 1:
-        return <Person1 className={styles.person}></Person1>;
-      case 2:
-        return <Person2 className={styles.person}></Person2>;
-      case 3:
-        return <Person3 className={styles.person}></Person3>;
-      case 4:
-        return <Person4 className={styles.person}></Person4>;
-      case 5:
-        return <Person5 className={styles.person}></Person5>;
-      case 6:
-        return <Person6 className={styles.person}></Person6>;
+    let numToPerson = {
+      "1": <Person1 className={styles.person}></Person1>,
+      "2": <Person2 className={styles.person}></Person2>,
+      "3": <Person3 className={styles.person}></Person3>,
+      "4": <Person4 className={styles.person}></Person4>,
+      "5": <Person5 className={styles.person}></Person5>,
+      "6": <Person6 className={styles.person}></Person6>,
     }
+    return numToPerson[num.toString()]
   }
 
   getPersonForegeound(num) {
-    switch (num) {
-      case 1:
-        return (
-          <PersonForeground1 className={styles.person}></PersonForeground1>
-        );
-      case 2:
-        return (
-          <PersonForeground2 className={styles.person}></PersonForeground2>
-        );
-      case 3:
-        return (
-          <PersonForeground3 className={styles.person}></PersonForeground3>
-        );
-      case 4:
-        return (
-          <PersonForeground4 className={styles.person}></PersonForeground4>
-        );
-      case 5:
-        return (
-          <PersonForeground5 className={styles.person}></PersonForeground5>
-        );
-      case 6:
-        return (
-          <PersonForeground6 className={styles.person}></PersonForeground6>
-        );
+    let numToPerson = {
+      "1": <PersonForeground1 className={styles.person}></PersonForeground1>,
+      "2": <PersonForeground2 className={styles.person}></PersonForeground2>,
+      "3": <PersonForeground3 className={styles.person}></PersonForeground3>,
+      "4": <PersonForeground4 className={styles.person}></PersonForeground4>,
+      "5": <PersonForeground5 className={styles.person}></PersonForeground5>,
+      "6": <PersonForeground6 className={styles.person}></PersonForeground6>,
     }
+    return numToPerson[num.toString()]
   }
 
   getSmile(num) {
-    switch (num) {
-      case 1:
-        return <Smile1 className={styles.person}></Smile1>;
-      case 2:
-        return <Smile2 className={styles.person}></Smile2>;
-      case 3:
-        return <Smile3 className={styles.person}></Smile3>;
-      case 4:
-        return <Smile4 className={styles.person}></Smile4>;
-      case 5:
-        return <Smile5 className={styles.person}></Smile5>;
+    let numToSmile = {
+      "1": <Smile1 className={styles.person}></Smile1>,
+      "2": <Smile2 className={styles.person}></Smile2>,
+      "3": <Smile3 className={styles.person}></Smile3>,
+      "4": <Smile4 className={styles.person}></Smile4>,
+      "5": <Smile5 className={styles.person}></Smile5>
     }
+    return numToSmile[num.toString()]
   }
 
   getTitle() {
@@ -239,27 +208,15 @@ class SensorDetails extends Component {
   }
 
   renderBackgroundClouds() {
-    let color = "";
-    switch (this.getAirQualityLevel()) {
-      case -1:
-        color = "#4e1b16ff";
-        break;
-      case 1:
-        color = "#4e1b16ff";
-        break;
-      case 2:
-        color = "#988a57ff";
-        break;
-      case 3:
-        color = "#bbbd7bff";
-        break;
-      case 4:
-        color = "#a9dae1ff";
-        break;
-      case 5:
-        color = "#b7ddfcff";
-        break;
+    let airQualityToBackgroundCloudsColor = {
+      "-1": "#4e1b16ff",
+      "5": "#b7ddfcff",
+      "4": "#a9dae1ff",
+      "3": "#bbbd7bff",
+      "2": "#988a57ff",
+      "1": "#4e1b16ff"
     }
+    let color = airQualityToBackgroundCloudsColor[this.getAirQualityLevel().toString()]
     return this.getBackgroundClouds(9, color);
   }
 
@@ -281,45 +238,28 @@ class SensorDetails extends Component {
   }
 
   renderForegroundClouds() {
-    let color = "";
-    switch (this.getAirQualityLevel()) {
-      case -1:
-        color = "#00000033";
-        break;
-      case 1:
-        color = "#00000033";
-        break;
-      case 2:
-        color = "#00000022";
-        break;
-      case 3:
-        color = "#00000011";
-        break;
-      case 4:
-        color = "#00000000";
-        break;
-      case 5:
-        color = "#00000000";
-        break;
+    let airQualityToForegroundCloudsColor = {
+      "-1": "#00000033",
+      "5": "#0000000",
+      "4": "#0000000",
+      "3": "#00000011",
+      "2": "#00000022",
+      "1": "#00000033"
     }
+    let color = airQualityToForegroundCloudsColor[this.getAirQualityLevel().toString()]
     return this.getForegroundClouds(color);
   }
 
   getDescriptionText() {
-    switch (this.getAirQualityLevel()) {
-      case -1:
-        return "You better stay in home!";
-      case 5:
-        return "Excellent air!";
-      case 4:
-        return "Good air quality!";
-      case 3:
-        return "Mediocre air quality";
-      case 2:
-        return "Poor air quality";
-      case 1:
-        return "Bad air quality";
+    let airQualityToDescriptionText = {
+      "-1": "You better stay in home!",
+      "5": "Excellent air!",
+      "4": "Good air quality!",
+      "3": "Mediocre air quality",
+      "2": "Poor air quality",
+      "1": "Bad air quality"
     }
+    return airQualityToDescriptionText[this.getAirQualityLevel().toString()]
   }
 
   getAirQualityLevel() {
