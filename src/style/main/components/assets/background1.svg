@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="400mm"
+   height="200mm"
+   viewBox="0 0 400 200"
+   version="1.1"
+   id="svg1383">
+  <defs
+     id="defs1379">
+    <linearGradient
+       id="linearGradient855-17-0"
+       x1="109.23512"
+       y1="10.583332"
+       x2="109.23512"
+       y2="152.3244"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.843672,0,0,1.4706333,-0.69682926,-17.8432)" />
+    <linearGradient
+       id="linearGradient2109">
+      <stop
+         style="stop-color:#bd311d;stop-opacity:1"
+         offset="0"
+         id="stop2105" />
+      <stop
+         style="stop-color:#ed7b7b;stop-opacity:1"
+         offset="1"
+         id="stop2107" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="matrix(1.8436719,0,0,1.4706332,-0.69682678,-17.843195)"
+       gradientUnits="userSpaceOnUse"
+       y2="152.3244"
+       x2="109.23512"
+       y1="10.583332"
+       x1="109.23512"
+       id="linearGradient855-17-0-8"
+       xlink:href="#linearGradient2109" />
+  </defs>
+  <rect
+     y="0"
+     x="0"
+     height="200"
+     width="400"
+     id="rect847-54-8"
+     style="fill:url(#linearGradient855-17-0-8);fill-opacity:1;stroke:none;stroke-width:8.71393;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+</svg>

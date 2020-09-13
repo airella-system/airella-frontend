@@ -5,7 +5,9 @@ import { sensorDetailAction } from "../../../redux/actions";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { stationDetailDataMock } from "../../../mocks/StationDetailApiMock";
 import Gauge from "../../../components/Gauge";
+import Summary from "./Summary";
 import "../../../style/main/components/SensorDetails.scss";
+
 import { AirQualityIcons, indexToLevel } from "../../../config/AirQuality";
 import ChartTabs from "./ChartTabs.js";
 import Button from "../../../components/Button";
@@ -269,26 +271,8 @@ class SensorDetails extends Component {
               </Button>
             </div>
             <div className="card">
-              <div className="innerCard">
-                <div className="holder">
-                  <div>{this.getTitle()}</div>
-                </div>
-                <div className="hd">Air quality:</div>
+              <Summary id={this.state.latestData.id} title={this.getTitle()} aqi={Math.round(this.state.latestData.aqi)}></Summary>
 
-                <div className="summaryContainer">
-                  <div className="summaryImageContainer">
-                    <div className="summary"></div>
-                  </div>
-
-                  <Gauge
-                    key={this.state.latestData["id"]}
-                    name="AQI"
-                    value={Math.round(this.state.latestData.aqi)}
-                    percent={Math.min(this.state.latestData.aqi / 100, 100)}
-                    lineWidth={20}
-                  ></Gauge>
-                </div>
-              </div>
 
               <div className="innerCard">
                 <div className="block">

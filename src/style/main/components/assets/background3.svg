@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   id="svg1383"
+   version="1.1"
+   viewBox="0 0 400 200"
+   height="200mm"
+   width="400mm">
+  <defs
+     id="defs1379">
+    <linearGradient
+       gradientTransform="matrix(1.843672,0,0,1.4706333,-0.69682926,-17.8432)"
+       gradientUnits="userSpaceOnUse"
+       y2="152.3244"
+       x2="109.23512"
+       y1="10.583332"
+       x1="109.23512"
+       id="linearGradient855-17-0" />
+    <linearGradient
+       id="linearGradient2109">
+      <stop
+         id="stop2105"
+         offset="0"
+         style="stop-color:#bd311d;stop-opacity:1" />
+      <stop
+         id="stop2107"
+         offset="1"
+         style="stop-color:#ed7b7b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient2109"
+       id="linearGradient855-17-0-8"
+       x1="109.23512"
+       y1="10.583332"
+       x2="109.23512"
+       y2="152.3244"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.8436719,0,0,1.4706332,-0.69682678,-17.843195)" />
+    <linearGradient
+       gradientTransform="matrix(1.8436749,0,0,1.4706333,-0.69691562,-17.843169)"
+       gradientUnits="userSpaceOnUse"
+       y2="152.3244"
+       x2="109.23512"
+       y1="10.583332"
+       x1="109.23512"
+       id="linearGradient855-0-2"
+       xlink:href="#linearGradient3990" />
+    <linearGradient
+       id="linearGradient3990">
+      <stop
+         style="stop-color:#d2da08ff;stop-opacity:1"
+         offset="0"
+         id="stop3986" />
+      <stop
+         style="stop-color:#f3e991ff;stop-opacity:1"
+         offset="1"
+         id="stop3988" />
+    </linearGradient>
+  </defs>
+  <rect
+     y="0"
+     x="3.5527137e-15"
+     height="200"
+     width="400"
+     id="rect847-7-1"
+     style="fill:url(#linearGradient855-0-2);fill-opacity:1;stroke:none;stroke-width:8.71395;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10" />
+</svg>

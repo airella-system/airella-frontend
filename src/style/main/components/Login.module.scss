@@ -1,0 +1,46 @@
+@import "../../const/var.scss", "../../const/minix.scss",
+  "../../additional/neumorphism.scss";
+
+.container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0px;
+  right: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: #00000022;
+  z-index: 1100;
+
+  .dialog {
+    @extend %neu-shadow-over;
+    @extend %neu-rounded;
+    width: 300px;
+    height: 260px;
+    max-width: 300px;
+    max-height: 300px;
+    background: $mainColor;
+    position: relative;
+    .inside {
+      margin: 30px 30px 15px 30px;
+      .close {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+      }
+      .title {
+        color: rgb(100, 100, 100);
+        font-size: 25px;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      .input {
+        margin-bottom: 20px;
+      }
+      .button {
+        margin-top: 25px;
+      }
+    }
+  }
+}
