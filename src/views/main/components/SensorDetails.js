@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { sensorDetailAction } from "../../../redux/actions";
-import { FaRegTimesCircle } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { stationDetailDataMock } from "../../../mocks/StationDetailApiMock";
 import Gauge from "../../../components/Gauge";
 import Summary from "./Summary";
@@ -247,10 +247,7 @@ class SensorDetails extends Component {
                 this.setState({ visible: false });
               }}
             >
-              <FaRegTimesCircle
-                className="closeIcon"
-                size={22}
-              ></FaRegTimesCircle>
+              <FaTimes className="closeIcon" size={22} rotate={45} />
             </Button>
           </div>
           <ScrollBar
@@ -264,10 +261,7 @@ class SensorDetails extends Component {
                   this.setState({ visible: false });
                 }}
               >
-                <FaRegTimesCircle
-                  className="closeIcon"
-                  size={22}
-                ></FaRegTimesCircle>
+                <FaTimes className="closeIcon" size={22} rotate={45} />
               </Button>
             </div>
             <div className="card">

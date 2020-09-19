@@ -14,6 +14,10 @@ $neu-round-radius: 15px;
   box-shadow: 5px 5px 5px #00225533, -5px -5px 5px #ffffffff;
 }
 
+%neu-shadow-over-subtle {
+  box-shadow: 5px 5px 5px #00225533, -5px -5px 5px #ffffff88;
+}
+
 %neu-rounded {
   border-radius: $neu-round-radius;
 }
