@@ -54,7 +54,7 @@ function Login(props) {
 
   const onLoginInputKeyDown = (target) => {
     if (target.keyCode == 13) 
-      password.current.focus()
+      executeLogin(login.current.value, password.current.value)
   }
 
   const onPasswordInputKeyDown = (target) => {
