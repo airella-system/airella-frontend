@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import styles from "../style/components/login.module.scss";
 import Input from "./Input";
 import Button from "./Button";
+import Popup from "./Popup";
 import { FaTimes } from "react-icons/fa";
 import { setLoginDialogVisibility, setAuthorization } from "../redux/actions";
-import { getApiUrl, postApiUrl } from "../config/ApiURL";
+import { postApiUrl } from "../config/ApiURL";
 
 function Login(props) {
   const [isFailed, setIsFailed] = useState(false)
@@ -46,6 +47,7 @@ function Login(props) {
     })
     .catch((e) => {
       console.error(e)
+      setIsFailed(true)
       setMessage("Couldn't log in")
     });
   }
@@ -61,30 +63,34 @@ function Login(props) {
   }
 
   return (
-    <div className={`${styles.container} ${props.visibility ? styles.visibleContainer : styles.invisibleContainer}`}>
-      <div className={`${styles.dialog} ${isFailed ? styles.errorDialog : styles.standardDialog}`}>
-        <div className={styles.inside}> 
-          <div className={styles.close}>
+    <Popup visibility={props.visibility}>
+      {
+        props.visibility ? (
+          <div className={`${styles.loginBox} ${isFailed ? styles.error : ""}`}>
+            <div className={styles.close}>
             <Button onClick={() => close()}>
               <FaTimes size={22} rotate={45} />
             </Button>
+            </div>
+            <div className={styles.title}>Airella</div>
+            <div className={styles.input}>
+              <Input ref={login} type="email" placeholder="Login" onKeyDown={onLoginInputKeyDown} autofocus={true}/>
+            </div>
+            <div className={styles.input}>
+              <Input ref={password} type="password" placeholder="Password" onKeyDown={onPasswordInputKeyDown}/>
+            </div>
+            <div className={styles.button}>
+              <Button onClick={() => executeLogin(login.current.value, password.current.value)}>Log in</Button>
+            </div>
+            <div className={`${styles.message} ${message ? styles.visibleMessage : ""}`}>
+              {message}
+            </div>
           </div>
-          <div className={styles.title}>Airella</div>
-          <div className={styles.input}>
-            <Input ref={login} type="email" placeholder="Login" onKeyDown={onLoginInputKeyDown} autofocus={true}/>
-          </div>
-          <div className={styles.input}>
-            <Input ref={password} type="password" placeholder="Password" onKeyDown={onPasswordInputKeyDown}/>
-          </div>
-          <div className={styles.button}>
-            <Button onClick={() => executeLogin(login.current.value, password.current.value)}>Log in</Button>
-          </div>
-          <div className={`${styles.message} ${message ? styles.visibleMessage : ""}`}>
-            {message}
-          </div>
-        </div>
-      </div>
-    </div>
+        ) : (
+          <div className={styles.loginBox}></div>
+        )
+      }
+    </Popup>
   )
 }
 
