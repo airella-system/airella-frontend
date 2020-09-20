@@ -1,0 +1,55 @@
+@import "../../const/var.scss", "../../const/minix.scss",
+  "../../additional/neumorphism.scss";
+
+$item-gap: 12px;
+
+.topBar {
+  display: block;
+  width: 100%;
+
+  .menuLeftItems {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+
+    background: $mainColor;
+    @extend %neu-shadow-over;
+    @extend %neu-rounded;
+    margin: 10px;
+    padding: $item-gap $item-gap $item-gap $item-gap;
+
+    .logo {
+      font-size: 30px;
+      margin-left: 20px;
+      margin-top: 4px;
+    }
+    .bottomItems {
+      transform-origin: top;
+      pointer-events: none;
+      opacity: 0;
+      margin-top: 0;
+      transition: opacity 250ms $animation-easing,
+        height 250ms $animation-easing 250ms,
+        margin-top 250ms $animation-easing 250ms;
+    }
+    .bottomItemsOpen {
+      pointer-events: auto;
+      opacity: 1;
+      margin-top: $item-gap;
+      transition: opacity 250ms $animation-easing 250ms,
+        height 250ms $animation-easing, margin-top 250ms $animation-easing;
+    }
+    .topItems {
+      display: flex;
+      align-items: center;
+      float: left;
+      .button {
+        margin-right: 15px;
+      }
+    }
+  }
+
+}

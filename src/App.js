@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import MainView from "./views/main/MainView";
 import SubpageView from "./views/subpage/SubpageView";
 import ActivationView from "./views/activateAccount/ActivationView";
+import UserView from "./views/user/UserView";
 
 class App extends React.Component {
   constructor(props) {
@@ -33,6 +34,13 @@ class App extends React.Component {
             path="/activateAccount/:email/:activationCode"
             render={(props) => {
               return <ActivationView {...props} />;
+            }}
+          />
+          <Route
+            exact
+            path="/user"
+            render={(props) => {
+              return <UserView {...props} />;
             }}
           />
         </Switch>

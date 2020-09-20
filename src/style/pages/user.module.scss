@@ -1,0 +1,20 @@
+@import "../const/var.scss", "../const/minix.scss",
+  "../additional/neumorphism.scss";
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $mainColor;
+  width: 100vw;
+  height: 100vh;
+
+  .card {
+    @extend %neu-rounded;
+    @extend %neu-shadow-over;
+    width: 800px;
+    height: 300px;
+    max-width: 95%;
+    overflow: auto;
+  }
+}
