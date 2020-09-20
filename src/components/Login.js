@@ -52,13 +52,8 @@ function Login(props) {
     });
   }
 
-  const onLoginInputKeyDown = (target) => {
+  const onInputKeyDown = (target) => {
     if (target.keyCode == 13) 
-      executeLogin(login.current.value, password.current.value)
-  }
-
-  const onPasswordInputKeyDown = (target) => {
-    if (target.keyCode == 13)
       executeLogin(login.current.value, password.current.value)
   }
 
@@ -74,10 +69,10 @@ function Login(props) {
             </div>
             <div className={styles.title}>Airella</div>
             <div className={styles.input}>
-              <Input ref={login} type="email" placeholder="Login" onKeyDown={onLoginInputKeyDown} autofocus={true}/>
+              <Input ref={login} type="email" placeholder="Login" onKeyDown={onInputKeyDown} autofocus={true}/>
             </div>
             <div className={styles.input}>
-              <Input ref={password} type="password" placeholder="Password" onKeyDown={onPasswordInputKeyDown}/>
+              <Input ref={password} type="password" placeholder="Password" onKeyDown={onInputKeyDown}/>
             </div>
             <div className={styles.button}>
               <Button onClick={() => executeLogin(login.current.value, password.current.value)}>Log in</Button>
