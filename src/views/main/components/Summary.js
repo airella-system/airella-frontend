@@ -240,8 +240,8 @@ class SensorDetails extends Component {
   renderForegroundClouds() {
     let airQualityToForegroundCloudsColor = {
       "-1": "#00000033",
-      "5": "#0000000",
-      "4": "#0000000",
+      "5": "#00000000",
+      "4": "#00000000",
       "3": "#00000011",
       "2": "#00000022",
       "1": "#00000033"
