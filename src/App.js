@@ -4,6 +4,7 @@ import MainView from "./views/main/MainView";
 import SubpageView from "./views/subpage/SubpageView";
 import ActivationView from "./views/activateAccount/ActivationView";
 import UserView from "./views/user/UserView";
+import Login from "./components/Login";
 
 class App extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
+        <Login />
         <Switch>
           <Route
             exact
