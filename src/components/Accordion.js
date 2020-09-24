@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
-import Menu from "../../../components/Menu";
-import Button from "../../../components/Button";
-import { setMapPositionRequest } from "../../../redux/actions";
+import Menu from "./Menu";
+import Button from "./Button";
+import { setMapPositionRequest } from "../redux/actions";
 
-import styles from "../../../style/main/components/Accordion.module.scss";
+import styles from "../style/components/Accordion.module.scss";
 
 class Accordion extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class Accordion extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.isOpen) {
+    if (this.props.open) {
       this.contentFrame.current.style.height = this.content.current.offsetHeight + 'px';
     } else {
       this.contentFrame.current.style.height = '0px';
@@ -34,7 +34,7 @@ class Accordion extends Component {
 
   render() {
     let iconSize = 22;
-    let icon = this.state.isOpen ? (
+    let icon = this.props.open ? (
       <FaTimes size={iconSize} rotate={45} />
     ) : (
       <FaBars size={iconSize} />
@@ -46,8 +46,7 @@ class Accordion extends Component {
           <div className={styles.topItems}>
             <div className={styles.button}>
               <Button
-                onClick={() => {this.setState({ isOpen: !this.state.isOpen });
-                console.log(this.content.current.offsetHeight)}}
+                onClick={() => this.props.onClick()}
               >
                 {icon}
               </Button>
@@ -56,7 +55,7 @@ class Accordion extends Component {
           </div>
           <div ref={this.contentFrame}
             className={`${styles.bottomItems} ${
-              this.state.isOpen ? styles.bottomItemsOpen : ""
+              this.props.open ? styles.bottomItemsOpen : ""
             }`}
           >
             <div ref={this.content}>

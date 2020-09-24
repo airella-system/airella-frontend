@@ -4,6 +4,8 @@ const ApiURL = {
   "getUserStations": () => "user/stations",
   "getStations": () => "stations",
   "getPopupData": (endpointParameters) => `stations/${endpointParameters[0]}`,
+  "getStationStatistics": (endpointParameters) => `stations/${endpointParameters[0]}/statistics`,
+  "getStationStatistic": (endpointParameters) => `stations/${endpointParameters[0]}/statistics/${endpointParameters[1]}`,
   "login": () => `auth/login`,
 };
 

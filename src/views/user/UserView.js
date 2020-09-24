@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "../../style/pages/user.module.scss";
 import { getApiUrl } from "../../config/ApiURL";
 
-import Accordion from "../main/components/Accordion";
+import StationAccordion from "../../components/StationAccordion";
 
 import { IconContext } from "react-icons";
 import {
@@ -14,40 +14,44 @@ import {
 class UserView extends Component {
   constructor(props) {
     super();
-    this.state = {
-    };
+    this.state = {};
   }
 
   componentDidMount() {
-    let url = getApiUrl('getStations'); //todo change 
+    let url = getApiUrl("getStations"); //todo change
     fetch(url)
-    .then((response) => response.json())
-    .then((response) => {
-      if (response.success) {
-        this.setState({
-          stations: response.data
-        })
-      }
-    });
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.success) {
+          this.setState({
+            stations: response.data,
+          });
+        }
+      });
   }
 
   getStationAccordion(station) {
-    return <Accordion key={station.id} titleComponent={<div>{station.name}</div>}>essa</Accordion>
+    return (
+      <StationAccordion
+        key={station.id}
+        station={station}
+      >
+        essa
+      </StationAccordion>
+    );
   }
 
   getStationsAccordion() {
     if (!this.state.stations) return;
     return this.state.stations.map((station) => {
-      return this.getStationAccordion(station)
-    })
+      return this.getStationAccordion(station);
+    });
   }
 
   render() {
     return (
       <div className={styles.root}>
-        <div className={styles.card}>
-        {this.getStationsAccordion()}
-        </div>
+        <div className={styles.card}>{this.getStationsAccordion()}</div>
       </div>
     );
   }
