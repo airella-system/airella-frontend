@@ -8,53 +8,68 @@ const StationStatistic = (props) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    let start = new Date();
-    let end = new Date();
-    start.setDate(start.getDate() - 1);
+    let startDate = new Date();
+    let endDate = new Date();
+    startDate.setHours(startDate.getHours() - 24);
 
     fetch(
       getApiUrl("getStationStatistic", [props.stationId, props.statisticId], {
-        timespan: `${start.toISOString()}/${end.toISOString()}`,
-        interval: "PT1H",
-        strategy: "latest",
+        timespan: `${startDate.toISOString()}/${endDate.toISOString()}`,
+        strategy: "all",
       })
     )
       .then((response) => response.json())
       .then((response) => {
         setData(response.data);
         if (response.data.statisticType === "MULTIPLE_ENUMS") {
+          let values = response.data.values;
+          values = values.map(e => e.timestamp = new Date(e.timestamp))
+          values = values.sort((a,b) => (a.timestamp - b.timestamp))
+
+          let xLabelsNum = 25;
+
+          let datesDiff = endDate - startDate;
+
+          let xLabels = [];
+          for(let i = 0; i < xLabelsNum; i++) {
+            let percentage = i / (xLabelsNum-1);
+            let date = new Date(startDate.getTime() + (datesDiff * percentage));
+            xLabels.push(date);
+          }
+
+          console.log(xLabels);
+
+
           let enumDefinitions = response.data.enumDefinitions;
 
-          let labels = response.data.values.map((value) => {
-            let timestamp = new Date(value.timespan.end);
-            return timestamp.getHours() + ":00";
-          });
 
           let color = "#0090f3";
 
           let chartDataSets = response.data.values.map((data) => {
             for (let i = 0; i < enumDefinitions.length; i++) {
               if (enumDefinitions[i].name == data.value) {
-                console.log("RETURN " + (i+1))
-                return i + 1;
+                return {
+                  x: (data.timestamp - startDate) / (datesDiff) * (xLabelsNum-1),
+                  y: i,
+                  date: data.timestamp
+                }
               }
             }
-            return 0;
           });
 
+          console.log(chartDataSets);
+
           new Chart(canvasRef.current, {
-            type: "line",
+            type: "scatter",
             data: {
-              labels: labels,
               datasets: [
                 {
+                  borderColor: color,
+                  fill:false,
                   steppedLine: true,
+                  showLine:true,
                   label: null,
                   data: chartDataSets,
-                  fill: false,
-                  backgroundColor: color,
-                  borderColor: color,
-                  borderWidth: 3,
                 },
               ],
             },
@@ -65,7 +80,13 @@ const StationStatistic = (props) => {
                 xAxes: [
                   {
                     ticks: {
+                      min:0,
+                      max:xLabelsNum-1,
                       display: true,
+                      stepSize: 1,
+                      userCallback: function(label) {
+                        return xLabels[label].getHours() + ":00";
+                    }
                     },
                     gridLines: {
                       display: false,
@@ -79,16 +100,10 @@ const StationStatistic = (props) => {
                     ticks: {
                       beginAtZero: true,
                       min: 0,
-                      max: enumDefinitions.length,
+                      max: enumDefinitions.length - 1,
                       stepSize: 1,
-                      suggestedMin: 0,
-                      suggestedMax: enumDefinitions.length + 1.5,
                       callback: function(label, index, labels) {
-                        if (label == 0) {
-                          return "Unknown";
-                        } else {
-                          return enumDefinitions[label-1].name;
-                        }
+                        return enumDefinitions[label].name;
                       }
                     },
                   },
@@ -97,17 +112,18 @@ const StationStatistic = (props) => {
               legend: {
                 display: false,
               },
-              elements: {
-                point: {
-                  radius: 0,
-                },
-              },
               tooltips: {
                 mode: "index",
                 intersect: false,
                 callbacks: {
                   label: function (tooltipItem, data) {
-                    return enumDefinitions[tooltipItem.yLabel -1].name;
+                    let hours = chartDataSets[tooltipItem.index].date.getHours();
+                    let minutes = chartDataSets[tooltipItem.index].date.getMinutes();
+                    if (minutes < 10) {
+                      minutes = "0" + minutes;
+                    }
+                    let labelName = enumDefinitions[tooltipItem.yLabel].name;
+                    return hours + ":" + minutes + " - " + labelName;
                   },
                 },
               },
@@ -115,29 +131,46 @@ const StationStatistic = (props) => {
           });
         }
         else if (response.data.statisticType === "MULTIPLE_FLOATS") {
-          let labels = response.data.values.map((value) => {
-            let timestamp = new Date(value.timespan.end);
-            return timestamp.getHours() + ":00";
-          });
+          let values = response.data.values;
+          values = values.map(e => e.timestamp = new Date(e.timestamp))
+          values = values.sort((a,b) => (a.timestamp - b.timestamp))
+
+          let xLabelsNum = 25;
+
+          let datesDiff = endDate - startDate;
+
+          let xLabels = [];
+          for(let i = 0; i < xLabelsNum; i++) {
+            let percentage = i / (xLabelsNum-1);
+            let date = new Date(startDate.getTime() + (datesDiff * percentage));
+            xLabels.push(date);
+          }
+
+          console.log(xLabels);
+
 
           let color = "#0090f3";
 
           let chartDataSets = response.data.values.map((data) => {
-            return Math.round(data.value);
+                return {
+                  x: (data.timestamp - startDate) / (datesDiff) * (xLabelsNum-1),
+                  y: data.value,
+                  date: data.timestamp,
+                }
           });
 
+          console.log(chartDataSets);
+
           new Chart(canvasRef.current, {
-            type: "line",
+            type: "scatter",
             data: {
-              labels: labels,
               datasets: [
                 {
+                  borderColor: color,
+                  fill:false,
+                  showLine:true,
                   label: null,
                   data: chartDataSets,
-                  fill: false,
-                  backgroundColor: color,
-                  borderColor: color,
-                  borderWidth: 3,
                 },
               ],
             },
@@ -148,7 +181,13 @@ const StationStatistic = (props) => {
                 xAxes: [
                   {
                     ticks: {
+                      min:0,
+                      max:xLabelsNum-1,
                       display: true,
+                      stepSize: 1,
+                      userCallback: function(label) {
+                        return xLabels[label].getHours() + ":00";
+                    }
                     },
                     gridLines: {
                       display: false,
@@ -161,8 +200,6 @@ const StationStatistic = (props) => {
                   {
                     ticks: {
                       beginAtZero: true,
-                      stepSize: 10,
-                      suggestedMax: 40,
                     },
                   },
                 ],
@@ -170,17 +207,17 @@ const StationStatistic = (props) => {
               legend: {
                 display: false,
               },
-              elements: {
-                point: {
-                  radius: 0,
-                },
-              },
               tooltips: {
                 mode: "index",
                 intersect: false,
                 callbacks: {
                   label: function (tooltipItem, data) {
-                    return tooltipItem.yLabel + " " + response.data.metric;
+                    let hours = chartDataSets[tooltipItem.index].date.getHours();
+                    let minutes = chartDataSets[tooltipItem.index].date.getMinutes();
+                    if (minutes < 10) {
+                      minutes = "0" + minutes;
+                    }
+                    return hours + ":" + minutes + " - " + tooltipItem.yLabel + response.data.metric;
                   },
                 },
               },
