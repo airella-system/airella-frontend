@@ -36,7 +36,6 @@ class UserView extends Component {
         key={station.id}
         station={station}
       >
-        essa
       </StationAccordion>
     );
   }

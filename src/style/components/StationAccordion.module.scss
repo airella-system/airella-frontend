@@ -1,0 +1,14 @@
+@import "../const/var.scss", "../const/minix.scss",
+"../additional/neumorphism.scss";
+
+.statistics {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 400;
+  color: $textColor;
+}

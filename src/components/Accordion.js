@@ -26,6 +26,7 @@ class Accordion extends Component {
 
   componentDidUpdate() {
     if (this.props.open) {
+      setInterval(() => console.log(this.content.current.offsetHeight ), 100);
       this.contentFrame.current.style.height = this.content.current.offsetHeight + 'px';
     } else {
       this.contentFrame.current.style.height = '0px';
@@ -59,7 +60,9 @@ class Accordion extends Component {
             }`}
           >
             <div ref={this.content}>
+              <div ref={(elem) => { if (elem != null) { console.log("COMPONENTO " + elem.offsetHeight); }}}>
               {this.props.children}
+              </div>
             </div>
           </div>
         </div>
