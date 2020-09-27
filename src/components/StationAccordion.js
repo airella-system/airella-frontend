@@ -7,10 +7,11 @@ import styles from "../style/components/StationAccordion.module.scss";
 
 const StationAccordion = (props) => {
   const [content, setContent] = useState(null);
+  const [contentOpened, setContentOpened] = useState(null);
 
   const onAccordionButtonClick = () => {
-    if (content != null) {
-      setContent(null);
+    if (contentOpened) {
+      setContentOpened(false)
     } else {
       fetch(getApiUrl("getStationStatistics", [props.station.id], {}))
       .then((data) => data.json())
@@ -20,13 +21,14 @@ const StationAccordion = (props) => {
             return (
               <StationStatistic
                 key={value.id}
-                type={value.statisticType}
+                type={value.type}
                 stationId={props.station.id}
                 statisticId={value.id}
               ></StationStatistic>
             );
           })
         );
+        setContentOpened(true)
       });
     }
   };
@@ -38,7 +40,7 @@ const StationAccordion = (props) => {
       onClick={() => {
         onAccordionButtonClick();
       }}
-      open={content!=null}
+      open={contentOpened}
     >
       <div className={styles.statistics}>
         {content}

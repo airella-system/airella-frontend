@@ -76,7 +76,7 @@ const StationEnumStatistic = (props) => {
 
         let chartDataSets = values.map((data) => {
           for (let i = 0; i < enumDefinitions.length; i++) {
-            if (enumDefinitions[i].name == data.value) {
+            if (enumDefinitions[i].id == data.value) {
               return {
                 x:
                   ((data.timestamp - startDate) / datesDiff) * (xLabelsNum - 1),
@@ -93,10 +93,7 @@ const StationEnumStatistic = (props) => {
             radius: data.radius,
           };
         });
-
-        console.log("ES1 " + chartDataSets);
-        console.log("ES2 " + chartDataSets.map((e) => e.radius));
-
+        
         new Chart(canvasRef.current, {
           type: "scatter",
           data: {
@@ -181,7 +178,7 @@ const StationEnumStatistic = (props) => {
   return (
     <div className={styles.card}>
       <div className={styles.innerCard}>
-        <div className={styles.name}>{data && data.id}</div>
+        <div className={styles.name}>{data && data.name}</div>
         <div className={styles.canvas}>
           <canvas ref={canvasRef}></canvas>
         </div>

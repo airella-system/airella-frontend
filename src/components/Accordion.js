@@ -20,16 +20,38 @@ class Accordion extends Component {
     this.contentFrame = React.createRef();
   }
 
+  animationEndListener1 = () => {
+    this.contentFrame.current.style.height = "auto";
+    this.contentFrame.current.removeEventListener(
+      "transitionend",
+      this.animationEndListener1,
+      true
+    );
+  };
+
   componentDidMount() {
-    this.contentFrame.current.style.height = '0px';
+    this.contentFrame.current.style.height = "0px";
   }
 
-  componentDidUpdate() {
-    if (this.props.open) {
-      setInterval(() => console.log(this.content.current.offsetHeight ), 100);
-      this.contentFrame.current.style.height = this.content.current.offsetHeight + 'px';
-    } else {
-      this.contentFrame.current.style.height = '0px';
+  componentDidUpdate(prevProps) {
+    if (this.props.open != prevProps.open) {
+      if (this.props.open) {
+        this.contentFrame.current.classList.add(styles.bottomItemsOpen);
+
+        this.contentFrame.current.style.height =
+          this.content.current.offsetHeight + "px";
+        this.contentFrame.current.addEventListener(
+          "transitionend",
+          this.animationEndListener1,
+          true
+        );
+      } else {
+        this.contentFrame.current.style.height = this.content.current.offsetHeight + 'px';
+        setTimeout(() => {
+          this.contentFrame.current.classList.remove(styles.bottomItemsOpen);
+          this.contentFrame.current.style.height = "0px";
+        }, 1);
+      }
     }
   }
 
@@ -46,24 +68,12 @@ class Accordion extends Component {
         <div className={styles.menuLeftItems}>
           <div className={styles.topItems}>
             <div className={styles.button}>
-              <Button
-                onClick={() => this.props.onClick()}
-              >
-                {icon}
-              </Button>
+              <Button onClick={() => this.props.onClick()}>{icon}</Button>
             </div>
             {this.props.titleComponent}
           </div>
-          <div ref={this.contentFrame}
-            className={`${styles.bottomItems} ${
-              this.props.open ? styles.bottomItemsOpen : ""
-            }`}
-          >
-            <div ref={this.content}>
-              <div ref={(elem) => { if (elem != null) { console.log("COMPONENTO " + elem.offsetHeight); }}}>
-              {this.props.children}
-              </div>
-            </div>
+          <div ref={this.contentFrame} className={`${styles.bottomItems}`}>
+            <div ref={this.content}>{this.props.children}</div>
           </div>
         </div>
         <div className={styles.accountContainer}></div>

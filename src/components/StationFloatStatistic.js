@@ -80,8 +80,6 @@ const StationFloatStatistic = (props) => {
           };
         });
 
-        console.log(chartDataSets);
-
         new Chart(canvasRef.current, {
           type: "scatter",
           data: {
@@ -164,7 +162,7 @@ const StationFloatStatistic = (props) => {
   return (
     <div className={styles.card}>
       <div className={styles.innerCard}>
-        <div className={styles.name}>{data && data.id}</div>
+        <div className={styles.name}>{data && data.name}</div>
         <div className={styles.canvas}>
           <canvas ref={canvasRef}></canvas>
         </div>
