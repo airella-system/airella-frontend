@@ -20,6 +20,8 @@ const StationStatistic = (props) => {
         statisticId={props.statisticId}
       ></StationFloatStatistic>
     );
+  } else if (props.type == "ONE_STRING"){
+    return (<div style={{display: "none"}}></div>)
   }
 };
 

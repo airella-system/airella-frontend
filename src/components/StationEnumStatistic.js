@@ -80,7 +80,7 @@ const StationEnumStatistic = (props) => {
               return {
                 x:
                   ((data.timestamp - startDate) / datesDiff) * (xLabelsNum - 1),
-                y: i,
+                y: i + 1,
                 date: data.timestamp,
                 radius: data.radius,
               };
@@ -136,10 +136,13 @@ const StationEnumStatistic = (props) => {
                   ticks: {
                     beginAtZero: true,
                     min: 0,
-                    max: enumDefinitions.length - 1,
+                    max: enumDefinitions.length,
                     stepSize: 1,
                     callback: function (label, index, labels) {
-                      return enumDefinitions[label].name;
+                      if (label == 0) {
+                        return "";
+                      }
+                      return enumDefinitions[label-1].name;
                     },
                   },
                 },
@@ -165,7 +168,7 @@ const StationEnumStatistic = (props) => {
                   if (minutes < 10) {
                     minutes = "0" + minutes;
                   }
-                  let labelName = enumDefinitions[tooltipItem.yLabel].name;
+                  let labelName = enumDefinitions[tooltipItem.yLabel-1].name;
                   return hours + ":" + minutes + " - " + labelName;
                 },
               },
