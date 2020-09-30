@@ -11,14 +11,9 @@ const Input = React.forwardRef((props, ref) => {
     setText({ text: text })
   }
 
-  const handleFocusOn = (event) => {
-    setFocus({ focus: true })
-  };
+  const handleFocusOn = (event) => setFocus({ focus: true })
 
-  const focusInput = () => {
-    console.log("xD")
-    document.getElementById("inputField").focus();
-  }
+  const focusInput = () => document.getElementById("inputField").focus();
 
   return (
     <div className={styles.inputHolder}>
