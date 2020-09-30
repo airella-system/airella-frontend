@@ -13,10 +13,7 @@ export const setLoginDialogVisibility = (visibility) => ({
   visibility,
 });
 
-export const setAuthorization = (accessToken, refreshToken) => ({
+export const setAuthorization = (logged) => ({
   type: "AUTHORIZATION",
-  payload: {
-    accessToken: accessToken,
-    refreshToken: refreshToken,
-  },
+  logged,
 });

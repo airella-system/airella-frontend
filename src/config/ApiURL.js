@@ -2,7 +2,8 @@ const ApiURL = {
   "activateAccount": () => "auth/activate-user",
   "getMarkers": () => "search/map",
   "getPopupData": (endpointParameters) => `stations/${endpointParameters[0]}`,
-  "login": () => `auth/login`,
+  "login": () => "auth/login",
+  "refreshLogin": () => "auth/refresh-token",
 };
 
 const baseURL = "http://airella.cyfrogen.com/api/";

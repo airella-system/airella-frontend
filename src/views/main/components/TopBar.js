@@ -10,6 +10,8 @@ import { setMapPositionRequest } from "../../../redux/actions";
 
 import "../../../style/main/components/TopBar.scss";
 
+import { getRefreshToken } from "../../../config/LocalStorage"
+
 class TopBar extends Component {
   constructor(props) {
     super(props);
