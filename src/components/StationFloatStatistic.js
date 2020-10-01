@@ -22,10 +22,15 @@ const StationFloatStatistic = (props) => {
       .then((response) => response.json())
       .then((response) => {
         setData(response.data);
+
+        let showLine = response.data.chartType == "LINE";
+        let radius = response.data.chartType == "SCATTER" ? 2 : 0;
+
         let values = response.data.values;
         values.forEach((e) => {
+          e.value = e.value.toFixed(2);
           e.timestamp = new Date(e.timestamp);
-          e.radius = 0;
+          e.radius = radius;
         });
         values = values.sort((a, b) => a.timestamp - b.timestamp);
 
@@ -87,7 +92,7 @@ const StationFloatStatistic = (props) => {
               {
                 borderColor: color,
                 fill: false,
-                showLine: true,
+                showLine: showLine,
                 label: null,
                 data: chartDataSets,
               },

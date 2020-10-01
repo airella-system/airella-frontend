@@ -22,10 +22,14 @@ const StationEnumStatistic = (props) => {
       .then((response) => response.json())
       .then((response) => {
         setData(response.data);
+
+        let showLine = response.data.chartType == "LINE";
+        let radius = response.data.chartType == "SCATTER" ? 2 : 0;
+
         let values = response.data.values;
         values.forEach((e) => {
           e.timestamp = new Date(e.timestamp);
-          e.radius = 0;
+          e.radius = radius;
         });
         values = values.sort((a, b) => a.timestamp - b.timestamp);
 
@@ -93,7 +97,9 @@ const StationEnumStatistic = (props) => {
             radius: data.radius,
           };
         });
-        
+
+
+
         new Chart(canvasRef.current, {
           type: "scatter",
           data: {
@@ -102,7 +108,7 @@ const StationEnumStatistic = (props) => {
                 borderColor: color,
                 fill: false,
                 steppedLine: true,
-                showLine: true,
+                showLine: showLine,
                 label: null,
                 data: chartDataSets,
                 pointRadius: chartDataSets.map((e) => e.radius),
