@@ -6,7 +6,6 @@ import "../style/components/menu.scss";
 import "../style/additional/animationLib.scss";
 import { setLoginDialogVisibility } from "../redux/actions";
 import { connect } from "react-redux";
-import { refreshLogin } from "../config/ApiCalls";
 
 class Menu extends React.Component {
   constructor(props) {
@@ -36,8 +35,7 @@ class Menu extends React.Component {
           <Button
             onClick={() => {
               if (!this.props.logged)
-                refreshLogin(this.props.dispatch)
-                .catch(_ => this.props.dispatch(setLoginDialogVisibility(true)))
+                this.props.dispatch(setLoginDialogVisibility(true))
             }}
           >
             <div className="holder">
