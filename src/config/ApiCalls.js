@@ -2,8 +2,9 @@ import { Cookie } from "./Cookies";
 import { getRefreshToken, setRefreshToken } from "./LocalStorage";
 import { postApiUrl } from "./ApiURL";
 import { setAuthorization } from "../redux/actions";
+import store from "../redux/Store"
 
-export const login = (email, password, dispatch) => {
+export const login = (email, password) => {
   return new Promise((resolve, reject) => {
     fetch(
       postApiUrl("login"),
@@ -21,7 +22,7 @@ export const login = (email, password, dispatch) => {
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {
-        dispatch(setAuthorization(true))
+        store.dispatch(setAuthorization(true))
         console.log(data.data)
         new Cookie("accessToken", data.data.accessToken.token)
           .setDate(data.data.accessToken.expirationDate)
@@ -29,19 +30,19 @@ export const login = (email, password, dispatch) => {
         setRefreshToken(data.data.refreshToken)
         resolve(true)
       } else {
-        dispatch(setAuthorization(false))
+        store.dispatch(setAuthorization(false))
         reject(data.errors[0].detail)
       }
     })
     .catch((e) => {
-      dispatch(setAuthorization(false))
+      store.dispatch(setAuthorization(false))
       console.error(e)
       reject("Couldn't log in")
     });
   })
 }
 
-export const refreshLogin = dispatch => {
+export const refreshLogin = () => {
   return new Promise((resolve, reject) => {
     const refreshToken = getRefreshToken()
     if (!refreshToken)
@@ -62,7 +63,7 @@ export const refreshLogin = dispatch => {
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {
-        dispatch(setAuthorization(true))
+        store.dispatch(setAuthorization(true))
         console.log(data.data)
         new Cookie("accessToken", data.data.accessToken.token)
           .setDate(data.data.accessToken.expirationDate)
