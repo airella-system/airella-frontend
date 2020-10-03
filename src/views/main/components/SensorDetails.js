@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { sensorDetailAction } from "../../../redux/actions";
-import { FaRegTimesCircle } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { stationDetailDataMock } from "../../../mocks/StationDetailApiMock";
 import Gauge from "../../../components/Gauge";
 import Summary from "./Summary";
@@ -20,6 +20,7 @@ import { IoMdThermometer, IoMdSpeedometer } from "react-icons/io";
 import { GiWaterDrop } from "react-icons/gi";
 import { IoIosSpeedometer } from "react-icons/io";
 import { WiSmoke } from "react-icons/wi";
+import { fetchWithAuthorization } from "../../../config/ApiCalls"
 
 import statisticStyles from "../../../style/components/statistic.module.scss";
 
@@ -195,7 +196,7 @@ class SensorDetails extends Component {
 
   getStationData(stationId) {
     let key = `station${stationId}Key`;
-    fetch(
+    fetchWithAuthorization(
       getApiUrl("getPopupData", [stationId], {
         strategy: "latest",
       })
@@ -247,10 +248,7 @@ class SensorDetails extends Component {
                 this.setState({ visible: false });
               }}
             >
-              <FaRegTimesCircle
-                className="closeIcon"
-                size={22}
-              ></FaRegTimesCircle>
+              <FaTimes className="closeIcon" size={22} rotate={45} />
             </Button>
           </div>
           <ScrollBar
@@ -264,10 +262,7 @@ class SensorDetails extends Component {
                   this.setState({ visible: false });
                 }}
               >
-                <FaRegTimesCircle
-                  className="closeIcon"
-                  size={22}
-                ></FaRegTimesCircle>
+                <FaTimes className="closeIcon" size={22} rotate={45} />
               </Button>
             </div>
             <div className="card">

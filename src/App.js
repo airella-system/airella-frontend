@@ -1,44 +1,47 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import MainView from "./views/main/MainView";
 import SubpageView from "./views/subpage/SubpageView";
 import ActivationView from "./views/activateAccount/ActivationView";
+import Login from "./components/Login";
+import { refreshLogin } from "./config/ApiCalls"
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+function App(props) {
 
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => {
-              return <MainView />;
-            }}
-          />
-          <Route
-            exact
-            path="/subpage"
-            render={(props) => {
-              return <SubpageView />;
-            }}
-          />
-          <Route
-            exact
-            path="/activateAccount/:email/:activationCode"
-            render={(props) => {
-              return <ActivationView {...props} />;
-            }}
-          />
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+  useEffect(() => {
+    const tryRefreshLogin = async () => await refreshLogin(props.dispatch)
+    tryRefreshLogin()
+  }, [])
+
+  return (
+    <BrowserRouter>
+      <Login />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={(props) => {
+            return <MainView />;
+          }}
+        />
+        <Route
+          exact
+          path="/subpage"
+          render={(props) => {
+            return <SubpageView />;
+          }}
+        />
+        <Route
+          exact
+          path="/activateAccount/:email/:activationCode"
+          render={(props) => {
+            return <ActivationView {...props} />;
+          }}
+        />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
-export default App;
+export default connect()(App);

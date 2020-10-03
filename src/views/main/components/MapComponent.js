@@ -12,7 +12,9 @@ import { getApiUrl } from "../../../config/ApiURL";
 import AnimatedMapPopup from "./AnimatedMapPopup";
 import { AirQualityColors, indexToLevel } from "../../../config/AirQuality";
 import { setMapPositionRequest } from "../../../redux/actions";
+import { fetchWithAuthorization } from "../../../config/ApiCalls"
 import L from "leaflet";
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
@@ -86,7 +88,7 @@ function MapComponent(props) {
   }
 
   const getMarkers = (lat, lng, radius) => {
-    fetch(
+    fetchWithAuthorization(
       getApiUrl("getMarkers", null, {
         latitude: lat,
         longitude: lng,
@@ -119,7 +121,7 @@ function MapComponent(props) {
 
   const getStationData = (stationId) => {
     let key = `station${stationId}Key`;
-    fetch(
+    fetchWithAuthorization(
       getApiUrl("getPopupData", [stationId], {
         strategy: "latest",
       })

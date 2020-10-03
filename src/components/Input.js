@@ -1,41 +1,37 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../style/additional/animationLib.scss";
 import styles from "../style/components/input.module.scss";
 
-class Input extends React.Component {
-  constructor(props) {
-	super(props);
-	this.state = {
-		searchText: "",
-		searchFocus: false
-	  };
+const Input = React.forwardRef((props, ref) => {
+  const [text, setText] = useState("")
+  const [focus, setFocus] = useState(false)
+
+  const handleTextChange = (event) => {
+    var text = event.target.value
+    setText({ text: text })
   }
 
-  handleSearchTextChange = (event) => {
-    var text = event.target.value;
-    this.setState({ searchText: text });
-  };
+  const handleFocusOn = (event) => setFocus({ focus: true })
 
-  handleSearchFocusOn = (event) => {
-    this.setState({ searchFocus: true });
-  };
+  const focusInput = () => document.getElementById("inputField").focus();
 
-  render() {
-    return (
-      <div className={styles.inputHolder}>
-        <div className={styles.mainSearch}>
-          <input
-            className={styles.mainInput}
-            type={this.props.type || "text"}
-            placeholder={this.props.placeholder}
-            value={this.state.searchText}
-            onChange={this.handleSearchTextChange}
-            onFocus={this.handleSearchFocusOn}
-          />
-        </div>
+  return (
+    <div className={styles.inputHolder}>
+      <div className={styles.mainSearch}>
+        <input
+          ref={ref}
+          onKeyDown={props.onKeyDown}
+          className={styles.mainInput}
+          type={props.type || "text"}
+          placeholder={props.placeholder}
+          onChange={handleTextChange}
+          onFocus={handleFocusOn}
+          onKeyPress={props.onKeyPress}
+          autoFocus={props.autofocus}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  )
+})
 
 export default Input;

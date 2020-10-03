@@ -31,18 +31,21 @@ class Menu extends React.Component {
             </div>
           </Button>
         </Link>
-        <div className="link account">
+        <Link className="link account" to={this.props.logged ? "/account" : ""}>
           <Button
-            onClick={() => this.props.dispatch(setLoginDialogVisibility(true))}
+            onClick={() => {
+              if (!this.props.logged)
+                this.props.dispatch(setLoginDialogVisibility(true))
+            }}
           >
             <div className="holder">
               <div>
                 <FaUser className="menuIcon" />
               </div>
-              <div className="textAligner">Account</div>
+              <div className="textAligner">{this.props.logged ? "Account" : "Log in"}</div>
             </div>
           </Button>
-        </div>
+        </Link>
         <Link className="link about" to="/test">
           <Button>
             <div className="holder">
@@ -68,4 +71,11 @@ class Menu extends React.Component {
   }
 }
 
-export default connect()(Menu);
+function mapStateToProps(state) {
+  return {
+    logged: state.authorization.logged,
+  };
+}
+
+
+export default connect(mapStateToProps)(Menu);

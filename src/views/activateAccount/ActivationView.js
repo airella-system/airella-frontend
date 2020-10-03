@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "../../style/pages/activation.module.scss";
 import { getApiUrl } from "../../config/ApiURL";
+import { fetchWithAuthorization } from "../../config/ApiCalls"
 
 import { IconContext } from "react-icons";
 import {
@@ -22,7 +23,7 @@ class ActivationView extends Component {
       email: this.props.match.params.email,
       activationCode: this.props.match.params.activationCode,
     });
-    fetch(url)
+    fetchWithAuthorization(url)
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {

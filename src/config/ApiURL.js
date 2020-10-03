@@ -2,6 +2,8 @@ const ApiURL = {
   "activateAccount": () => "auth/activate-user",
   "getMarkers": () => "search/map",
   "getPopupData": (endpointParameters) => `stations/${endpointParameters[0]}`,
+  "login": () => "auth/login",
+  "refreshLogin": () => "auth/refresh-token",
 };
 
 const baseURL = "http://airella.cyfrogen.com/api/";
@@ -13,3 +15,5 @@ export let getApiUrl = (endpointName, endpointParameters, params) => {
   if (!!query) query = "?" + query;
   return baseURL + ApiURL[endpointName](endpointParameters) + query;
 };
+
+export let postApiUrl = (endpointName) => baseURL + ApiURL[endpointName]()

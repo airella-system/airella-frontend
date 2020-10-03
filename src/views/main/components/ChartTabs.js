@@ -4,6 +4,7 @@ import Tabs, { Tab } from "react-awesome-tabs";
 import "react-awesome-tabs/src/sass/react-awesome-tabs.scss";
 import { AirQualityColors, indexToLevel } from "../../../config/AirQuality";
 import { getApiUrl } from "../../../config/ApiURL";
+import { fetchWithAuthorization } from "../../../config/ApiCalls"
 
 class ChartTabs extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class ChartTabs extends Component {
     let end = new Date();
     start.setDate(start.getDate() - 1);
 
-    fetch(
+    fetchWithAuthorization(
       getApiUrl("getPopupData", [stationId], {
         timespan: `${start.toISOString()}/${end.toISOString()}`,
         interval: "PT1H",

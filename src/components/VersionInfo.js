@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/components/versioninfo.scss";
+import { fetchWithAuthorization } from "../config/ApiCalls"
 
 class VersionInfo extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class VersionInfo extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://airella.cyfrogen.com/api/info/")
+    fetchWithAuthorization("http://airella.cyfrogen.com/api/info/")
       .then((res) => res.json())
       .then((json) =>
         this.setState({

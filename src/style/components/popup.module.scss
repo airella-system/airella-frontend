@@ -1,0 +1,35 @@
+@import "../const/var.scss", "../const/minix.scss",
+  "../additional/neumorphism.scss";
+
+.container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0px;
+  right: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: #00000022;
+  z-index: 1200;
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity 500ms;
+
+  .dialog {
+    @extend %neu-shadow-over-subtle;
+    @extend %neu-rounded;
+    background: $mainColor;
+    position: relative;
+    transition: height 500ms;
+
+    .inside {
+      margin: 30px 30px 15px 30px;
+    }
+  }
+}
+
+.invisibleContainer {
+  pointer-events: none;
+  opacity: 0;
+}

@@ -12,3 +12,8 @@ export const setLoginDialogVisibility = (visibility) => ({
   type: "LOGIN_DIALOG_VISIBLE",
   visibility,
 });
+
+export const setAuthorization = (logged) => ({
+  type: "AUTHORIZATION",
+  logged,
+});

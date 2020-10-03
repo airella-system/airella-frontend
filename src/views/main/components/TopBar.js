@@ -7,7 +7,7 @@ import Menu from "../../../components/Menu";
 import Button from "../../../components/Button";
 import PropTypes from "prop-types";
 import { setMapPositionRequest } from "../../../redux/actions";
-
+import { fetchWithAuthorization } from "../../../config/ApiCalls"
 import "../../../style/main/components/TopBar.scss";
 
 class TopBar extends Component {
@@ -34,7 +34,7 @@ class TopBar extends Component {
       this.setState({
         searchingsExecutingNow: this.state.searchingsExecutingNow + 1,
       });
-      fetch("http://photon.komoot.de/api/?q=" + this.state.searchText)
+      fetchWithAuthorization("http://photon.komoot.de/api/?q=" + this.state.searchText)
         .then((response) => response.json())
         .then((data) =>
           this.setState({
