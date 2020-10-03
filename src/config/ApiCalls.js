@@ -1,4 +1,4 @@
-import { Cookie } from "./Cookies";
+import { Cookie, getCookie } from "./Cookies";
 import { getRefreshToken, setRefreshToken } from "./LocalStorage";
 import { postApiUrl } from "./ApiURL";
 import { setAuthorization } from "../redux/actions";
@@ -25,7 +25,8 @@ export const login = (email, password) => {
         store.dispatch(setAuthorization(true))
         console.log(data.data)
         new Cookie("accessToken", data.data.accessToken.token)
-          .setDate(data.data.accessToken.expirationDate)
+          // .setDate(data.data.accessToken.expirationDate)
+          .setTimeMs(1000 * 5)
           .setCookie()
         setRefreshToken(data.data.refreshToken)
         resolve(true)
@@ -66,7 +67,8 @@ export const refreshLogin = () => {
         store.dispatch(setAuthorization(true))
         console.log(data.data)
         new Cookie("accessToken", data.data.accessToken.token)
-          .setDate(data.data.accessToken.expirationDate)
+          // .setDate(data.data.accessToken.expirationDate)
+          .setTimeMs(1000 * 5)
           .setCookie()
         resolve(true)
       } else {
@@ -78,4 +80,39 @@ export const refreshLogin = () => {
       reject("Couldn't refresh access token")
     });
   })
+}
+
+export const fetchWithAuthorization = async (apiUrl, postBody) => {
+
+  let headers = {
+    'Content-Type': 'application/json',
+  }
+
+  var accessToken = getCookie('accessToken')
+
+  if (!accessToken) {
+    await refreshLogin()
+    accessToken = getCookie('accessToken')
+  }
+
+  if (accessToken) {
+    headers = {
+      ...headers,
+      'Authorization': 'Bearer ' + accessToken,
+    }
+  }
+
+  let options = {
+    headers: headers,
+  }
+
+  if (postBody) {
+    options = {
+      ...options,
+      method: "post",
+      body: JSON.stringify(postBody)
+    }
+  }
+
+  return fetch(apiUrl, options)
 }
