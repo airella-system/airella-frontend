@@ -56,7 +56,7 @@ class Menu extends React.Component {
             </div>
           </Button>
         </Link>
-        <a className="link docs" href="//airella.cyfrogen.com/api/docs">
+        <a className="link docs" href={process.env.REACT_APP_AIRELLA_DOMAIN + "/api/docs"}>
           <Button>
             <div className="holder">
               <div>
