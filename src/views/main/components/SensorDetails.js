@@ -12,26 +12,27 @@ import { AirQualityIcons, indexToLevel } from "../../../config/AirQuality";
 import ChartTabs from "./ChartTabs.js";
 import Button from "../../../components/Button";
 import { getApiUrl } from "../../../config/ApiURL";
-import PerfectScrollbar from "react-perfect-scrollbar";
 import ScrollBar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import Statistic from "../../../components/Statistic";
 import { IoMdThermometer, IoMdSpeedometer } from "react-icons/io";
 import { GiWaterDrop } from "react-icons/gi";
-import { IoIosSpeedometer } from "react-icons/io";
 import { WiSmoke } from "react-icons/wi";
+import { AiOutlineLineChart } from "react-icons/ai";
 import { fetchWithAuthorization } from "../../../config/ApiCalls"
+import Popup from "../../../components/Popup";
 
 import statisticStyles from "../../../style/components/statistic.module.scss";
 
 class SensorDetails extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       stationDetal: null,
       isFirst: true,
       visible: false,
-    };
+    }
+    this.chartVisible = true
   }
 
   static propTypes = {
@@ -235,27 +236,19 @@ class SensorDetails extends Component {
     }
 
     return (
-      <div
-        className={`stationDetail animated faster ${
-          this.state.visible ? "slideInRight" : "slideOutRight"
-        }`}
-      >
-        <div className="stationInside">
-          <div className="close close-desktop">
-            <Button
-              onClick={() => {
-                this.props.dispatch(sensorDetailAction(null));
-                this.setState({ visible: false });
-              }}
-            >
-              <FaTimes className="closeIcon" size={22} rotate={45} />
-            </Button>
-          </div>
-          <ScrollBar
-            className="stationList"
-            options={{ suppressScrollX: true }}
-          >
-            <div className="close close-mobile">
+      <div>
+        <Popup visibility={this.chartVisible}>
+          <Button onClick={() => this.chartVisible = false}>
+            close popup
+          </Button>
+        </Popup>
+        <div
+          className={`stationDetail animated faster ${
+            this.state.visible ? "slideInRight" : "slideOutRight"
+          }`}
+        >
+          <div className="stationInside">
+            <div className="close close-desktop">
               <Button
                 onClick={() => {
                   this.props.dispatch(sensorDetailAction(null));
@@ -265,53 +258,77 @@ class SensorDetails extends Component {
                 <FaTimes className="closeIcon" size={22} rotate={45} />
               </Button>
             </div>
-            <div className="card">
-              <Summary id={this.state.latestData.id} title={this.getTitle()} aqi={Math.round(this.state.latestData.aqi)}></Summary>
-
-
-              <div className="innerCard">
-                <div className="block">
-                  <div className="hd">Pollutions:</div>
-
-                  <div className="gaugesRow">{this.getGauges()}</div>
-                  <div className="horizontalLine"></div>
-                  <div className="statisticsRow">
-                    {this.getPollutionStatistics()}
-                  </div>
-                  {/* <div className="horizontalLine"></div>
-					<div className="hd">
-						<span className="subInfo">Last measurement: {this.getLastMeasuremtnTime()}</span>
-					</div> */}
-                </div>
+            <ScrollBar
+              className="stationList"
+              options={{ suppressScrollX: true }}
+            >
+              <div className="close close-mobile">
+                <Button
+                  onClick={() => {
+                    this.props.dispatch(sensorDetailAction(null));
+                    this.setState({ visible: false });
+                  }}
+                >
+                  <FaTimes className="closeIcon" size={22} rotate={45} />
+                </Button>
               </div>
+              <div className="card">
+                <Summary id={this.state.latestData.id} title={this.getTitle()} aqi={Math.round(this.state.latestData.aqi)}></Summary>
 
-              <div className="innerCard">
-                <div className="block">
-                  <div className="hd">Other statistics:</div>
-                  <div className="statisticsRow">{this.getStatistics()}</div>
-                </div>
-              </div>
 
-              <div className="innerCard">
-                <div className="block">
-                  <div className="hd">
-                    History:
-                    <span className="subInfo">
-                      Measurements from last 24 hours
-                    </span>
-                  </div>
-                  <div className="sensorChart">
-                    {this.props.sensorData != null && (
-                      <ChartTabs
-                        key={this.props.sensorData.id}
-                        stationId={this.props.sensorData.id}
-                      />
-                    )}
+                <div className="innerCard">
+                  <div className="block">
+                    <div className="hd">Pollutions:</div>
+
+                    <div className="gaugesRow">{this.getGauges()}</div>
+                    <div className="horizontalLine"></div>
+                    <div className="statisticsRow">
+                      {this.getPollutionStatistics()}
+                    </div>
+                    {/* <div className="horizontalLine"></div>
+            <div className="hd">
+              <span className="subInfo">Last measurement: {this.getLastMeasuremtnTime()}</span>
+            </div> */}
                   </div>
                 </div>
+
+                <div className="innerCard">
+                  <div className="block">
+                    <div className="hd">Other statistics:</div>
+                    <div className="statisticsRow">{this.getStatistics()}</div>
+                  </div>
+                </div>
+
+                <div className="innerCard">
+                  <div className="block">
+                    <div className="hd">
+                      <div className="chartHdColumns">
+                        <div className="mainColumn">
+                          History:
+                          <span className="subInfo">
+                            Measurements from last 24 hours
+                          </span>
+                        </div>
+                        <div className="secondaryColumn">
+                          <Button onClick={() => this.chartVisible = true}>
+                            <AiOutlineLineChart className="chartIcon" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="sensorChart">
+                      {this.props.sensorData != null && (
+                        <ChartTabs
+                          key={this.props.sensorData.id}
+                          stationId={this.props.sensorData.id}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </ScrollBar>
+            </ScrollBar>
+          </div>
         </div>
       </div>
     );

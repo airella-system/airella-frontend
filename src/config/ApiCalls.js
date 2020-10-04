@@ -45,6 +45,9 @@ export const login = (email, password) => {
 
 export const refreshLogin = () => {
   return new Promise((resolve, reject) => {
+    if(getCookie('accessToken'))
+      resolve(true)
+
     const refreshToken = getRefreshToken()
     if (!refreshToken)
       reject("No refresh token saved")

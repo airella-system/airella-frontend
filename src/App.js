@@ -12,6 +12,7 @@ function App(props) {
   useEffect(() => {
     const tryRefreshLogin = async () => await refreshLogin(props.dispatch)
     tryRefreshLogin()
+    .catch(_ => {})
   }, [])
 
   return (
