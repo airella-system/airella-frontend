@@ -20,6 +20,7 @@ import { IoMdThermometer, IoMdSpeedometer } from "react-icons/io";
 import { GiWaterDrop } from "react-icons/gi";
 import { IoIosSpeedometer } from "react-icons/io";
 import { WiSmoke } from "react-icons/wi";
+import { fetchWithAuthorization } from "../../../config/ApiCalls"
 
 import statisticStyles from "../../../style/components/statistic.module.scss";
 
@@ -195,7 +196,7 @@ class SensorDetails extends Component {
 
   getStationData(stationId) {
     let key = `station${stationId}Key`;
-    fetch(
+    fetchWithAuthorization(
       getApiUrl("getPopupData", [stationId], {
         strategy: "latest",
       })

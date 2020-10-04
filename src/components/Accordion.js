@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
+
+
+
 import Menu from "./Menu";
 import Button from "./Button";
 import { setMapPositionRequest } from "../redux/actions";
@@ -20,11 +23,11 @@ class Accordion extends Component {
     this.contentFrame = React.createRef();
   }
 
-  animationEndListener1 = () => {
+  animationEndListener = () => {
     this.contentFrame.current.style.height = "auto";
     this.contentFrame.current.removeEventListener(
       "transitionend",
-      this.animationEndListener1,
+      this.animationEndListener,
       true
     );
   };
@@ -42,7 +45,7 @@ class Accordion extends Component {
           this.content.current.offsetHeight + "px";
         this.contentFrame.current.addEventListener(
           "transitionend",
-          this.animationEndListener1,
+          this.animationEndListener,
           true
         );
       } else {
@@ -58,9 +61,9 @@ class Accordion extends Component {
   render() {
     let iconSize = 22;
     let icon = this.props.open ? (
-      <FaTimes size={iconSize} rotate={45} />
+      <IoIosArrowDown size={iconSize} />
     ) : (
-      <FaBars size={iconSize} />
+      <IoIosArrowForward size={iconSize} />
     );
 
     return (

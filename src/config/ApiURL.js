@@ -3,10 +3,13 @@ const ApiURL = {
   "getMarkers": () => "search/map",
   "getUserStations": () => "user/stations",
   "getStations": () => "stations",
+  "getUserStations": () => "user/stations",
   "getPopupData": (endpointParameters) => `stations/${endpointParameters[0]}`,
   "getStationStatistics": (endpointParameters) => `stations/${endpointParameters[0]}/statistics`,
   "getStationStatistic": (endpointParameters) => `stations/${endpointParameters[0]}/statistics/${endpointParameters[1]}`,
-  "login": () => `auth/login`,
+  "login": () => "auth/login",
+  "removeStation": (endpointParameters) => `stations/${endpointParameters[0]}`,
+  "refreshLogin": () => "auth/refresh-token",
 };
 
 const baseURL = "http://airella.cyfrogen.com/api/";

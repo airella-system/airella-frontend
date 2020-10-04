@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Accordion from "./Accordion";
 import { getApiUrl } from "../config/ApiURL";
-import Chart from "chart.js";
-import StationStatistic from "./StationStatistic";
 import styles from "../style/components/StationAccordion.module.scss";
+import { fetchWithAuthorization } from "../config/ApiCalls";
+import StationAccordionContent from "./StationAccordionContent";
 
 const StationAccordion = (props) => {
   const [content, setContent] = useState(null);
@@ -11,25 +11,22 @@ const StationAccordion = (props) => {
 
   const onAccordionButtonClick = () => {
     if (contentOpened) {
-      setContentOpened(false)
+      setContentOpened(false);
     } else {
-      fetch(getApiUrl("getStationStatistics", [props.station.id], {}))
-      .then((data) => data.json())
-      .then((data) => {
-        setContent(
-          data.data.statistics.map((value, index) => {
-            return (
-              <StationStatistic
-                key={value.id}
-                type={value.type}
-                stationId={props.station.id}
-                statisticId={value.id}
-              ></StationStatistic>
-            );
-          })
-        );
-        setContentOpened(true)
-      });
+      fetchWithAuthorization(
+        getApiUrl("getStationStatistics", [props.station.id], {})
+      )
+        .then((data) => data.json())
+        .then((data) => {
+          setContent(
+            <StationAccordionContent
+              onStationRemoved={props.onStationRemoved}
+              station={props.station}
+              data={data}
+            ></StationAccordionContent>
+          );
+          setContentOpened(true);
+        });
     }
   };
 
@@ -42,9 +39,7 @@ const StationAccordion = (props) => {
       }}
       open={contentOpened}
     >
-      <div className={styles.statistics}>
-        {content}
-      </div>
+      <div>{content}</div>
     </Accordion>
   );
 };

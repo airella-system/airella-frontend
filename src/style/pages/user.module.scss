@@ -2,19 +2,62 @@
   "../additional/neumorphism.scss";
 
 .root {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: $mainColor;
   width: 100vw;
   height: 100vh;
 
-  .card {
-    @extend %neu-rounded;
-    @extend %neu-shadow-over;
+  .insideRoot {
+    margin: auto;
     width: 1200px;
-    height: 80vh;
     max-width: 95%;
-    overflow: auto;
+    height: 100vh;
+
+    .header {
+      display: block;
+      font-size: 40px;
+      font-weight: 200;
+      color: $textColor;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .tabs {
+      @extend %neu-rounded;
+      @extend %neu-shadow-over;
+      width: 100%;
+      .insideTabs {
+        margin-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        .button {
+          width: 200px;
+          .holder {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            margin: 0 auto 0 auto;
+
+            .menuIcon {
+              font-size: 25px;
+              position: relative;
+              top: 3px;
+            }
+            .textAligner {
+              margin-left: 15px;
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+
+    .card {
+      margin-top: 20px;
+      @extend %neu-rounded;
+      @extend %neu-shadow-over;
+      width: 100%;
+      height: 75vh;
+      overflow: auto;
+    }
   }
 }

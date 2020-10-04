@@ -3,13 +3,9 @@ import styles from "../../style/pages/user.module.scss";
 import { getApiUrl } from "../../config/ApiURL";
 
 import StationAccordion from "../../components/StationAccordion";
-
-import { IconContext } from "react-icons";
-import {
-  AiOutlineLoading,
-  AiOutlineExclamationCircle,
-  AiOutlineCheckCircle,
-} from "react-icons/ai";
+import { fetchWithAuthorization } from "../../config/ApiCalls";
+import { RiSensorFill } from "react-icons/ri";
+import Button from "../../components/Button";
 
 class UserView extends Component {
   constructor(props) {
@@ -18,8 +14,12 @@ class UserView extends Component {
   }
 
   componentDidMount() {
-    let url = getApiUrl("getStations"); //todo change
-    fetch(url)
+    this.fetchStations();
+  }
+
+  fetchStations = () => {
+    let url = getApiUrl("getUserStations");
+    fetchWithAuthorization(url)
       .then((response) => response.json())
       .then((response) => {
         if (response.success) {
@@ -28,15 +28,15 @@ class UserView extends Component {
           });
         }
       });
-  }
+  };
 
   getStationAccordion(station) {
     return (
       <StationAccordion
         key={station.id}
         station={station}
-      >
-      </StationAccordion>
+        onStationRemoved={(stationId) => this.fetchStations()}
+      ></StationAccordion>
     );
   }
 
@@ -50,7 +50,24 @@ class UserView extends Component {
   render() {
     return (
       <div className={styles.root}>
-        <div className={styles.card}>{this.getStationsAccordion()}</div>
+        <div className={styles.insideRoot}>
+          <div className={styles.header}>Your profile</div>
+          <div className={styles.tabs}>
+            <div className={styles.insideTabs}>
+              <div className={styles.button}>
+                <Button isPushed={true}>
+                  <div className={styles.holder}>
+                    <div>
+                      <RiSensorFill className={styles.menuIcon} />
+                    </div>
+                    <div className={styles.textAligner}>Your stations</div>
+                  </div>
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className={styles.card}>{this.getStationsAccordion()}</div>
+        </div>
       </div>
     );
   }

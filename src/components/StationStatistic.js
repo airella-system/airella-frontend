@@ -4,6 +4,7 @@ import { getApiUrl } from "../config/ApiURL";
 import Chart from "chart.js";
 import StationEnumStatistic from "./StationEnumStatistic";
 import StationFloatStatistic from "./StationFloatStatistic";
+import StationOneStringStatistic from "./StationOneStringStatistic";
 
 const StationStatistic = (props) => {
   if (props.type == "MULTIPLE_ENUMS") {
@@ -20,8 +21,13 @@ const StationStatistic = (props) => {
         statisticId={props.statisticId}
       ></StationFloatStatistic>
     );
-  } else if (props.type == "ONE_STRING"){
-    return (<div style={{display: "none"}}></div>)
+  } else if (props.type == "ONE_STRING") {
+    return (
+      <StationOneStringStatistic
+        stationId={props.stationId}
+        statisticId={props.statisticId}
+      ></StationOneStringStatistic>
+    );
   }
 };
 

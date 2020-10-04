@@ -3,6 +3,7 @@ import Accordion from "./Accordion";
 import { getApiUrl } from "../config/ApiURL";
 import Chart from "chart.js";
 import styles from "../style/components/StationStatistic.module.scss";
+import { fetchWithAuthorization } from "../config/ApiCalls";
 
 const StationEnumStatistic = (props) => {
   const [data, setData] = useState(null);
@@ -13,7 +14,7 @@ const StationEnumStatistic = (props) => {
     let endDate = new Date();
     startDate.setHours(startDate.getHours() - 24);
 
-    fetch(
+    fetchWithAuthorization(
       getApiUrl("getStationStatistic", [props.stationId, props.statisticId], {
         timespan: `${startDate.toISOString()}/${endDate.toISOString()}`,
         strategy: "all",
@@ -75,7 +76,6 @@ const StationEnumStatistic = (props) => {
 
         let enumDefinitions = response.data.enumDefinitions.reverse();
 
-
         let color = "#0090f3";
 
         let chartDataSets = values.map((data) => {
@@ -97,8 +97,6 @@ const StationEnumStatistic = (props) => {
             radius: data.radius,
           };
         });
-
-
 
         new Chart(canvasRef.current, {
           type: "scatter",
@@ -148,7 +146,7 @@ const StationEnumStatistic = (props) => {
                       if (label == 0) {
                         return "";
                       }
-                      return enumDefinitions[label-1].name;
+                      return enumDefinitions[label - 1].name;
                     },
                   },
                 },
@@ -174,7 +172,7 @@ const StationEnumStatistic = (props) => {
                   if (minutes < 10) {
                     minutes = "0" + minutes;
                   }
-                  let labelName = enumDefinitions[tooltipItem.yLabel-1].name;
+                  let labelName = enumDefinitions[tooltipItem.yLabel - 1].name;
                   return hours + ":" + minutes + " - " + labelName;
                 },
               },
@@ -186,8 +184,8 @@ const StationEnumStatistic = (props) => {
 
   return (
     <div className={styles.card}>
-      <div className={styles.innerCard}>
-        <div className={styles.name}>{data && data.name}</div>
+      <div className={styles.name}>{data && data.name}</div>
+      <div className={styles.content}>
         <div className={styles.canvas}>
           <canvas ref={canvasRef}></canvas>
         </div>

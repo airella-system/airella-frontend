@@ -3,6 +3,7 @@ import Accordion from "./Accordion";
 import { getApiUrl } from "../config/ApiURL";
 import Chart from "chart.js";
 import styles from "../style/components/StationStatistic.module.scss";
+import { fetchWithAuthorization } from "../config/ApiCalls";
 
 const StationFloatStatistic = (props) => {
   const [data, setData] = useState(null);
@@ -13,7 +14,7 @@ const StationFloatStatistic = (props) => {
     let endDate = new Date();
     startDate.setHours(startDate.getHours() - 24);
 
-    fetch(
+    fetchWithAuthorization(
       getApiUrl("getStationStatistic", [props.stationId, props.statisticId], {
         timespan: `${startDate.toISOString()}/${endDate.toISOString()}`,
         strategy: "all",
@@ -166,8 +167,8 @@ const StationFloatStatistic = (props) => {
 
   return (
     <div className={styles.card}>
-      <div className={styles.innerCard}>
-        <div className={styles.name}>{data && data.name}</div>
+      <div className={styles.name}>{data && data.name}</div>
+      <div className={styles.content}>
         <div className={styles.canvas}>
           <canvas ref={canvasRef}></canvas>
         </div>

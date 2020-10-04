@@ -5,8 +5,8 @@ import Input from "./Input";
 import Button from "./Button";
 import Popup from "./Popup";
 import { FaTimes } from "react-icons/fa";
-import { setLoginDialogVisibility, setAuthorization } from "../redux/actions";
-import { postApiUrl } from "../config/ApiURL";
+import { setLoginDialogVisibility } from "../redux/actions";
+import { login as loginFunction } from "../config/ApiCalls";
 
 function Login(props) {
   const [isFailed, setIsFailed] = useState(false)
@@ -22,34 +22,12 @@ function Login(props) {
   }
 
   const executeLogin = (email, password) => {
-    fetch(
-      postApiUrl("login"),
-      {
-        method: "post",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        })
-      }
-    )
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        props.dispatch(setAuthorization(data.data.accessToken, data.data.refreshToken))
-        close()
-      } else {
-        setIsFailed(true)
-        setMessage(data.errors[0].detail)
-      }
-    })
-    .catch((e) => {
-      console.error(e)
+    loginFunction(email, password, props.dispatch)
+    .then(_ => close())
+    .catch(error => {
       setIsFailed(true)
-      setMessage("Couldn't log in")
-    });
+      setMessage(error)
+    })
   }
 
   const onInputKeyDown = (target) => {
@@ -92,7 +70,6 @@ function Login(props) {
 function mapStateToProps(state) {
   return {
     visibility: state.loginDialog.visibility,
-    mapPositionRequest: state.mapPositionRequest.position,
   };
 }
 

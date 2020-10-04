@@ -27,6 +27,7 @@ $item-gap: 12px;
       margin-top: 4px;
     }
     .bottomItems {
+      overflow: hidden;
       transform-origin: top;
       pointer-events: none;
       opacity: 0;
@@ -36,6 +37,7 @@ $item-gap: 12px;
         margin-top 250ms $animation-easing 250ms;
     }
     .bottomItemsOpen {
+      overflow: hidden;
       pointer-events: auto;
       opacity: 1;
       margin-top: $item-gap;

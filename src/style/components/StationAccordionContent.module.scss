@@ -1,5 +1,5 @@
 @import "../const/var.scss", "../const/minix.scss",
-"../additional/neumorphism.scss";
+  "../additional/neumorphism.scss";
 
 .headerText {
   font-size: 20px;
@@ -17,11 +17,18 @@
 
 .button {
   width: 200px;
+  padding-left: 10px;
+
   .holder {
     display: flex;
     align-items: center;
     padding: 8px 10px;
     margin: 0 auto 0 auto;
+
+    .iconLoading {
+      color: #43b8ee;
+      animation: rotate 1.5s linear infinite;
+    }
 
     .menuIcon {
       font-size: 25px;
@@ -45,4 +52,10 @@
   font-size: 22px;
   font-weight: 400;
   color: $textColor;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
 }

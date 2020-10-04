@@ -31,15 +31,18 @@ class Menu extends React.Component {
             </div>
           </Button>
         </Link>
-        <Link className="link account" to={this.props.tokens ? "/account" : ""}>
+        <Link className="link account" to={this.props.logged ? "/account" : ""}>
           <Button
-            onClick={() => !this.props.tokens && this.props.dispatch(setLoginDialogVisibility(true))}
+            onClick={() => {
+              if (!this.props.logged)
+                this.props.dispatch(setLoginDialogVisibility(true))
+            }}
           >
             <div className="holder">
               <div>
                 <FaUser className="menuIcon" />
               </div>
-              <div className="textAligner">{this.props.tokens ? "Account" : "Log in"}</div>
+              <div className="textAligner">{this.props.logged ? "Account" : "Log in"}</div>
             </div>
           </Button>
         </Link>
@@ -70,7 +73,7 @@ class Menu extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    tokens: state.authorization.tokens,
+    logged: state.authorization.logged,
   };
 }
 
