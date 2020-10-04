@@ -91,8 +91,10 @@ export const fetchWithAuthorization = async (url, options) => {
   var accessToken = getCookie('accessToken')
 
   if (!accessToken) {
-    await refreshLogin()
-    accessToken = getCookie('accessToken')
+    try {
+      await refreshLogin()
+      accessToken = getCookie('accessToken')
+    } catch (_) { }
   }
 
   if (accessToken) {
