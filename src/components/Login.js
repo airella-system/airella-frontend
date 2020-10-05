@@ -36,7 +36,7 @@ function Login(props) {
   }
 
   return (
-    <Popup visibility={props.visibility}>
+    <Popup visibility={props.visibility} onOutsideClick={() => close()} >
       {
         props.visibility ? (
           <div className={`${styles.loginBox} ${isFailed ? styles.error : ""}`}>

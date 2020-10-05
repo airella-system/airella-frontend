@@ -23,7 +23,6 @@ export const login = (email, password) => {
     .then((data) => {
       if (data.success) {
         store.dispatch(setAuthorization(true))
-        console.log(data.data)
         new Cookie("accessToken", data.data.accessToken.token)
           // .setDate(data.data.accessToken.expirationDate)
           .setTimeMs(1000 * 5)
@@ -68,7 +67,6 @@ export const refreshLogin = () => {
     .then((data) => {
       if (data.success) {
         store.dispatch(setAuthorization(true))
-        console.log(data.data)
         new Cookie("accessToken", data.data.accessToken.token)
           // .setDate(data.data.accessToken.expirationDate)
           .setTimeMs(1000 * 5)

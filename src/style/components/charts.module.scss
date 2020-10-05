@@ -1,0 +1,42 @@
+@import "../const/var.scss", "../const/minix.scss",
+  "../additional/neumorphism.scss";
+
+$transitionTime: 500ms;
+
+.chartsBox {
+  transition: height $transitionTime, width $transitionTime;
+}
+
+.close {
+  position: absolute;
+  left: 13px;
+  top: 13px;
+}
+
+.title {
+  color: rgb(100, 100, 100);
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.input {
+  margin-bottom: 20px;
+}
+
+.button {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.message {
+  text-align: center;
+  font-size: small;
+  color: $loginErrorTextColor;
+  opacity: 0;
+  transition: opacity $transitionTime;
+}
+
+.visibleMessage {
+  opacity: 1;
+}

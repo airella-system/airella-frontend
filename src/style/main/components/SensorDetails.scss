@@ -1,8 +1,6 @@
 @import "../../const/var.scss", "../../const/minix.scss",
   "../../additional/neumorphism.scss";
 
-
-
 .stationDetail {
   height: 100vh;
   width: 470px;
@@ -29,17 +27,6 @@
     right: 0px;
     top: 0px;
 
-    .innerCard {
-      @extend %neu-shadow-over;
-      @extend %neu-rounded;
-      margin-top: 10px;
-      margin-bottom: 20px;
-      margin-left: 10px;
-      margin-right: 10px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-
     .holder {
       display: flex;
       justify-content: space-between;
@@ -55,6 +42,16 @@
       border-top-left-radius: $neu-round-radius;
       border-bottom-left-radius: $neu-round-radius;
 
+      .innerCard {
+        @extend %neu-shadow-over;
+        @extend %neu-rounded;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
       .summaryContainer {
         display: flex;
         align-items: center;
@@ -134,11 +131,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        .chartIcon {
-          width: 75%;
-          height: 75%;
-          color: $statisticIconColor;
-        }
+      }
+      .chartIcon {
+        width: 75%;
+        height: 75%;
+        color: $statisticIconColor;
       }
     }
     .sensorsInfo {

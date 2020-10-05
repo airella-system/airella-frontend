@@ -127,10 +127,7 @@ function MapComponent(props) {
       })
     )
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data.data);
-        setStationFullData({...stationFullData, [key]: data.data})
-      })
+      .then((data) => setStationFullData({...stationFullData, [key]: data.data}))
       .catch((e) => console.error(e));
   }
 
