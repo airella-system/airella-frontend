@@ -109,7 +109,5 @@ export const fetchWithAuthorization = async (url, options) => {
     headers: headers,
   }
 
-  console.log(optionsWithHeaders);
-
   return fetch(url, optionsWithHeaders)
 }
