@@ -9,4 +9,3 @@ export const clearRefreshToken = refreshToken => {
 export const getRefreshToken = () => {
   return localStorage.refreshToken;
 }
-
