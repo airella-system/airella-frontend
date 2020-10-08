@@ -26,11 +26,14 @@
       @extend %neu-shadow-over;
       width: 100%;
       .insideTabs {
-        margin-left: 10px;
         padding-top: 10px;
         padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
         .button {
           width: 200px;
+          margin-left: 10px;
+          margin-right: 10px;
           .holder {
             display: flex;
             align-items: center;

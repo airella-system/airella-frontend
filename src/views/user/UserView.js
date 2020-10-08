@@ -5,7 +5,11 @@ import { getApiUrl } from "../../config/ApiURL";
 import StationAccordion from "../../components/StationAccordion";
 import { fetchWithAuthorization } from "../../config/ApiCalls";
 import { RiSensorFill } from "react-icons/ri";
+import { FiLogOut } from "react-icons/fi";
+
 import Button from "../../components/Button";
+import { logout as logoutFunction } from "../../config/ApiCalls";
+import { withRouter } from 'react-router-dom'
 
 class UserView extends Component {
   constructor(props) {
@@ -47,6 +51,11 @@ class UserView extends Component {
     });
   }
 
+  logout = () => {
+    logoutFunction();
+    this.props.history.push('/')
+  }
+
   render() {
     return (
       <div className={styles.root}>
@@ -64,6 +73,16 @@ class UserView extends Component {
                   </div>
                 </Button>
               </div>
+              <div className={styles.button}>
+                <Button onClick={this.logout}>
+                  <div className={styles.holder}>
+                    <div>
+                      <FiLogOut className={styles.menuIcon} />
+                    </div>
+                    <div className={styles.textAligner}>Logout</div>
+                  </div>
+                </Button>
+              </div>
             </div>
           </div>
           <div className={styles.card}>{this.getStationsAccordion()}</div>
@@ -73,4 +92,4 @@ class UserView extends Component {
   }
 }
 
-export default UserView;
+export default withRouter(UserView);
