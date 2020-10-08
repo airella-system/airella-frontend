@@ -60,9 +60,19 @@ $transitionTime: 500ms;
   margin-bottom: 12px;
   cursor: pointer;
   user-select: none;
+
+  .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    background-color: none;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
 }
 
-/* Hide the browser's default checkbox */
 .container input {
   position: absolute;
   opacity: 0;
@@ -71,46 +81,78 @@ $transitionTime: 500ms;
   width: 0;
 }
 
-/* Create a custom checkbox */
-.checkmark {
+%checkmarkGeneralStyle {
   position: absolute;
   top: 0;
   left: 0;
   height: 25px;
   width: 25px;
-  background-color: #eee;
+  border-radius: 30%;
 }
 
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: #ccc;
+%checkmarkShadowGeneralStyle {
+  @extend %checkmarkGeneralStyle;
+  @extend %neu-shadow-transition;
+  background: none;
 }
 
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  background-color: #2196F3;
+.checkmark {
+  @extend %checkmarkGeneralStyle;
+  @extend %neu-color-transition;
+  background-color: $mainColor;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
+  @extend %neu-shadow-transition;
   content: "";
   position: absolute;
-  display: none;
+  opacity: 0;
 }
 
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-  display: block;
+.checkmarkInner {
+  @extend %checkmarkShadowGeneralStyle;
+  box-shadow: inset 4px 4px 4px #474747, inset -4px -4px 4px #818181;
+  opacity: 0;
 }
 
-/* Style the checkmark/indicator */
-.container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  transform: rotate(45deg);
+.checkmarkOuter {
+  @extend %checkmarkShadowGeneralStyle;
+  box-shadow: 4px 4px 4px #00225533, -4px -4px 4px #ffffffff;
+  opacity: 1;
+}
+
+.container:hover input ~ {
+  .checkmark {
+    background-color: #ffffff;
+  }
+  .checkmark:after {
+    opacity: 1;
+    border-color: $neuHoverBackgroundColor;
+  }
+}
+
+.container input:checked ~ {
+  .checkmark {
+    opacity: 1;
+    background-color: $buttonIconColor;
+  }
+  .checkmark:after {
+    opacity: 1;
+  }
+  .checkmarkInner {
+    opacity: 1;
+  }
+  .checkmarkOuter {
+    opacity: 0;
+  }
+}
+
+.container input:checked:hover ~ {
+  .checkmark {
+    background-color: rgb(80, 80, 80);
+  }
+  .checkmarkInner {
+    opacity: 0.6;
+  }
 }
 

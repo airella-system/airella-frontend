@@ -38,7 +38,9 @@ function ChartsMenu(props) {
             <label className={styles.container} key={name}>
               {name}
               <input name={name} type="checkbox" checked={value} onChange={handleCheckboxChange}/>
-              <span className={styles.checkmark}></span>
+              <span className={styles.checkmark}/>
+              <span className={styles.checkmarkInner}/>
+              <span className={styles.checkmarkOuter}/>
             </label>
             )
         })}
