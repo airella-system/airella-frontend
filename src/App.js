@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import MainView from "./views/main/MainView";
 import SubpageView from "./views/subpage/SubpageView";
 import ActivationView from "./views/activateAccount/ActivationView";
+import UserView from "./views/user/UserView";
 import Login from "./components/Login";
 import { refreshLogin } from "./config/ApiCalls"
 
@@ -37,6 +38,13 @@ function App(props) {
           path="/activateAccount/:email/:activationCode"
           render={(props) => {
             return <ActivationView {...props} />;
+          }}
+        />
+        <Route
+          exact
+          path="/account"
+          render={(props) => {
+            return <UserView {...props} />;
           }}
         />
       </Switch>

@@ -1,0 +1,61 @@
+@import "../const/var.scss", "../const/minix.scss",
+  "../additional/neumorphism.scss";
+
+.headerText {
+  font-size: 20px;
+  color: $textColor;
+  margin-bottom: 10px;
+}
+
+.controlPanel {
+  margin-bottom: 20px;
+}
+
+.statistics {
+  margin-bottom: 20px;
+}
+
+.button {
+  width: 200px;
+  padding-left: 10px;
+
+  .holder {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    margin: 0 auto 0 auto;
+
+    .iconLoading {
+      color: #43b8ee;
+      animation: rotate 1.5s linear infinite;
+    }
+
+    .menuIcon {
+      font-size: 25px;
+      position: relative;
+      top: 3px;
+    }
+    .textAligner {
+      margin-left: 15px;
+      font-size: 18px;
+    }
+  }
+}
+.statisticsContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 400;
+  color: $textColor;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
