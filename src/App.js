@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom"
 import MainView from "./views/main/MainView"
 import SubpageView from "./views/subpage/SubpageView"
 import ActivationView from "./views/activateAccount/ActivationView"
-import Login from "./components/Login"
-import Charts from "./components/Charts"
+import LoginModal from "./components/LoginModal"
+import ChartsModal from "./components/ChartsModal"
 import { refreshLogin } from "./config/ApiCalls"
 
 function App(props) {
@@ -18,8 +18,8 @@ function App(props) {
 
   return (
     <BrowserRouter>
-      <Login />
-      <Charts />
+      <LoginModal />
+      <ChartsModal />
       <Switch>
         <Route
           exact

@@ -20,16 +20,9 @@ import { GiWaterDrop } from "react-icons/gi";
 import { WiSmoke } from "react-icons/wi";
 import { AiOutlineLineChart } from "react-icons/ai";
 import { fetchWithAuthorization } from "../../../config/ApiCalls"
+import usePrevious from "../../../common/UsePrevious"
 
 import statisticStyles from "../../../style/components/statistic.module.scss";
-
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
 
 function SensorDetails(props) {
   const [stationDetal, setStationDetal] = useState(null)

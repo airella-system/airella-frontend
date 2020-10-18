@@ -13,6 +13,7 @@ import AnimatedMapPopup from "./AnimatedMapPopup";
 import { AirQualityColors, indexToLevel } from "../../../config/AirQuality";
 import { setMapPositionRequest } from "../../../redux/actions";
 import { fetchWithAuthorization } from "../../../config/ApiCalls"
+import usePrevious from "../../../common/UsePrevious"
 import L from "leaflet";
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -21,14 +22,6 @@ L.Icon.Default.mergeOptions({
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
-
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
 
 function MapComponent(props) {
   const constans = {
