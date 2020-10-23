@@ -31,6 +31,7 @@ $transitionTime: 500ms;
   column-gap: 15px;
   row-gap: 15px;
   transition: height $transitionTime, width $transitionTime;
+  margin: 15px 10px 10px 10px;
 }
 
 .close {
@@ -40,16 +41,39 @@ $transitionTime: 500ms;
 .menu {
   grid-area: menu;
   display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
   
   .checkboxContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-between;
+    height: 100%;
+    max-height: 120px;
   }
-  .applyButton {
-    width: 100%;
+
+  .innerRightContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .dateContainer {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+
+      .dateDescriptor {
+        width: 40px;
+        color: $textColor;
+      }
+    }
+
+    .applyButton {
+      margin-top: 10px;
+      // padding: 20px;
+      // width: 100%;
+    }
   }
 }
 
@@ -84,6 +108,25 @@ $transitionTime: 500ms;
   margin-bottom: 12px;
   cursor: pointer;
   user-select: none;
+
+  .description {
+    display: flex;
+    align-items: flex-end;
+    margin-right: 10px;
+
+    .label {
+      font-size: 18px;
+      font-weight: 400;
+      color: $textColor;
+      margin-right: 5px;
+    }
+
+    .unit {
+      font-size: 13px;
+      font-weight: normal;
+      color: $thinTextColor;
+    }
+  }
 
   &:hover input ~ {
     .checkmark {

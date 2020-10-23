@@ -1,17 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import styles from "../style/components/chartsModal.module.scss";
 import Button from "./Button";
 import Popup from "./Popup";
 import { FaTimes } from "react-icons/fa";
 import { setSensorChart } from "../redux/actions";
-import ChartTabs from "../views/main/components/ChartTabs";
 import Charts from "./Charts"
 import { sensors } from "../config/AirQuality"
+import DatePicker from "react-datepicker";
+import styles from "../style/components/chartsModal.module.scss";
+import "react-datepicker/dist/react-datepicker.css";
+import "../style/components/chartsModal.scss";
+
+function DateTimePicker(props) {
+  return (
+    <DatePicker
+      selected={props.selected ? props.selected : new Date()}
+      onChange={date => props.handleChange && props.handleChange(date)}
+      maxDate={new Date()}
+      showTimeSelect
+      dateFormat="MMMM d, yyyy HH:mm"
+      timeFormat="HH:mm"
+    />
+  );
+}
 
 function ChartsMenu(props) {
 
   const [showData, setShowData] = useState(props.showData)
+  const [fromDate, setFromDate] = useState(props.fromDate || new Date())
+  const [toDate, setToDate] = useState(props.toDate || new Date())
 
   const handleCheckboxChange = event => {
     setShowData({
@@ -24,10 +41,18 @@ function ChartsMenu(props) {
     <div className={styles.menu}>  
       <div className={styles.checkboxContainer}>
         {Object.entries(showData).map(([name, value]) => {
+          const info = sensors[name]
           return (
             <div className={styles[name]} key={name}>
               <label className={styles.container}>
-                {sensors[name].label}
+                <div className={styles.description}>
+                  <div className={styles.label}>
+                    {info.label}
+                  </div>
+                  <div className={styles.unit}>
+                    {`(${info.conversion ? info.conversion.unit : info.unit})`}
+                  </div>
+                </div>
                 <input name={name} type="checkbox" checked={value} onChange={handleCheckboxChange}/>
                 <span className={styles.checkmark}/>
                 <span className={styles.checkmarkInner}/>
@@ -37,9 +62,31 @@ function ChartsMenu(props) {
             )
         })}
       </div>
-      <Button onClick={() => props.onApplyClick && props.onApplyClick(showData)}>
-        APPLY
-      </Button>
+      <div className={styles.innerRightContainer}>
+        <div className={styles.dateContainer}>
+          <div className={styles.dateDescriptor}>
+            FROM
+          </div>
+          <DateTimePicker 
+            selected={fromDate} 
+            handleChange={setFromDate}
+          />
+        </div>
+        <div className={styles.dateContainer}>
+          <div className={styles.dateDescriptor}>
+            TO
+          </div>
+          <DateTimePicker 
+            selected={toDate} 
+            handleChange={setToDate}
+          />
+        </div>
+        <div className={styles.applyButton}>
+          <Button onClick={() => props.onApplyClick && props.onApplyClick(showData, fromDate, toDate)}>
+            APPLY
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }
@@ -47,13 +94,17 @@ function ChartsMenu(props) {
 function ChartsModal(props) {
   
   const [showData, setShowData] = useState({})
+  const [fromDate, setFromDate] = useState(new Date(new Date().getTime() - 1000 * 60 * 60 * 24))
+  const [toDate, setToDate] = useState(new Date())
   
   const close = () => {
     props.dispatch(setSensorChart(false))
   }
 
-  const onApplyClick = values => {
-    setShowData(values)
+  const onApplyClick = (selected, fromDate, toDate) => {
+    setShowData(selected)
+    setFromDate(fromDate)
+    setToDate(toDate)
   }
 
   const getSelectedSensors = () => {
@@ -68,7 +119,7 @@ function ChartsModal(props) {
     if (!props.sensorData)
       return
     var initialShowData = {}
-    for (const data of props.sensorData.sensors)
+    for (const data of props.sensorData.sensors.sort((a, b) => sensors[a.id].order - sensors[b.id].order))
       initialShowData = {
         ...initialShowData,
         [data.id]: sensors[data.id].defaultSelection,
@@ -86,12 +137,19 @@ function ChartsModal(props) {
                 <FaTimes size={22} rotate={45} />
               </Button>
             </div>
-            <ChartsMenu showData={showData} onApplyClick={onApplyClick}/>
+            <ChartsMenu 
+              showData={showData} 
+              onApplyClick={onApplyClick} 
+              fromDate={fromDate}
+              toDate={toDate}
+            />
             <div className={styles.chartContainer}>
               {props.sensorData != null && (
                 <Charts
                   stationId={props.sensorData.id}
                   selectedSensors={getSelectedSensors()}
+                  fromDate={fromDate}
+                  toDate={toDate}
                 />
               )}
             </div>

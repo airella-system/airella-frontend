@@ -12,31 +12,21 @@ function Charts(props) {
   const [data, setData] = useState(null)
   const [currentChart, setCurrentChart] = useState(null);
 
-  const loadData = stationId => {
-    let start = new Date();
-    let end = new Date();
-    start.setDate(start.getDate() - 1);
-
+  const loadData = (stationId, sensors, start, end) => {
     fetchWithAuthorization(
       getApiUrl("getPopupData", [stationId], {
         timespan: `${start.toISOString()}/${end.toISOString()}`,
         interval: "PT1H",
         strategy: "latest",
-        sensors: "pm10,pm2_5,pm1,temperature,pressure,humidity",
+        sensors: sensors.join(),
       })
     )
     .then((response) => response.json())
-    .then((data) => {
-      console.log("charts")
-      console.log(data)
-      setData(data["data"])
-    })
+    .then((data) => setData(data["data"]))
     .catch((e) => console.error(e));
   }
 
   const lineChart = (handler, labels, chartDataSets) => {
-    console.log(chartDataSets)
-
     let indexInfo = {}
 
     setCurrentChart(new Chart(handler.getContext("2d"), {
@@ -49,11 +39,11 @@ function Charts(props) {
             [index]: sensors[chartData.id],
           }
           const info = indexInfo[index]
-          const tmpData = info.map 
-            ? chartData.data.map(x => x * info.map.factor)
+          const tmpData = info.conversion 
+            ? chartData.data.map(x => x * info.conversion.factor)
             : chartData.data
           return {
-            label: `${info.label} (${info.map ? info.map.unit : info.unit})`,
+            label: `${info.label} (${info.conversion ? info.conversion.unit : info.unit})`,
             data: tmpData,
             fill: false,
             backgroundColor: info.color,
@@ -99,7 +89,7 @@ function Charts(props) {
           callbacks: {
             label: (tooltipItem, _) => {
               const info = indexInfo[tooltipItem.datasetIndex]
-              const unit = info.map ? info.map.unit : info.unit
+              const unit = info.conversion ? info.conversion.unit : info.unit
               return `${info.label} ${tooltipItem.yLabel}${unit}`
             }
           },
@@ -146,8 +136,8 @@ function Charts(props) {
   }
 
   useEffect(() => {
-    if (props.stationId && props.selectedSensors)
-      loadData(props.stationId)
+    if (props.stationId && props.selectedSensors && props.fromDate && props.toDate)
+      loadData(props.stationId, props.selectedSensors, props.fromDate, props.toDate)
   }, [props.stationId, props.selectedSensors])
 
   useEffect(() => {

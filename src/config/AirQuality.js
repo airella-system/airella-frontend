@@ -50,39 +50,45 @@ export const sensors = {
     color: pm1Color, 
     defaultSelection: true,
     unit: "µg/m³",
+    order: 1,
   },
   pm2_5: { 
     label: "PM2.5", 
     color: pm2_5Color, 
     defaultSelection: true,
     unit: "µg/m³",
+    order: 2,
   },
   pm10: { 
     label: "PM10", 
     color: pm10Color, 
     defaultSelection: true,
     unit: "µg/m³",
+    order: 3,
   },
   temperature: { 
     label: "Temperature", 
     color: temperatureColor, 
     defaultSelection: false,
     unit: "℃",
+    order: 4,
   },
   pressure: { 
     label: "Pressure", 
     color: pressureColor, 
     defaultSelection: false,
     unit: "Pa",
-    map: {
+    conversion: {
       factor: 0.01,
       unit: "hPa",
-    }
+    },
+    order: 5,
   },
   humidity: { 
     label: "Humidity", 
     color: humidityColor, 
     defaultSelection: false,
     unit: "%",
+    order: 6,
   },
 }

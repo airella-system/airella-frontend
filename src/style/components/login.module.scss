@@ -4,6 +4,7 @@
 $transitionTime: 500ms;
 
 .loginBox {
+  margin: 25px 25px 10px 25px;
   height: 210px;
   width: 220px;
   transition: height $transitionTime, width $transitionTime;

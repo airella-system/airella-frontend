@@ -1,0 +1,65 @@
+@import "../const/var.scss", "../const/minix.scss",
+  "../additional/neumorphism.scss";
+
+.react-datepicker__input-container {
+  padding-left: 20px;
+  font-size: 22;
+
+  input {
+    @include fontFamily;
+    font-weight: 300;
+    font-size: 18px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid $inputColor;
+  
+    &:hover {
+      border-bottom: 1px solid $inputFocusedColor;
+    }
+
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid $inputFocusedColor;
+    }
+  }
+}
+
+.react-datepicker {
+  @include fontFamily;
+  @extend %neu-shadow-over-subtle;
+  @extend %neu-rounded;
+  overflow: hidden;
+  border: none;
+}
+
+@mixin removeFocusOutline {
+  &:focus, &:hover {
+    outline: none;
+    border: none;
+  }
+}
+
+.react-datepicker__day:hover, .react-datepicker__month-text:hover, .react-datepicker__quarter-text:hover, .react-datepicker__year-text:hover {
+  border-radius: 30%;
+  @include removeFocusOutline;
+}
+
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range, .react-datepicker__month-text--selected, .react-datepicker__month-text--in-selecting-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--selected, .react-datepicker__quarter-text--in-selecting-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--selected, .react-datepicker__year-text--in-selecting-range, .react-datepicker__year-text--in-range {
+  border-radius: 30%;
+  box-shadow: 
+    inset 4px 4px 4px #19517d, 
+    inset -4px -4px 4px #2985cd;
+  @include removeFocusOutline;
+}
+
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected {
+  border-radius: 30%;
+  box-shadow: 
+    inset 4px 4px 4px #20679e, 
+    inset -4px -4px 4px #34a7ff;
+  @include removeFocusOutline;
+}
+
+.react-datepicker__navigation {
+  @include removeFocusOutline;
+}
