@@ -39,53 +39,55 @@ function ChartsMenu(props) {
 
   return (
     <div className={styles.menu}>  
-      <div className={styles.checkboxContainer}>
-        {Object.entries(showData).map(([name, value]) => {
-          const info = sensors[name]
-          return (
-            <div className={styles[name]} key={name}>
-              <label className={styles.container}>
-                <div className={styles.description}>
-                  <div className={styles.label}>
-                    {info.label}
+      <div className={styles.menuCard}>
+        <div className={styles.checkboxContainer}>
+          {Object.entries(showData).map(([name, value]) => {
+            const info = sensors[name]
+            return (
+              <div className={styles[name]} key={name}>
+                <label className={styles.container}>
+                  <div className={styles.description}>
+                    <div className={styles.label}>
+                      {info.label}
+                    </div>
+                    <div className={styles.unit}>
+                      {`(${info.conversion ? info.conversion.unit : info.unit})`}
+                    </div>
                   </div>
-                  <div className={styles.unit}>
-                    {`(${info.conversion ? info.conversion.unit : info.unit})`}
-                  </div>
-                </div>
-                <input name={name} type="checkbox" checked={value} onChange={handleCheckboxChange}/>
-                <span className={styles.checkmark}/>
-                <span className={styles.checkmarkInner}/>
-                <span className={styles.checkmarkOuter}/>
-              </label>
+                  <input name={name} type="checkbox" checked={value} onChange={handleCheckboxChange}/>
+                  <span className={styles.checkmark}/>
+                  <span className={styles.checkmarkInner}/>
+                  <span className={styles.checkmarkOuter}/>
+                </label>
+              </div>
+              )
+          })}
+        </div>
+        <div className={styles.optionsConteiner}>
+          <div className={styles.dateContainer}>
+            <div className={styles.dateDescriptor}>
+              From
             </div>
-            )
-        })}
+            <DateTimePicker 
+              selected={fromDate} 
+              handleChange={setFromDate}
+            />
+          </div>
+          <div className={styles.dateContainer}>
+            <div className={styles.dateDescriptor}>
+              To
+            </div>
+            <DateTimePicker 
+              selected={toDate} 
+              handleChange={setToDate}
+            />
+          </div>
+        </div>
       </div>
-      <div className={styles.innerRightContainer}>
-        <div className={styles.dateContainer}>
-          <div className={styles.dateDescriptor}>
-            FROM
-          </div>
-          <DateTimePicker 
-            selected={fromDate} 
-            handleChange={setFromDate}
-          />
-        </div>
-        <div className={styles.dateContainer}>
-          <div className={styles.dateDescriptor}>
-            TO
-          </div>
-          <DateTimePicker 
-            selected={toDate} 
-            handleChange={setToDate}
-          />
-        </div>
-        <div className={styles.applyButton}>
-          <Button onClick={() => props.onApplyClick && props.onApplyClick(showData, fromDate, toDate)}>
-            APPLY
-          </Button>
-        </div>
+      <div className={styles.applyButton}>
+        <Button onClick={() => props.onApplyClick && props.onApplyClick(showData, fromDate, toDate)}>
+          APPLY
+        </Button>
       </div>
     </div>
   )

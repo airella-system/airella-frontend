@@ -26,8 +26,8 @@ $transitionTime: 500ms;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas: 
-    "close menu"
-    "chart chart";
+    "close chart"
+    "menu  chart";
   column-gap: 15px;
   row-gap: 15px;
   transition: height $transitionTime, width $transitionTime;
@@ -36,53 +36,76 @@ $transitionTime: 500ms;
 
 .close {
   grid-area: close;
+  width: 22px;
+  margin-right: 20px;
+}
+
+.menuCard {
+  @extend %neu-shadow-over;
+  @extend %neu-rounded;
+  overflow: hidden;
+  background: $mainColor;
+  border-top-left-radius: $neu-round-radius;
+  border-bottom-left-radius: $neu-round-radius;
+  padding: 10px 10px 10px 10px;
 }
 
 .menu {
   grid-area: menu;
   display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	flex-wrap: wrap;
-  
-  .checkboxContainer {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    height: 100%;
-    max-height: 120px;
-  }
+	flex-direction: column;
+  flex-wrap: wrap;
 
-  .innerRightContainer {
+  .optionsConteiner {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     .dateContainer {
-      margin-bottom: 10px;
+      margin-top: 10px;
       display: flex;
       justify-content: space-between;
 
       .dateDescriptor {
         width: 40px;
-        color: $textColor;
+        font-size: 15px;
+        color: $thinTextColor;
       }
     }
+  }
 
-    .applyButton {
-      margin-top: 10px;
-      // padding: 20px;
-      // width: 100%;
-    }
+  .applyButton {
+    margin-left: auto;
+    margin-top: 15px;
+    width: 50%;
   }
 }
 
 .chartContainer {
   grid-area: chart;
-  width: 700px;
-  height: 300px;
+  width: 60vw;
+  height: 100%;
+  min-height: 300px;
   display: flex;
   justify-content: center;
+}
+
+@media only screen and (max-width: $mediaMobileMaxWidth) {
+
+  .chartsBox {
+    width: 95vw;
+    height: 95vh;
+    padding: 2vh 2.5vw 3vh;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+      "close  menu"
+      "chart chart";
+  }
+
+  .chartContainer {
+    width: auto;
+  }
 }
 
 %checkmarkGeneralStyle {
@@ -113,16 +136,17 @@ $transitionTime: 500ms;
     display: flex;
     align-items: flex-end;
     margin-right: 10px;
+    padding-top: 2px;
 
     .label {
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 400;
       color: $textColor;
       margin-right: 5px;
     }
 
     .unit {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: normal;
       color: $thinTextColor;
     }
@@ -163,7 +187,7 @@ $transitionTime: 500ms;
     
     &:checked:hover ~ {
       .checkmark {
-        background-color: var(--darker-color);//rgb(80, 80, 80);
+        background-color: var(--darker-color);
       }
       .checkmarkInner {
         opacity: 0.6;

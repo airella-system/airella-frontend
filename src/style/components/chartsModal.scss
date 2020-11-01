@@ -8,10 +8,12 @@
   input {
     @include fontFamily;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 15px;
     background: none;
     border: none;
     border-bottom: 1px solid $inputColor;
+    width: 165px;
+    text-align: right;
   
     &:hover {
       border-bottom: 1px solid $inputFocusedColor;
