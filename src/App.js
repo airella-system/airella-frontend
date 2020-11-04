@@ -7,7 +7,6 @@ import ActivationView from "./views/activateAccount/ActivationView"
 import LoginModal from "./components/LoginModal"
 import ChartsModal from "./components/ChartsModal"
 import UserView from "./views/user/UserView";
-import Login from "./components/Login";
 import { refreshLogin } from "./config/ApiCalls"
 
 function App(props) {
