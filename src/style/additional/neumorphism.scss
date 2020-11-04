@@ -6,6 +6,10 @@ $neu-round-radius: 15px;
   box-shadow: inset 5px 5px 5px #00225533, inset -5px -5px 5px #ffffffff;
 }
 
+%neu-shadow-under-dark {
+  box-shadow: inset 5px 5px 10px #282828, inset -5px -5px 10px #a0a0a0;
+}
+
 %neu-shadow-under-subtle {
   box-shadow: inset 5px 5px 5px #00225533, inset -5px -5px 5px #ffffff88;
 }

@@ -1,0 +1,14 @@
+$sensorColors: (
+  pm1: #0090f3,
+  pm2_5: #BBbfFd,
+  pm10: #Ffb8ed,
+  temperature: #e74c3c,
+  pressure: #2ecc71,
+  humidity: #f1c40f,
+);
+
+:export {
+  @each $key, $value in $sensorColors {
+    #{unquote($key)}Color: $value;
+  }
+}

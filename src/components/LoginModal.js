@@ -8,7 +8,7 @@ import { FaTimes } from "react-icons/fa";
 import { setLoginDialogVisibility } from "../redux/actions";
 import { login as loginFunction } from "../config/ApiCalls";
 
-function Login(props) {
+function LoginModal(props) {
   const [isFailed, setIsFailed] = useState(false)
   const [message, setMessage] = useState("")
 
@@ -36,7 +36,7 @@ function Login(props) {
   }
 
   return (
-    <Popup visibility={props.visibility}>
+    <Popup visibility={props.visibility} onOutsideClick={() => close()} >
       {
         props.visibility ? (
           <div className={`${styles.loginBox} ${isFailed ? styles.error : ""}`}>
@@ -73,4 +73,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(LoginModal);

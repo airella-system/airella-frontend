@@ -1,0 +1,270 @@
+@import "../const/var.scss", "../const/minix.scss",
+  "../additional/neumorphism.scss", "../const/sensors.scss";
+
+$transitionTime: 500ms;
+
+@function lighten-color($color) {
+  @return scale-color($color: $color, $lightness: +20%)
+};
+
+@function darken-color($color) {
+  @return scale-color($color: $color, $lightness: -15%)
+};
+
+@mixin set-given-colors($color) {
+  --standard-color: #{$color};
+  --darker-color: #{darken-color($color)};
+  --brighter-color: #{lighten-color($color)};  
+}
+
+@mixin set-sensor-colors($param) {
+  @include set-given-colors(map-get($sensorColors, $param))
+}
+
+.chartsBox {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 
+    "close chart"
+    "menu  chart";
+  column-gap: 15px;
+  row-gap: 15px;
+  transition: height $transitionTime, width $transitionTime;
+  margin: 15px 10px 10px 10px;
+}
+
+.close {
+  grid-area: close;
+  width: 22px;
+  margin-right: 20px;
+}
+
+.menuCard {
+  @extend %neu-shadow-over;
+  @extend %neu-rounded;
+  overflow: hidden;
+  background: $mainColor;
+  border-top-left-radius: $neu-round-radius;
+  border-bottom-left-radius: $neu-round-radius;
+  padding: 10px 10px 10px 10px;
+}
+
+.menu {
+  grid-area: menu;
+  display: flex;
+	flex-direction: column;
+  flex-wrap: wrap;
+
+  .optionsConteiner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .dateContainer {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+
+      .dateDescriptor {
+        width: 40px;
+        font-size: 15px;
+        color: $thinTextColor;
+      }
+    }
+  }
+
+  .applyButton {
+    margin-left: auto;
+    margin-top: 15px;
+    width: 50%;
+  }
+}
+
+.chartContainer {
+  grid-area: chart;
+  width: 60vw;
+  height: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: $mediaMobileMaxWidth) {
+
+  .chartsBox {
+    width: 95vw;
+    height: 95vh;
+    padding: 2vh 2.5vw 3vh;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+      "close  menu"
+      "chart chart";
+  }
+
+  .chartContainer {
+    width: auto;
+  }
+}
+
+%checkmarkGeneralStyle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 30%;
+}
+
+%checkmarkShadowGeneralStyle {
+  @extend %checkmarkGeneralStyle;
+  @extend %neu-shadow-transition;
+  background: none;
+}
+
+.container {
+  @include set-given-colors($buttonIconColor);
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+
+  .description {
+    display: flex;
+    align-items: flex-end;
+    margin-right: 10px;
+    padding-top: 2px;
+
+    .label {
+      font-size: 15px;
+      font-weight: 400;
+      color: $textColor;
+      margin-right: 5px;
+    }
+
+    .unit {
+      font-size: 12px;
+      font-weight: normal;
+      color: $thinTextColor;
+    }
+  }
+
+  &:hover input ~ {
+    .checkmark {
+      background-color: #ffffff;
+    }
+    .checkmark:after {
+      opacity: 1;
+      // border-color: $neuHoverBackgroundColor;
+    }
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    &:checked ~ {
+      .checkmark {
+        opacity: 1;
+        background-color: var(--standard-color);
+      }
+      .checkmark:after {
+        opacity: 1;
+      }
+      .checkmarkInner {
+        opacity: 1;
+      }
+      .checkmarkOuter {
+        opacity: 0;
+      }
+    }
+    
+    &:checked:hover ~ {
+      .checkmark {
+        background-color: var(--darker-color);
+      }
+      .checkmarkInner {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .checkmark {
+    @extend %checkmarkGeneralStyle;
+    @extend %neu-color-transition;
+    background-color: $mainColor;
+
+    &:after {
+      @extend %neu-shadow-transition;
+      content: "";
+      position: absolute;
+      opacity: 0;
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      background-color: none;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  .checkmarkInner {
+    @extend %checkmarkShadowGeneralStyle;
+    box-shadow: 
+      inset 4px 4px 4px var(--darker-color), 
+      inset -4px -4px 4px var(--brighter-color);
+    opacity: 0;
+  }
+  
+  .checkmarkOuter {
+    @extend %checkmarkShadowGeneralStyle;
+    box-shadow: 
+      4px 4px 4px #00225533, 
+      -4px -4px 4px #ffffffff;
+    opacity: 1;
+  }
+}
+
+.pm1 {
+  .container {
+    @include set-sensor-colors("pm1");
+  }
+}
+
+.pm2_5 {
+  .container {
+    @include set-sensor-colors("pm2_5");
+  }
+}
+
+.pm10 {
+  .container {
+    @include set-sensor-colors("pm10");
+  }
+}
+
+.temperature {
+  .container {
+    @include set-sensor-colors("temperature");
+  }
+}
+
+.pressure {
+  .container {
+    @include set-sensor-colors("pressure");
+  }
+}
+
+.humidity {
+  .container {
+    @include set-sensor-colors("humidity");
+  }
+}

@@ -26,8 +26,7 @@ export const login = (email, password) => {
           store.dispatch(setAuthorization(true));
           console.log(data.data);
           new Cookie("accessToken", data.data.accessToken.token)
-            // .setDate(data.data.accessToken.expirationDate)
-            .setTimeMs(1000 * 5)
+            .setDate(data.data.accessToken.expirationDate)
             .setCookie();
           setRefreshToken(data.data.refreshToken);
           resolve(true);
@@ -54,6 +53,8 @@ export const logout = () => {
 
 export const refreshLogin = () => {
   return new Promise((resolve, reject) => {
+    if (getCookie("accessToken")) resolve(true);
+
     const refreshToken = getRefreshToken();
     if (!refreshToken) reject("No refresh token saved");
 
@@ -72,8 +73,7 @@ export const refreshLogin = () => {
           store.dispatch(setAuthorization(true));
           console.log(data.data);
           new Cookie("accessToken", data.data.accessToken.token)
-            // .setDate(data.data.accessToken.expirationDate)
-            .setTimeMs(1000 * 5)
+            .setDate(data.data.accessToken.expirationDate)
             .setCookie();
           resolve(true);
         } else {

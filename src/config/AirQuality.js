@@ -6,16 +6,29 @@ import {
   FaRegFrownOpen,
   FaRegTired,
 } from "react-icons/fa";
+import { 
+  pm1Color, 
+  pm2_5Color, 
+  pm10Color, 
+  temperatureColor, 
+  pressureColor, 
+  humidityColor, 
+} from "../style/const/sensors.scss"
 
-export let AirQualityColors = {
-  0: "#79bc6a", //"#56b94d",
-  1: "#bbcf4c", //"#a8c449",
-  2: "#eec20b", //"#ffc94b",
-  3: "#f29305", //"#f68844",
-  4: "#e8416f", //"#ed4740",
+export const AirQualityColors = {
+  // 0: "#79bc6a",
+  // 1: "#bbcf4c",
+  // 2: "#eec20b",
+  // 3: "#f29305",
+  // 4: "#e8416f",
+  0: "#56b94d",
+  1: "#a8c449",
+  2: "#ffc94b",
+  3: "#f68844",
+  4: "#ed4740",
 };
 
-export let AirQualityIcons = {
+export const AirQualityIcons = {
   0: <FaRegLaugh />,
   1: <FaRegSmile />,
   2: <FaRegMeh />,
@@ -23,10 +36,59 @@ export let AirQualityIcons = {
   4: <FaRegTired />,
 };
 
-export let indexToLevel = (aqi) => {
+export const indexToLevel = (aqi) => {
   if (aqi <= 25) return 0;
   else if (aqi <= 50) return 1;
   else if (aqi <= 75) return 2;
   else if (aqi <= 100) return 3;
   return 4;
 };
+
+export const sensors = {
+  pm1: { 
+    label: "PM1", 
+    color: pm1Color, 
+    defaultSelection: true,
+    unit: "µg/m³",
+    order: 1,
+  },
+  pm2_5: { 
+    label: "PM2.5", 
+    color: pm2_5Color, 
+    defaultSelection: true,
+    unit: "µg/m³",
+    order: 2,
+  },
+  pm10: { 
+    label: "PM10", 
+    color: pm10Color, 
+    defaultSelection: true,
+    unit: "µg/m³",
+    order: 3,
+  },
+  temperature: { 
+    label: "Temperature", 
+    color: temperatureColor, 
+    defaultSelection: false,
+    unit: "℃",
+    order: 4,
+  },
+  pressure: { 
+    label: "Pressure", 
+    color: pressureColor, 
+    defaultSelection: false,
+    unit: "Pa",
+    conversion: {
+      factor: 0.01,
+      unit: "hPa",
+    },
+    order: 5,
+  },
+  humidity: { 
+    label: "Humidity", 
+    color: humidityColor, 
+    defaultSelection: false,
+    unit: "%",
+    order: 6,
+  },
+}

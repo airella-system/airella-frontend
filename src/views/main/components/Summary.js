@@ -36,10 +36,8 @@ class SensorDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.id);
-    if (prevProps.id != this.props.id) {
-      this.setState({ personNum: this.integerRandomBetween(1, 6) });
-    }
+    if (prevProps.id != this.props.id)
+      this.setState({ personNum: this.integerRandomBetween(1, 6) })
   }
 
   getBackgroundClassName() {
@@ -126,6 +124,7 @@ class SensorDetails extends Component {
       if (i % 3 == 0) {
         clouds.push(
           <Cloud1
+            key={"cloud" + i}
             ref={(ref) => this.cloudRefs.push(ref)}
             className={styles.backgroundCloud}
             fill={color}
@@ -134,6 +133,7 @@ class SensorDetails extends Component {
       } else if (i % 3 == 1) {
         clouds.push(
           <Cloud2
+            key={"cloud" + i}
             ref={(ref) => this.cloudRefs.push(ref)}
             className={styles.backgroundCloud}
             fill={color}
@@ -142,6 +142,7 @@ class SensorDetails extends Component {
       } else if (i % 3 == 2) {
         clouds.push(
           <Cloud3
+            key={"cloud" + i}
             ref={(ref) => this.cloudRefs.push(ref)}
             className={styles.backgroundCloud}
             fill={color}
@@ -159,48 +160,48 @@ class SensorDetails extends Component {
           className={styles.foregroundCloud}
           fill={color}
           style={{
-            "animation-delay": "-" + 0 + "s",
-            "animation-duration": 30 + "s",
+            "animationDelay": "-" + 0 + "s",
+            "animationDuration": 30 + "s",
           }}
         />
         <Cloud2
           className={styles.foregroundCloud}
           fill={color}
           style={{
-            "animation-delay": "-" + 5 + "s",
-            "animation-duration": 30 + "s",
+            "animationDelay": "-" + 5 + "s",
+            "animationDuration": 30 + "s",
           }}
         />
         <Cloud3
           className={styles.foregroundCloud}
           fill={color}
           style={{
-            "animation-delay": "-" + 10 + "s",
-            "animation-duration": 30 + "s",
+            "animationDelay": "-" + 10 + "s",
+            "animationDuration": 30 + "s",
           }}
         />
         <Cloud1
           className={styles.foregroundCloud}
           fill={color}
           style={{
-            "animation-delay": "-" + 15 + "s",
-            "animation-duration": 30 + "s",
+            "animationDelay": "-" + 15 + "s",
+            "animationDuration": 30 + "s",
           }}
         />
         <Cloud2
           className={styles.foregroundCloud}
           fill={color}
           style={{
-            "animation-delay": "-" + 20 + "s",
-            "animation-duration": 30 + "s",
+            "animationDelay": "-" + 20 + "s",
+            "animationDuration": 30 + "s",
           }}
         />
         <Cloud3
           className={styles.foregroundCloud}
           fill={color}
           style={{
-            "animation-delay": "-" + 25 + "s",
-            "animation-duration": 30 + "s",
+            "animationDelay": "-" + 25 + "s",
+            "animationDuration": 30 + "s",
           }}
         />
       </>

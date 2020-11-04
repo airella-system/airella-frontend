@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
-import { connect } from "react-redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import MainView from "./views/main/MainView";
-import SubpageView from "./views/subpage/SubpageView";
-import ActivationView from "./views/activateAccount/ActivationView";
+import React, { useState, useEffect, useRef } from "react"
+import { connect } from "react-redux"
+import { BrowserRouter, Route, Switch } from "react-router-dom"
+import MainView from "./views/main/MainView"
+import SubpageView from "./views/subpage/SubpageView"
+import ActivationView from "./views/activateAccount/ActivationView"
+import LoginModal from "./components/LoginModal"
+import ChartsModal from "./components/ChartsModal"
 import UserView from "./views/user/UserView";
-import Login from "./components/Login";
 import { refreshLogin } from "./config/ApiCalls"
 
 function App(props) {
@@ -13,11 +14,13 @@ function App(props) {
   useEffect(() => {
     const tryRefreshLogin = async () => await refreshLogin(props.dispatch)
     tryRefreshLogin()
+    .catch(_ => {})
   }, [])
 
   return (
     <BrowserRouter>
-      <Login />
+      <LoginModal />
+      <ChartsModal />
       <Switch>
         <Route
           exact

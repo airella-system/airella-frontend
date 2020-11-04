@@ -17,3 +17,8 @@ export const setAuthorization = (logged) => ({
   type: "AUTHORIZATION",
   logged,
 });
+
+export const setSensorChart = (visibility) => ({
+  type: "SENSOR_CHART",
+  visibility,
+});
