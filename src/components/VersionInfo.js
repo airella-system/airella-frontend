@@ -12,7 +12,7 @@ class VersionInfo extends React.Component {
   }
 
   componentDidMount() {
-    fetchWithAuthorization("http://airella.cyfrogen.com/api/info/")
+    fetchWithAuthorization(process.env.REACT_APP_AIRELLA_DOMAIN + "/api/info/")
       .then((res) => res.json())
       .then((json) =>
         this.setState({

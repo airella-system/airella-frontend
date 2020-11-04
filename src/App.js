@@ -6,6 +6,8 @@ import SubpageView from "./views/subpage/SubpageView"
 import ActivationView from "./views/activateAccount/ActivationView"
 import LoginModal from "./components/LoginModal"
 import ChartsModal from "./components/ChartsModal"
+import UserView from "./views/user/UserView";
+import Login from "./components/Login";
 import { refreshLogin } from "./config/ApiCalls"
 
 function App(props) {
@@ -40,6 +42,13 @@ function App(props) {
           path="/activateAccount/:email/:activationCode"
           render={(props) => {
             return <ActivationView {...props} />;
+          }}
+        />
+        <Route
+          exact
+          path="/account"
+          render={(props) => {
+            return <UserView {...props} />;
           }}
         />
       </Switch>
