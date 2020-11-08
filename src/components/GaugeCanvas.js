@@ -6,7 +6,7 @@ class GaugeCanvas extends React.Component {
     // Get the device pixel ratio, falling back to 1.
     var dpr = window.devicePixelRatio || 1;
     // Get the size of the canvas in CSS pixels.
-    var rect = canvas.getBoundingClientRect();
+    // var rect = canvas.getBoundingClientRect();
     // Give the canvas pixel dimensions of their CSS
     // size * the device pixel ratio.
     canvas.width = this.props.canvasWidth * dpr;
