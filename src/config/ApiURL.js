@@ -1,7 +1,6 @@
 const ApiURL = {
   "activateAccount": () => "auth/activate-user",
   "getMarkers": () => "search/map",
-  "getUserStations": () => "user/stations",
   "getStations": () => "stations",
   "getUserStations": () => "user/stations",
   "getPopupData": (endpointParameters) => `stations/${endpointParameters[0]}`,

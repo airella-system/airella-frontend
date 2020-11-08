@@ -7,7 +7,7 @@ import Menu from "../../../components/Menu";
 import Button from "../../../components/Button";
 import PropTypes from "prop-types";
 import { setMapPositionRequest } from "../../../redux/actions";
-import { fetchWithAuthorization } from "../../../config/ApiCalls"
+import { createCORSRequest } from "../../../config/ApiCalls"
 import "../../../style/main/components/TopBar.scss";
 
 class TopBar extends Component {
@@ -34,18 +34,21 @@ class TopBar extends Component {
       this.setState({
         searchingsExecutingNow: this.state.searchingsExecutingNow + 1,
       });
-      fetchWithAuthorization("http://photon.komoot.de/api/?q=" + this.state.searchText)
-        .then((response) => response.json())
-        .then((data) =>
-          this.setState({
-            searchData: data,
-          })
-        )
-        .finally((data) =>
-          this.setState({
-            searchingsExecutingNow: this.state.searchingsExecutingNow - 1,
-          })
-        );
+      let _this = this
+      let xhr = createCORSRequest('GET', "https://photon.komoot.io/api/?q=" + this.state.searchText);
+      xhr.onload = function() {
+        _this.setState({
+          searchData: JSON.parse(xhr.response),
+          searchingsExecutingNow: _this.state.searchingsExecutingNow - 1,
+        })
+      };
+      xhr.onerror = () => {
+        _this.setState({
+          searchingsExecutingNow: _this.state.searchingsExecutingNow - 1,
+        })
+      }
+      xhr.send();
+
     } else {
       this.setState({ searchData: null });
     }
@@ -110,8 +113,6 @@ class TopBar extends Component {
           )}
       </li>
     ));
-
-    console.log(listItems.length);
 
     if (listItems.length == 0) {
       listItems.push(

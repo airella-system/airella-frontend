@@ -115,3 +115,13 @@ export const fetchWithAuthorization = async (url, options) => {
 
   return fetch(url, optionsWithHeaders);
 };
+
+export const createCORSRequest = (method, url) => {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    xhr.open(method, url, true);
+  } else {
+    xhr = null;
+  }
+  return xhr;
+};
