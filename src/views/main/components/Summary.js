@@ -49,7 +49,19 @@ class SensorDetails extends Component {
       "2": styles.background2,
       "1": styles.background1
     }
-    return airQualityToBackgroundClassName[this.getAirQualityLevel().toString()]
+
+    let lightnessClassName = {
+      "-1": styles.light,
+      "5": styles.dark,
+      "4": styles.dark,
+      "3": styles.dark,
+      "2": styles.dark,
+      "1": styles.light
+    }
+
+    let level = this.getAirQualityLevel().toString()
+
+    return airQualityToBackgroundClassName[level] + " " + lightnessClassName[level]
   }
 
   getPerson(num) {
