@@ -60,7 +60,13 @@ function MapComponent(props) {
           lng: position.coords.longitude,
         })
       },
-      (error) => console.error("Error Code = " + error.code + " - " + error.message)
+      (error) => {
+        setUserCurrentPosition({
+          lat: 50.0622881,
+          lng: 19.9311482,
+        })
+        console.error("Error Code = " + error.code + " - " + error.message)
+      }
     );
   }
 
@@ -72,6 +78,9 @@ function MapComponent(props) {
       navigator.permissions.query({ name: "geolocation" }).then((info) => {
         if (info.state == "granted") {
           setMapPositionWithGeolocation();
+        }
+        else {
+          navigator.geolocation.getCurrentPosition(() => {setMapPositionWithGeolocation()})
         }
       });
     } else {
@@ -187,7 +196,7 @@ function MapComponent(props) {
     <div className={styles.container}>
       <Map
         zoomControl={false}
-        center={[constans.lat, constans.lng]}
+        center={[userCurrentPosition.lat, userCurrentPosition.lng]}
         zoom={constans.initialZoom}
         ref={(m) => setLeafletMap(m)}
         onzoomend={(x) => setCurrentMarkerSize(calculateMarkerSize(leafletMap.leafletElement.getZoom()))}
