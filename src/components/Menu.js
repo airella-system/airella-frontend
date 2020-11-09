@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkedAlt, FaCube, FaRegLifeRing, FaUser } from "react-icons/fa";
-import Button from "./Button";
-import "../style/components/menu.scss";
-import "../style/additional/animationLib.scss";
-import { setLoginDialogVisibility } from "../redux/actions";
-import { connect } from "react-redux";
+import Button from './Button';
+import styles from '../style/components/menu.module.scss';
+import '../style/additional/animationLib.scss';
 
 class Menu extends React.Component {
   constructor(props) {
@@ -19,63 +17,43 @@ class Menu extends React.Component {
   render() {
     let noneClass = this.state.isFirst ? "none " : "";
 
-    return (
-      <div className="menuContainter">
-        <Link className="link map" to="/">
-          <Button isPushed={true}>
-            <div className="holder">
-              <div>
-                <FaMapMarkedAlt className="menuIcon" />
-              </div>
-              <div className="textAligner">Map</div>
-            </div>
-          </Button>
-        </Link>
-        <Link className="link account" to={this.props.logged ? "/account" : ""}>
-          <Button
-            onClick={() => {
-              if (!this.props.logged)
-                this.props.dispatch(setLoginDialogVisibility(true))
-            }}
-          >
-            <div className="holder">
-              <div>
-                <FaUser className="menuIcon" />
-              </div>
-              <div className="textAligner">{this.props.logged ? "Account" : "Log in"}</div>
-            </div>
-          </Button>
-        </Link>
-        <Link className="link about" to="/test">
-          <Button>
-            <div className="holder">
-              <div>
-                <FaCube className="menuIcon" />
-              </div>
-              <div className="textAligner">About project</div>
-            </div>
-          </Button>
-        </Link>
-        <a className="link docs" href={process.env.REACT_APP_AIRELLA_DOMAIN + "/api/docs"}>
-          <Button>
-            <div className="holder">
-              <div>
-                <FaRegLifeRing className="menuIcon" />
-              </div>
-              <div className="textAligner">API Docs</div>
-            </div>
-          </Button>
-        </a>
-      </div>
-    );
-  }
+		return (
+			<div className={`${styles.container} ${this.props.isHorizontal ? styles.horizontalContainer : ""}`}>
+				<Link className={`${styles.link} ${styles.map}`} to="/">
+					<Button isPushed={this.props.current == "map"}>
+						<div className={styles.holder}>
+							<div><FaMapMarkedAlt className={styles.icon} /></div>
+							<div className={styles.textAligner}>Map</div>
+						</div>
+					</Button>
+				</Link>
+				<Link className={`${styles.link} ${styles.account}`} to="/account">
+					<Button isPushed={this.props.current == "account"}>
+						<div className={styles.holder}>
+							<div><FaUser className={styles.icon} /></div>
+							<div className={styles.textAligner}>Account</div>
+						</div>
+					</Button>
+				</Link>
+				<Link className={`${styles.link} ${styles.about}`} to="/subpage">
+					<Button isPushed={this.props.current == "about"}>
+						<div className={styles.holder}>
+							<div><FaCube className={styles.icon} /></div>
+							<div className={styles.textAligner}>About project</div>
+						</div>
+					</Button>
+				</Link>
+				<a className={`${styles.link} ${styles.docs}`} href="//airella.cyfrogen.com/api/docs">
+					<Button isPushed={this.props.current == "docs"}>
+						<div className={styles.holder}>
+							<div><FaRegLifeRing className={styles.icon} /></div>
+							<div className={styles.textAligner}>API Docs</div>
+						</div>
+					</Button>
+				</a>
+			</div>
+		);
+	}
 }
 
-function mapStateToProps(state) {
-  return {
-    logged: state.authorization.logged,
-  };
-}
-
-
-export default connect(mapStateToProps)(Menu);
+export default Menu;
