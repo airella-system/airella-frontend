@@ -99,10 +99,6 @@ class SensorDetails extends Component {
     return numToSmile[num.toString()]
   }
 
-  getTitle() {
-    return "aha";
-  }
-
   randomBetween(min, max) {
     return Math.random() * (max - min) + min;
   }
