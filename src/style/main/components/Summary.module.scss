@@ -88,19 +88,19 @@
 
 @keyframes backgroundCloudAnimation {
   from {
-    left: 100%;
+    transform: translateX(100%)
   }
   to {
-    left: -75px;
+    transform: translateX(-450px)
   }
 }
 
 @keyframes foregroundCloudAnimation {
   from {
-    left: 100%;
+    transform: translateX(100%)
   }
   to {
-    left: -250px;
+    transform: translateX(-450px)
   }
 }
 
