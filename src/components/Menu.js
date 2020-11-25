@@ -18,7 +18,7 @@ class Menu extends React.Component {
     let noneClass = this.state.isFirst ? "none " : "";
 
 		return (
-			<div className={`${styles.container} ${this.props.isHorizontal ? styles.horizontalContainer : ""}`}>
+			<div className={`${styles.container} ${this.props.canBeHorizontal ? styles.horizontalContainer : ""}`}>
 				<Link className={`${styles.link} ${styles.map}`} to="/">
 					<Button isPushed={this.props.current == "map"}>
 						<div className={styles.holder}>

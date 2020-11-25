@@ -1,9 +1,8 @@
-import React, { Component } from "react";
-import NavBar from "./components/NavBar";
-import Section1 from "./components/Section1";
-import Section2 from "./components/Section2";
-import BottomPanel from "./components/BottomPanel";
-import SideBar from "./components/SideBar";
+import React, { Component } from "react"
+import NavBar from "./components/NavBar"
+import Foreground from "./components/Foreground"
+import BottomPanel from "./components/BottomPanel"
+import styles from "../../style/subpage/SubpageView.module.scss"
 
 class SubpageView extends Component {
   constructor(props) {
@@ -14,11 +13,11 @@ class SubpageView extends Component {
   render() {
     return (
       <div>
-        <SideBar />
-        <NavBar />
-        <Section1 />
-        <Section2 />
-        <BottomPanel />
+        <div className={styles.container}>
+          <NavBar />
+          <Foreground />
+          <BottomPanel />
+        </div>
       </div>
     );
   }

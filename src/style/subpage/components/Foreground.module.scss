@@ -1,0 +1,230 @@
+@import "../../const/var.scss", "../../const/minix.scss",
+  "../../additional/neumorphism.scss";
+
+$sectionHeight: 100vh;
+$panelHeight: 20vh;
+
+%singleImageView {
+  z-index: 80;
+  height: 50vh;
+  padding: 0 20px;
+  box-shadow: inset 0px 10px 15px #00225533, inset 0px -10px 15px #ffffff99;
+
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+.cityViewPanel {
+  @extend %singleImageView;
+  background-image: url("./assets/city1.jpg"), none;
+}
+
+.electronicsViewPanel {
+  @extend %singleImageView;
+  background-image: url("./assets/template_electronics1.jpg"), none;
+}
+
+.foreground {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+// .panel {
+//   z-index: 300;
+//   // height: $panelHeight;
+//   // margin: 10px;
+//   @extend %neu-rounded;
+//   @extend %neu-shadow-under;
+//   background-color: $mainColor;
+
+//   position: sticky;
+//   width: 130px;
+//   // height: 130px;
+//   // top: ($sectionHeight - $panelHeight) / 2;
+// }
+
+
+.textPanel {
+  background: $mainColor;
+  padding: 6vw 0 6vw;
+
+  .textContainer {
+    width: 100%;
+    margin: 0 30px;
+  
+    .heading {
+      float: left;
+      margin-right: 40px;
+      font-size: 50px;
+      font-weight: 600;
+    }
+    
+    .content {
+      color: $textColor; 
+      text-align: justify;
+    }
+  }
+}
+
+.section { 
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.welcomeScreen {
+  z-index: 90;
+  padding: 47.5vh 0 42.5vh;
+  box-shadow: inset 0 0 0 #00225533, inset 0px -10px 15px #ffffff99;
+
+  background-image: url("./assets/clouds1.jpg"), none;
+  background-size: cover;
+  background-position: center bottom;
+
+  .logo {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    height: 10vh;
+  
+    .logoText {
+      grid-column: 1;
+      grid-row: 1;
+  
+      z-index: 90;
+  
+      color: $textColor;
+      text-align: center;
+      font-size: 70px;
+    }
+  
+    .logoBackground {
+      grid-column: 1;
+      grid-row: 1;
+  
+      width: 100%;
+      height: 100%;
+      filter: blur(20px);
+      background-color: #ffffff55;
+      border-radius: 50%;
+    }
+  }
+}
+
+.creatorsPanel {
+  background: $mainColor;
+  padding: 6vw 0 6vw;
+
+  .circlePanel {
+    width: 15vw;
+    height: 15vw;
+    margin: 0 4vw;
+    box-shadow: 5px 5px 5px #00225533, -5px -5px 5px #ffffffff;
+    border-radius: 50%;
+    // color: black;
+    // text-shadow: 0 0 3px #000000;
+    // font-weight: 500;
+    // text-align: center;
+
+    &:after {
+      display: block;
+      border-radius: inherit;
+      content: "";
+      width: 100%;
+      height: 100%;
+      background: #4fc2f833;
+      transition: all 450ms;
+    }
+
+    &:hover {
+      &:after {
+        display: block;
+        border-radius: inherit;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: none;
+      }
+    }
+  }
+
+  %templateImage {
+    background-image: url("./assets/avatar1.png"), none;
+    background-size: 130%;
+    background-position: center center;
+    transition: all 450ms;
+
+    &:hover {
+      background-size: 140%;
+      background-position: center center;
+    }
+  }
+
+  .circle1 {
+    @extend %templateImage;
+    // background-size: 200%;
+    // background-position: 25% 43%;
+    // transition: all 450ms;
+
+    // &:hover {
+    //   background-size: 300%;
+    //   background-position: 32% 30%;
+    // }
+  }
+
+  .circle2 {
+    @extend %templateImage;
+    // background-image: url("./assets/creator_rafal1.jpg"), none;
+    // background-size: 250%;
+    // background-position: 52% 58%;
+    // transition: all 450ms;
+
+    // &:hover {
+    //   background-size: 375%;
+    //   background-position: 54% 43%;
+    // }
+  }
+
+  .circle3 {
+    @extend %templateImage;
+    // background-image: url("./assets/creator_krzysztof1.jpg"), none;
+    // background-size: 300%;
+    // background-position: 32% 15%;
+    // transition: all 450ms;
+
+    // &:hover {
+    //   background-size: 450%;
+    //   background-position: 31% 13%;
+    // }
+  }
+
+  .circle4 {
+    @extend %templateImage;
+    // background-image: url("./assets/creator_jakub3.jpg"), none;
+    // background-size: 150%;
+    // background-position: 15% 0%;
+    // transition: all 450ms;
+    // // background-size: cover;
+    // // background-position: center bottom;
+
+    // &:hover {
+    //   background-size: 225%;
+    //   background-position: 20% 5%;
+    // }
+  }
+}
+
+.bottom {
+  height: $sectionHeight;
+  background-image: url("./assets/ground1.jpg"), none;
+  background-size: cover;
+  background-position: center center;
+}
+
+@media only screen and (max-width: $mediaMobileMaxWidthSubpage) {
+  .top1 {
+    padding: 52.5vh 0 37.5vh;
+  }
+}

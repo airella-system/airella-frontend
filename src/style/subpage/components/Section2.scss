@@ -1,9 +1,0 @@
-@import "../../const/var.scss", "../../const/minix.scss";
-
-.section2 {
-  @include flexCenter;
-  padding: 10px 10px;
-  height: 100vh;
-  background-color: $sectionSecondColor;
-  color: $subpagePanelTextColor;
-}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-scroll";
+import Menu from "../../../components/Menu";
 import "../../../style/subpage/components/NavBar.scss";
 
 const NavBar = () => {
@@ -20,16 +21,15 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navBar">
-      <div className="navBarContents">
-        <div className="logo">
-          <b>Airella</b>
+    <div className="stickyNavBar">
+      <div className="navBar">
+        <div className="content">
+          <Menu canBeHorizontal={true} current="about"/>
+          {/* <ul className="itemList">
+            <li className="nav-item">{makeLink("section2", "Section2")}</li>
+            <li className="nav-item">{makeLink("contact", "Contact")}</li>
+          </ul> */}
         </div>
-        <ul className="itemList">
-          <li className="nav-item">{makeLink("section1", "Section1")}</li>
-          <li className="nav-item">{makeLink("section2", "Section2")}</li>
-          <li className="nav-item">{makeLink("contact", "Contact")}</li>
-        </ul>
       </div>
     </div>
   );
