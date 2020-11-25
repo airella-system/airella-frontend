@@ -11,7 +11,9 @@ const ApiURL = {
   "refreshLogin": () => "auth/refresh-token",
 };
 
-const baseURL = process.env.REACT_APP_AIRELLA_DOMAIN + "/api/";
+const baseURL = (process.env.REACT_APP_AIRELLA_DOMAIN != null 
+  ? process.env.REACT_APP_AIRELLA_DOMAIN
+  : "http://airella.cyfrogen.com") + "/api/"
 
 export let getApiUrl = (endpointName, endpointParameters, params = {}) => {
   var query = Object.keys(params)

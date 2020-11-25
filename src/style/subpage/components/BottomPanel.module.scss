@@ -1,0 +1,17 @@
+@import "../../const/var.scss", "../../const/minix.scss",
+  "../../additional/neumorphism.scss";
+
+.contact {
+  @include flexCenter;
+  padding: 10px 0px;
+  height: 10vh;
+  width: 100vw;
+  box-shadow: inset 0px 10px 15px #1d1d1d;
+  background-color: $subpagePanelColor;
+  color: $subpagePanelTextColor;
+
+  a {
+    color: $mainColor;
+    text-decoration: none;
+  }
+}

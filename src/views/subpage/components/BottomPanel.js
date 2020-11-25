@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../../../style/subpage/components/BottomPanel.scss";
+import styles from  "../../../style/subpage/components/BottomPanel.module.scss";
 
 class BottomPanel extends Component {
   constructor(props) {
@@ -9,8 +9,8 @@ class BottomPanel extends Component {
 
   render() {
     return (
-      <div className="contact" id="contact">
-        Contact
+      <div className={styles.contact} id="contact">
+        <a href="https://github.com/airella-system">GitHub</a>
       </div>
     );
   }

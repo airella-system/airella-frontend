@@ -7,7 +7,9 @@ import { IconContext } from "react-icons";
 import { GiWaterDrop } from "react-icons/gi";
 import { IoIosTime, IoMdThermometer } from "react-icons/io";
 import { BsThreeDots } from "react-icons/bs";
+import { RiBarChartFill } from "react-icons/ri";
 import { indexToLevel } from '../../../config/AirQuality';
+import { FaChevronRight } from "react-icons/fa";
 import Button from '../../../components/Button';
 
 import styles from '../../../style/main/components/AnimatedMapPopup.module.scss';
@@ -98,7 +100,7 @@ function AnimatedMapPopup(props) {
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-      });
+      }).split(",");
       vars.additionalValues["timestamp"] = timestamp;
     }
 
@@ -148,7 +150,17 @@ function AnimatedMapPopup(props) {
         {makeContentContainer(i++, (
           <Button isCircle={true} isFilling={true}>
             <div>
-              {makeStylizedIcon(<BsThreeDots/>, {fontSize: '60px', paddingTop: '8px'})}
+              <IconContext.Provider value={{ style: {fontSize: '30px'} }}>
+                <div className={styles.iconPack}>
+                  <div className={styles.iconRow}>
+                    <div className="icon"><FaChevronRight/></div>
+                    <div className="icon"><RiBarChartFill/></div>
+                  </div>
+                  <div className={styles.iconRow}>
+                    <div className="icon"><BsThreeDots/></div>
+                  </div>
+                </div>
+              </IconContext.Provider>
             </div>
           </Button>
         ), () => props.dispatch(sensorDetailAction(props.stationData)))}
@@ -157,7 +169,9 @@ function AnimatedMapPopup(props) {
             i++,
             <div>
               {makeStylizedIcon(<IoIosTime />, { fontSize: "30px" })}{" "}
-              {timestamp}
+              {timestamp[0]}
+              <br />
+              {timestamp[1]}
             </div>
         )}
         {humidityData &&

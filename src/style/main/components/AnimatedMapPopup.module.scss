@@ -135,3 +135,15 @@
     }
   }
 }
+
+.iconPack {
+  padding-top: 21px;
+  display: flex;
+  flex-direction: column;
+
+  .iconRow {
+    margin-top: -5px;
+    display: flex;
+    justify-content: space-around;
+  }
+}

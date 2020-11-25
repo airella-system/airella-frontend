@@ -182,7 +182,7 @@ class TopBar extends Component {
               this.state.isOpen ? "bottomItemsOpen" : ""
             }`}
           >
-            <Menu />
+            <Menu current="map"/>
           </div>
         </div>
         <div className="accountContainer"></div>

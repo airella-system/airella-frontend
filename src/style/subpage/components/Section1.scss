@@ -1,8 +1,0 @@
-@import "../../const/var.scss", "../../const/minix.scss";
-
-.section1 {
-  @include flexCenter;
-  padding: 10px 10px;
-  height: 100vh;
-  background-color: $menuBackground;
-}
