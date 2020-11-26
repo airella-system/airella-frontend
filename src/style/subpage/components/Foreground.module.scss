@@ -226,10 +226,13 @@ $panelHeight: 20vh;
   background-position: center center;
 }
 
-@media only screen and (max-width: 1.6 * $mediaMobileMaxWidthSubpage) {
+@media only screen and ($mediaMobileMaxWidthSubpage) {
   .top1 {
     padding: 52.5vh 0 37.5vh;
   }
+}
+
+@media only screen and (max-width: 1.6 * $mediaMobileMaxWidthSubpage) {
   .creatorsPanel {
     background: $mainColor;
     padding: 4vw 0 4vw;
