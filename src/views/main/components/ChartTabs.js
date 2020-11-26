@@ -44,7 +44,7 @@ class ChartTabs extends Component {
       getApiUrl("getPopupData", [stationId], {
         timespan: `${start.toISOString()}/${end.toISOString()}`,
         interval: "PT1H",
-        strategy: "latest",
+        strategy: "avg",
         sensors: "pm10,pm2_5,pm1",
       })
     )

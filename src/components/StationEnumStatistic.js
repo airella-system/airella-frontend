@@ -47,7 +47,7 @@ const StationEnumStatistic = (props) => {
         }
       }
     }
-    return values;
+    return newValues;
   };
 
   const generateLabelsOnXAxis = (startDate, datesDiff) => {

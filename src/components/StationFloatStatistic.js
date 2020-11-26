@@ -14,9 +14,10 @@ const StationFloatStatistic = (props) => {
   const canvasRef = useRef(null);
 
   const setupValues = (values, radius) => {
+    values = values.filter(e => e.value != null);
     values.forEach((e) => {
       e.value = e.value.toFixed(2);
-      e.timestamp = new Date(e.timestamp);
+      e.timestamp = new Date((new Date(e.timespan.start).getTime() + new Date(e.timespan.end).getTime()) / 2);
       e.radius = radius;
     });
     values = values.sort((a, b) => a.timestamp - b.timestamp);
@@ -48,7 +49,7 @@ const StationFloatStatistic = (props) => {
         }
       }
     }
-    return values;
+    return newValues;
   };
 
   const generateLabelsOnXAxis = (startDate, datesDiff) => {
@@ -80,7 +81,8 @@ const StationFloatStatistic = (props) => {
     fetchWithAuthorization(
       getApiUrl("getStationStatistic", [props.stationId, props.statisticId], {
         timespan: `${startDate.toISOString()}/${endDate.toISOString()}`,
-        strategy: "all",
+        interval: "PT30M",
+        strategy: "avg",
       })
     )
       .then((response) => response.json())
