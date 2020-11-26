@@ -52,7 +52,7 @@ $panelHeight: 20vh;
 
   .textContainer {
     width: 100%;
-    margin: 0 30px;
+    margin: 0 120px;
   
     .heading {
       float: left;
@@ -116,6 +116,9 @@ $panelHeight: 20vh;
 .creatorsPanel {
   background: $mainColor;
   padding: 6vw 0 6vw;
+  display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 
   .circlePanel {
     width: 15vw;
@@ -223,8 +226,18 @@ $panelHeight: 20vh;
   background-position: center center;
 }
 
-@media only screen and (max-width: $mediaMobileMaxWidthSubpage) {
+@media only screen and (max-width: 1.6 * $mediaMobileMaxWidthSubpage) {
   .top1 {
     padding: 52.5vh 0 37.5vh;
+  }
+  .creatorsPanel {
+    background: $mainColor;
+    padding: 4vw 0 4vw;
+  
+    .circlePanel {
+      width: 30vw;
+      height: 30vw;
+      margin: 2vw 4vw;
+    }
   }
 }
