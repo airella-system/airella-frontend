@@ -14,7 +14,6 @@ const StationAccordionContent = (props) => {
   const [contentOpened, setContentOpened] = useState(null);
   const [removingStation, setRemovingStation] = useState(false);
 
-
   const removeStation = () => {
     setRemovingStation(true);
     fetchWithAuthorization(getApiUrl("removeStation", [props.station.id], {}), {
@@ -23,6 +22,27 @@ const StationAccordionContent = (props) => {
       props.onStationRemoved(props.station.id);
       setRemovingStation(false);
     });
+  };
+
+  const getStatistics = () => {
+    return props.data.data.statistics
+      .sort((a, b) => {
+        var aN = a.name.toLowerCase(),
+          bN = b.name.toLowerCase();
+        if (aN < bN) return -1;
+        if (aN > bN) return 1;
+        return 0;
+      })
+      .map((value, index) => {
+        return (
+          <StationStatistic
+            key={value.id}
+            type={value.type}
+            stationId={props.station.id}
+            statisticId={value.id}
+          ></StationStatistic>
+        );
+      });
   };
 
   return (
@@ -53,18 +73,7 @@ const StationAccordionContent = (props) => {
       </div>
       <div className={styles.statistics}>
         <div className={styles.headerText}>Statistics</div>
-        <div className={styles.statisticsContent}>
-          {props.data.data.statistics.map((value, index) => {
-            return (
-              <StationStatistic
-                key={value.id}
-                type={value.type}
-                stationId={props.station.id}
-                statisticId={value.id}
-              ></StationStatistic>
-            );
-          })}
-        </div>
+        <div className={styles.statisticsContent}>{getStatistics()}</div>
       </div>
     </div>
   );
