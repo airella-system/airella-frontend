@@ -22,7 +22,16 @@ $panelHeight: 20vh;
 
 .electronicsViewPanel {
   @extend %singleImageView;
-  background-image: url("./assets/template_electronics1.jpg"), none;
+  background-image: url("./assets/IMG_0140.png"), none;
+  
+  &:after {
+    display: block;
+    border-radius: inherit;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #4fc2f833;
+  }
 }
 
 .foreground {
@@ -125,7 +134,7 @@ $panelHeight: 20vh;
     height: 15vw;
     margin: 0 4vw;
     box-shadow: 5px 5px 5px #00225533, -5px -5px 5px #ffffffff;
-    border-radius: 50%;
+    border-radius: 8%;
     // color: black;
     // text-shadow: 0 0 3px #000000;
     // font-weight: 500;
@@ -154,13 +163,13 @@ $panelHeight: 20vh;
   }
 
   %templateImage {
-    background-image: url("./assets/avatar1.png"), none;
-    background-size: 130%;
+    background-image: url("./assets/IMG_0117.png"), none;
+    background-size: 140%;
     background-position: center center;
     transition: all 450ms;
 
     &:hover {
-      background-size: 140%;
+      background-size: 150%;
       background-position: center center;
     }
   }
@@ -168,60 +177,54 @@ $panelHeight: 20vh;
   .circle1 {
     @extend %templateImage;
     // background-size: 200%;
-    // background-position: 25% 43%;
-    // transition: all 450ms;
+    background-position: 30% 40%;
 
-    // &:hover {
-    //   background-size: 300%;
-    //   background-position: 32% 30%;
-    // }
+    &:hover {
+      background-size: 250%;
+      background-position: 24% 68%;
+    }
   }
 
   .circle2 {
     @extend %templateImage;
-    // background-image: url("./assets/creator_rafal1.jpg"), none;
-    // background-size: 250%;
-    // background-position: 52% 58%;
-    // transition: all 450ms;
+    background-image: url("./assets/IMG_0136.png"), none;
+    background-size: 150%;
+    background-position: 55% 70%;
 
-    // &:hover {
-    //   background-size: 375%;
-    //   background-position: 54% 43%;
-    // }
+    &:hover {
+      background-size: 250%;
+      background-position: 60% 60%;
+    }
   }
 
   .circle3 {
     @extend %templateImage;
-    // background-image: url("./assets/creator_krzysztof1.jpg"), none;
-    // background-size: 300%;
-    // background-position: 32% 15%;
-    // transition: all 450ms;
+    background-image: url("./assets/IMG_0121.png"), none;
+    background-size: 150%;
+    background-position: 65% 60%;
 
-    // &:hover {
-    //   background-size: 450%;
-    //   background-position: 31% 13%;
-    // }
+    &:hover {
+      background-size: 250%;
+      background-position: 69% 63%;
+    }
   }
 
   .circle4 {
     @extend %templateImage;
-    // background-image: url("./assets/creator_jakub3.jpg"), none;
-    // background-size: 150%;
-    // background-position: 15% 0%;
-    // transition: all 450ms;
-    // // background-size: cover;
-    // // background-position: center bottom;
+    background-image: url("./assets/IMG_0141.png"), none;
+    background-size: 150%;
+    background-position: 30% 100%;
 
-    // &:hover {
-    //   background-size: 225%;
-    //   background-position: 20% 5%;
-    // }
+    &:hover {
+      background-size: 250%;
+      background-position: 45% 55%;
+    }
   }
 }
 
 .bottom {
   height: $sectionHeight;
-  background-image: url("./assets/ground1.jpg"), none;
+  background-image: url("./assets/IMG_0140.png"), none;
   background-size: cover;
   background-position: center center;
 }
