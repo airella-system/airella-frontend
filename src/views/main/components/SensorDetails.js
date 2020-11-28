@@ -209,14 +209,7 @@ function SensorDetails(props) {
       })
     )
     .then((response) => response.json())
-    .then((data) => {
-      data.data.aqi = Math.random() * 500;
-      for (let i = 0; i < 6; i++) {
-        data.data.sensors[i].values[0].value=Math.random() * 100;
-        data.data.sensors[i].status=Math.random();
-      }
-      setLatestData(data["data"])}
-      )
+    .then((data) => setLatestData(data["data"]))
     .catch((e) => console.error(e));
   }
 
