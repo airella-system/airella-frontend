@@ -63,6 +63,7 @@ class Gauge extends React.Component {
         <div className={styles.aspectRatioContainer}>
           <div className={styles.gauge}>
             <GaugeCanvas
+              id={this.props.key}
               percent={percent}
               color={cssColor}
               canvasWidth={this.props.canvasWidth}

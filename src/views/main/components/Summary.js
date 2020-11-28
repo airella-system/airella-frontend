@@ -261,7 +261,7 @@ class SensorDetails extends Component {
 
   getDescriptionText() {
     let airQualityToDescriptionText = {
-      "-1": "You better stay in home!",
+      "-1": "You better stay at home!",
       "5": "Excellent air!",
       "4": "Good air quality!",
       "3": "Mediocre air quality",
@@ -280,7 +280,7 @@ class SensorDetails extends Component {
       return 3;
     } else if (this.props.aqi < 100) {
       return 2;
-    } else if (this.props.aqi < 300) {
+    } else if (this.props.aqi < 150) {
       return 1;
     } else {
       return -1;
