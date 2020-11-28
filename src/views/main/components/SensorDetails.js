@@ -15,7 +15,7 @@ import { getApiUrl } from "../../../config/ApiURL";
 import ScrollBar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import Statistic from "../../../components/Statistic";
-import { IoMdThermometer, IoMdSpeedometer } from "react-icons/io";
+import { IoMdThermometer, IoMdSpeedometer, IoIosTime } from "react-icons/io";
 import { GiWaterDrop } from "react-icons/gi";
 import { WiSmoke } from "react-icons/wi";
 import { AiOutlineLineChart } from "react-icons/ai";
@@ -25,6 +25,7 @@ import usePrevious from "../../../common/UsePrevious"
 import statisticStyles from "../../../style/components/statistic.module.scss";
 
 function SensorDetails(props) {
+  const timer = useRef(null)
   const [stationDetal, setStationDetal] = useState(null)
   const [visible, setVisible] =useState(false)
   const [latestData, setLatestData] = useState(null)
@@ -103,7 +104,7 @@ function SensorDetails(props) {
     let typeToGaugeGenerator = {
       pm1: sensorData => (
         <Statistic
-          pollution={true}
+          type="pollution"
           key={id + "PM1"}
           name="PM1"
           value={sensorData.values[0].value}
@@ -161,13 +162,43 @@ function SensorDetails(props) {
 
     let priority = ["temperature", "humidity", "pressure"];
 
-    return priority.map((sensorType) => {
+    let timestamp = null;
+    let statistics = []
+    statistics.push(priority.map((sensorType) => {
       let sensors = latestData["sensors"].filter(
         (sensor) => sensor["type"] == sensorType
       )
-      if (sensors.length >= 1 && sensors[0].values)
+      if (sensors.length >= 1 && sensors[0].values) {
+        if (timestamp == null && sensors[0].values.length >= 1 && sensors[0].values[0].timestamp) {
+          timestamp = sensors[0].values[0].timestamp
+        }
         return typeToGaugeGenerator[sensorType](sensors[0])
-    })
+      }
+    }))
+
+    if (timestamp != null) {
+      timestamp = new Date(
+        Date.parse(timestamp)
+      ).toLocaleString("pl-PL", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).split(",");
+
+      statistics.push(
+        <Statistic
+          type="timestamp"
+          key={id + "timestamp"}
+          name="Result time"
+          value={timestamp}
+          unit=""
+          icon={<IoIosTime className={statisticStyles.leftIcon} />}
+      />)
+    }
+
+    return statistics;
   }
 
   const getStationData = stationId => {
@@ -194,6 +225,22 @@ function SensorDetails(props) {
       setVisible(true)
     }
   })
+
+  useEffect(() => {
+    const { sensorData } = props;
+    clearInterval(timer.current)
+    if (visible && sensorData["id"]) {
+      timer.current = setInterval(() => getStationData(props.sensorData["id"]), 1000 * 1);
+    }
+  }, [visible, props.sensorData])
+
+  // this works exactly like componentWillUnmount
+  useEffect(() => {
+    return () => {
+      clearInterval(timer.current);
+    };
+  }, []);
+
 
   if (!latestData) {
     return <div></div>;

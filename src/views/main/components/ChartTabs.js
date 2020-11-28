@@ -14,6 +14,7 @@ class ChartTabs extends Component {
     };
     if (this.props.stationId) {
       this.loadData(this.props.stationId);
+      this.setupTimer();
     }
   }
 
@@ -25,14 +26,24 @@ class ChartTabs extends Component {
     return AirQualityColors[indexToLevel(airQialityIndex)];
   }
 
+  setupTimer() {
+    this.timer = setInterval(() => this.loadData(this.props.stationId), 1000 * 30);
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.stationId != this.props.stationId) {
       this.loadData(this.props.stationId);
+      clearInterval(this.timer);
+      this.setupTimer();
       this.setState({ data: null });
     }
     if (prevState.data == null && this.state.data != null) {
       this.makeChart();
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer)
   }
 
   loadData(stationId) {
@@ -150,6 +161,9 @@ class ChartTabs extends Component {
         }),
       },
       options: {
+        animation: {
+          duration: 0
+        },
         maintainAspectRatio: false,
         responsive: true,
         scales: {

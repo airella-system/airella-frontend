@@ -104,7 +104,7 @@ function Charts(props) {
   const makePmChart = () => {
     if (!data) return;
 
-    let handler = document.getElementById("pmChart");
+    let handler = document.getElementById("pmCustomChart");
     if (!handler) return;
 
     let labels = data.sensors[0].values.map((value) => {
@@ -145,7 +145,7 @@ function Charts(props) {
   }, [data])
 
   return (
-    <canvas id="pmChart" className="chart" width="100"/>
+    <canvas id="pmCustomChart" className="chart" width="100"/>
   )
 }
 

@@ -30,6 +30,8 @@ function MapComponent(props) {
     initialZoom: 13,
   };
 
+  const timer = useRef(null)
+
   const calculateMarkerSize = (zoom) => Math.cos((zoom * Math.PI) / 36) * -10 + 10;
 
   const [currentMarkerSize, setCurrentMarkerSize] = useState(calculateMarkerSize(constans.initialZoom))
@@ -157,6 +159,7 @@ function MapComponent(props) {
           radius={currentMarkerSize}
         >
           <AnimatedMapPopup
+            refreshStationData={() => getStationData(stationId)}
             stationData={stationFullData[stationDataKey]}
             color={color}
           />
@@ -180,7 +183,16 @@ function MapComponent(props) {
   useEffect(() => {
     trySetMapPositionWithGeolocation();
     updateMarkers();
+    clearInterval(timer.current);
+    timer.current = setInterval(() => updateMarkers(), 1000 * 30);
   }, [leafletMap])
+
+  // this works exactly like componentDidMount and componentWillUnmount
+  useEffect(() => {
+    return () => {
+      clearInterval(timer.current);
+    };
+  }, []);
 
   useEffect(() => {
     if (leafletMap && !prevMapPositionRequest && props.mapPositionRequest) {

@@ -35,6 +35,8 @@ function AnimatedMapPopup(props) {
     verticalEmojiShift: -16,
   }
 
+  const timer = useRef(null)
+
   const [currentEmoji, setCurrentEmoji] = useState(emojiStyles.default)
 
   const [isOpen, setIsOpen] = useState(false)
@@ -76,6 +78,21 @@ function AnimatedMapPopup(props) {
     return result;
   }
 
+  const getSensorStatus = (type) => {
+    let stored = vars[type];
+    if (stored) return stored;
+
+    let sensors = props.stationData.sensors.filter((e) => e.type === type);
+    if (sensors.length !== 1) {
+      return null;
+    }
+    let status = sensors[0].status;
+    vars.sensorValues[type] = status;
+    return {
+      value: status
+    };
+  }
+
   const makeStylizedIcon = (icon, style) => (
     <IconContext.Provider value={{ style: style }}>
       <div className="icon">{icon}</div>
@@ -86,8 +103,8 @@ function AnimatedMapPopup(props) {
     let street = props.stationData.address.street;
     let number = props.stationData.address.number;
     let pm1Data = getSensorValue("pm1");
-    let pm2_5Data = getSensorValue("pm2_5");
-    let pm10Data = getSensorValue("pm10");
+    let pm2_5Data = getSensorStatus("pm2_5");
+    let pm10Data = getSensorStatus("pm10");
     let temperatureData = getSensorValue("temperature");
     let humidityData = getSensorValue("humidity");
     let timestamp = null;
@@ -121,7 +138,7 @@ function AnimatedMapPopup(props) {
               <div className={styles.key}> PM 1 </div>
               <div className={styles.value}>
                 {" "}
-                {Math.round(pm1Data.value)} <span>µg/m³</span>{" "}
+                {Math.round(pm1Data.value)}<span>µg/m³</span>{" "}
               </div>
             </div>
         )}
@@ -132,7 +149,7 @@ function AnimatedMapPopup(props) {
               <div className={styles.key}> PM 2.5 </div>
               <div className={styles.value}>
                 {" "}
-                {Math.round((pm2_5Data.value / 45) * 100)} <span>%</span>{" "}
+                {Math.round(pm2_5Data.value * 100)}<span>%</span>{" "}
               </div>
             </div>
         )}
@@ -143,7 +160,7 @@ function AnimatedMapPopup(props) {
               <div className={styles.key}> PM 10 </div>
               <div className={styles.value}>
                 {" "}
-                {Math.round((pm10Data.value / 45) * 100)} <span>%</span>{" "}
+                {Math.round(pm10Data.value * 100)}<span>%</span>{" "}
               </div>
             </div>
         )}
@@ -178,16 +195,16 @@ function AnimatedMapPopup(props) {
           makeContentContainer(
             i++,
             <div>
-              {makeStylizedIcon(<GiWaterDrop />, { fontSize: "30px" })}{" "}
-              {humidityData.value.toFixed(2) + " %"}
+              {makeStylizedIcon(<GiWaterDrop />, { fontSize: "35px" })}{" "}
+              {humidityData.value.toFixed(1) + " %"}
             </div>
         )}
         {temperatureData &&
           makeContentContainer(
             i++,
             <div>
-              {makeStylizedIcon(<IoMdThermometer />, { fontSize: "30px" })}{" "}
-              {temperatureData.value.toFixed(2) + " °C"}
+              {makeStylizedIcon(<IoMdThermometer />, { fontSize: "35px" })}{" "}
+              {temperatureData.value.toFixed(1) + " °C"}
             </div>
         )}
       </div>
@@ -212,11 +229,21 @@ function AnimatedMapPopup(props) {
     setIsOpen(false)
     setCurrentEmoji(emojiStyles.default)
     resumeLoader()
+    clearInterval(timer.current);
   }
 
   const onPopupOpen = () => {
     setIsOpen(true)
+    clearInterval(timer.current)
+    timer.current = setInterval(props.refreshStationData, 1000 * 30);
   }
+
+  // this works exactly like componentWillUnmount
+  useEffect(() => {
+    return () => {
+      clearInterval(timer.current);
+    };
+  }, []);
 
   useEffect(() => {
     if (isOpen && props.stationData) {
