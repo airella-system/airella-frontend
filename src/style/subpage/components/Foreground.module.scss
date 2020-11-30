@@ -22,7 +22,7 @@ $panelHeight: 20vh;
 
 .electronicsViewPanel {
   @extend %singleImageView;
-  background-image: url("./assets/IMG_0140.png"), none;
+  background-image: url("./assets/IMG_0140.jpg"), none;
   
   &:after {
     display: block;
@@ -163,7 +163,7 @@ $panelHeight: 20vh;
   }
 
   %templateImage {
-    background-image: url("./assets/IMG_0117.png"), none;
+    background-image: url("./assets/IMG_0117_40p.jpg"), none;
     background-size: 140%;
     background-position: center center;
     transition: all 450ms;
@@ -187,7 +187,7 @@ $panelHeight: 20vh;
 
   .circle2 {
     @extend %templateImage;
-    background-image: url("./assets/IMG_0136.png"), none;
+    background-image: url("./assets/IMG_0136_40p.jpg"), none;
     background-size: 150%;
     background-position: 55% 70%;
 
@@ -199,7 +199,7 @@ $panelHeight: 20vh;
 
   .circle3 {
     @extend %templateImage;
-    background-image: url("./assets/IMG_0121.png"), none;
+    background-image: url("./assets/IMG_0121_40p.jpg"), none;
     background-size: 150%;
     background-position: 65% 60%;
 
@@ -211,7 +211,7 @@ $panelHeight: 20vh;
 
   .circle4 {
     @extend %templateImage;
-    background-image: url("./assets/IMG_0141.png"), none;
+    background-image: url("./assets/IMG_0141_40p.jpg"), none;
     background-size: 150%;
     background-position: 30% 100%;
 
@@ -224,7 +224,7 @@ $panelHeight: 20vh;
 
 .bottom {
   height: $sectionHeight;
-  background-image: url("./assets/IMG_0140.png"), none;
+  background-image: url("./assets/IMG_0140.jpg"), none;
   background-size: cover;
   background-position: center center;
 }
