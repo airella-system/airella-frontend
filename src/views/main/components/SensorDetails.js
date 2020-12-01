@@ -85,7 +85,7 @@ function SensorDetails(props) {
       ),
     }
 
-    let priority = ["pm2_5", "pm10"];
+    let priority = ["pm10", "pm2_5"];
 
     return priority.map((sensorType) => {
       let sensors = latestData["sensors"].filter(
@@ -230,7 +230,7 @@ function SensorDetails(props) {
     const { sensorData } = props;
     clearInterval(timer.current)
     if (visible && sensorData["id"]) {
-      timer.current = setInterval(() => getStationData(props.sensorData["id"]), 1000 * 1);
+      timer.current = setInterval(() => getStationData(props.sensorData["id"]), 1000 * 30);
     }
   }, [visible, props.sensorData])
 
