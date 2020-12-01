@@ -24,7 +24,6 @@ export const login = (email, password) => {
       .then((data) => {
         if (data.success) {
           store.dispatch(setAuthorization(true));
-          console.log(data.data);
           new Cookie("accessToken", data.data.accessToken.token)
             .setDate(data.data.accessToken.expirationDate)
             .setCookie();
@@ -56,7 +55,10 @@ export const refreshLogin = () => {
     if (getCookie("accessToken")) resolve(true);
 
     const refreshToken = getRefreshToken();
-    if (!refreshToken) reject("No refresh token saved");
+    if (!refreshToken) {
+      reject("No refresh token saved")
+      return
+    }
 
     fetch(postApiUrl("refreshLogin"), {
       method: "post",
@@ -76,11 +78,13 @@ export const refreshLogin = () => {
             .setCookie();
           resolve(true);
         } else {
+          clearRefreshToken();
           reject(data.errors[0].detail);
         }
       })
       .catch((e) => {
         console.error(e);
+        clearRefreshToken();
         reject("Couldn't refresh access token");
       });
   });

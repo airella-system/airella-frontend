@@ -16,9 +16,9 @@ function DateTimePicker(props) {
     <DatePicker
       selected={props.selected ? props.selected : new Date()}
       onChange={date => props.handleChange && props.handleChange(date)}
-      maxDate={new Date()}
+      maxDate={props.maxDate ? props.maxDate : null}
       showTimeSelect
-      dateFormat="MMMM d, yyyy HH:mm"
+      dateFormat="yyyy/mm/dd HH:mm"
       timeFormat="HH:mm"
     />
   );
@@ -71,6 +71,7 @@ function ChartsMenu(props) {
             <DateTimePicker 
               selected={fromDate} 
               handleChange={setFromDate}
+              maxDate={new Date()}
             />
           </div>
           <div className={styles.dateContainer}>

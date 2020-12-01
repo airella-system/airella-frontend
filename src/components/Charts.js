@@ -107,9 +107,24 @@ function Charts(props) {
     let handler = document.getElementById("pmCustomChart");
     if (!handler) return;
 
+    let hourDiff = (props.toDate - props.fromDate) / (1000 * 60 * 60)
+    let dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
     let labels = data.sensors[0].values.map((value) => {
       let timestamp = new Date(value.timespan.end);
-      return timestamp.getHours() + ":00";
+
+      if (hourDiff <= 24)
+        return timestamp.getHours() + ":00";
+
+      if (hourDiff <= 24 * 3) {
+        let dateStr = timestamp.toString().split(" ")
+        return dateStr[0] + " " + timestamp.getHours() + ":00";
+      }
+
+      if (hourDiff <= 24 * 7)
+        return timestamp.getMonth() + "/" + timestamp.getDate();
+
+      return timestamp.getFullYear() + "/" + timestamp.getMonth() + "/" + timestamp.getDate();
     });
 
     let chartDataSets = [];
