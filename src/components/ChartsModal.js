@@ -18,7 +18,7 @@ function DateTimePicker(props) {
       onChange={date => props.handleChange && props.handleChange(date)}
       maxDate={props.maxDate ? props.maxDate : null}
       showTimeSelect
-      dateFormat="yyyy/mm/dd HH:mm"
+      dateFormat="yyyy/MM/dd HH:mm"
       timeFormat="HH:mm"
     />
   );
