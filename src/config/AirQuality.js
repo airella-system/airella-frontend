@@ -88,7 +88,7 @@ export const sensors = {
     label: "Humidity", 
     color: humidityColor, 
     defaultSelection: false,
-    unit: "%",
+    unit: "% RH",
     order: 6,
   },
 }
